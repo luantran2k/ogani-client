@@ -1,0 +1,49 @@
+@use "../../assets/scss/variables" as *;
+@mixin last-horizontal-vertical {
+    padding-right: 1rem;
+    margin-right: 1rem;
+    border-right: 1px solid $grey-400;
+}
+
+@mixin flex-justify-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.topBar {
+    margin: 0 auto;
+    padding: 0.8rem 0;
+    background-color: $grey-200;
+    a,
+    p,
+    span,
+    li {
+        color: $grey-800;
+        font-size: 0.8rem;
+    }
+    a {
+        text-decoration: none;
+    }
+    .container {
+        @include flex-justify-between;
+        .leftGroup {
+            @include flex-justify-between;
+            > :not(:last-child) {
+                @include last-horizontal-vertical;
+            }
+        }
+        .rightGroup {
+            @include flex-justify-between;
+            > :not(:last-child) {
+                @include last-horizontal-vertical;
+            }
+        }
+    }
+}
+
+@media (max-width: 56.25rem) {
+    .topBar {
+        display: none;
+    }
+}

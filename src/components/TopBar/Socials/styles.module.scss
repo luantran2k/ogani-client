@@ -1,0 +1,10 @@
+@use "../../../assets/scss/variables" as *;
+.socialIcon {
+    color: $grey-800;
+    cursor: pointer;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    &:hover {
+        transform: scale(1);
+    }
+}

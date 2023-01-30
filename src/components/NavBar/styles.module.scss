@@ -1,0 +1,26 @@
+@use "../../assets/scss/variables/index.scss" as *;
+
+.navs {
+    display: flex;
+    align-items: center;
+    gap: 2.8rem;
+    a {
+        font-size: 1rem;
+        color: $grey-800;
+        text-transform: uppercase;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        &:hover,
+        &.active {
+            color: $light-green-700;
+        }
+    }
+}
+
+@media (max-width: 56.25rem) {
+    .navs,
+    .options {
+        display: none !important;
+    }
+}
