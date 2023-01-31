@@ -20,8 +20,13 @@ export default function Navbar(props: INavbarProps) {
                 zIndex: 3,
             }}
         >
-            <Stack direction="row" spacing={4}>
-                <Box flex="0 0 25%">
+            <Stack
+                direction="row"
+                spacing={4}
+                alignItems="center"
+                padding=".4rem 0"
+            >
+                <Box flex="0 0 25%" display="flex" alignItems="center">
                     <img src={logoImage} alt="web-logo" />
                 </Box>
                 <Stack direction="row" flex={1}>

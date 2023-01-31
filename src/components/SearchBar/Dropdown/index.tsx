@@ -13,9 +13,7 @@ import { useState } from "react";
 export interface IDropDownProps {}
 
 export default function DropDown(props: IDropDownProps) {
-    const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.up("md"));
-    const [open, setOpen] = useState(matches);
+    const [open, setOpen] = useState(false);
     return (
         <Box position="relative" flex="0 0 25%">
             <Stack

@@ -7,10 +7,11 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import { lightGreen } from "@mui/material/colors";
+import { grey, lightGreen } from "@mui/material/colors";
 import categoryImage1 from "../../assets/images/categories/cat-1.jpg";
 import heroImage from "../../assets/images/hero/banner.jpg";
 import CategoryCard from "../../components/Card/CategoryCard";
+import Slide from "../../components/Slide";
 
 export interface IHomePageProps {}
 
@@ -53,7 +54,11 @@ export default function HomePage(props: IHomePageProps) {
                             >
                                 Vegetable 100% Organic
                             </Typography>
-                            <Typography variant="caption">
+                            <Typography
+                                variant="caption"
+                                fontSize="1rem"
+                                color={grey[600]}
+                            >
                                 Free Pickup and Delivery Available
                             </Typography>
                             <Button
@@ -88,7 +93,9 @@ export default function HomePage(props: IHomePageProps) {
                 </Stack>
             </section>
             <section id="categories">
-                <CategoryCard url={categoryImage1} title="Fresh Fruit" />
+                <Box margin="4rem 0">
+                    <Slide />
+                </Box>
             </section>
         </Container>
     );

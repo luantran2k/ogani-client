@@ -1,20 +1,19 @@
 import { ArrowBackIosNew } from "@mui/icons-material";
-import { blue, lightGreen } from "@mui/material/colors";
+import { SxProps, Theme } from "@mui/material";
+import { lightGreen } from "@mui/material/colors";
+import { MouseEventHandler } from "react";
 
-export interface IScrollToTopButtonProps {}
+export interface IRoundArrowButtonProps {
+    onClick?: MouseEventHandler;
+    sx?: SxProps<Theme>;
+}
 
-export default function ScrollToTopButton(props: IScrollToTopButtonProps) {
+export default function RoundArrowButton(props: IRoundArrowButtonProps) {
+    const { onClick, sx } = props;
     return (
         <ArrowBackIosNew
-            onClick={() => {
-                scrollTo({ top: 0, behavior: "smooth" });
-            }}
+            onClick={onClick}
             sx={{
-                zIndex: 2,
-                position: "fixed",
-                transform: "rotate(90deg)",
-                bottom: "3.2rem",
-                right: "3.2rem",
                 height: "2.4rem",
                 width: "2.4rem",
                 padding: ".4rem",
@@ -28,8 +27,9 @@ export default function ScrollToTopButton(props: IScrollToTopButtonProps) {
                     color: "white",
                 },
                 ":active": {
-                    backgroundColor: blue[700],
+                    backgroundColor: lightGreen[700],
                 },
+                ...sx,
             }}
         />
     );

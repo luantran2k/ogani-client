@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import * as React from "react";
 import { BOX_SHADOW } from "../../../const/style";
+import styles from "./styles.module.scss";
 export interface ICategoryCardProps {
     url: string;
     title: string;
@@ -14,10 +14,14 @@ export default function CategoryCard(props: ICategoryCardProps) {
             position="relative"
             borderRadius="1rem"
             overflow="hidden"
-            width="fit-content"
+            height="16rem"
             sx={{ userSelect: "none", cursor: "pointer" }}
         >
-            <img src={url} alt={description || ""} />
+            <img
+                src={url}
+                alt={description || ""}
+                className={styles.backgroundImage}
+            />
             <Typography
                 variant="caption"
                 position="absolute"
