@@ -31,10 +31,10 @@ export default function CategoryCard(props: ICategoryCardProps) {
                 bgcolor="white"
                 padding=".4rem"
                 fontWeight="bold"
-                fontSize="1.1rem"
+                fontSize="1rem"
                 textAlign="center"
                 textTransform="uppercase"
-                letterSpacing=".2rem"
+                letterSpacing=".1rem"
                 textOverflow="ellipsis"
                 borderRadius=".4rem"
                 boxShadow={BOX_SHADOW}

@@ -2,6 +2,7 @@ import {
     Box,
     Button,
     Container,
+    List,
     Stack,
     Typography,
     useMediaQuery,
@@ -12,6 +13,8 @@ import categoryImage1 from "../../assets/images/categories/cat-1.jpg";
 import heroImage from "../../assets/images/hero/banner.jpg";
 import CategoryCard from "../../components/Card/CategoryCard";
 import Slide from "../../components/Slide";
+import CategorySlide from "./Category";
+import FeaturedProduct from "./FeaturedProduct";
 
 export interface IHomePageProps {}
 
@@ -94,8 +97,11 @@ export default function HomePage(props: IHomePageProps) {
             </section>
             <section id="categories">
                 <Box margin="4rem 0">
-                    <Slide />
+                    <CategorySlide />
                 </Box>
+            </section>
+            <section id="featuredProduct">
+                <FeaturedProduct />
             </section>
         </Container>
     );

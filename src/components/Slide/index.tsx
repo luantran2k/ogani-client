@@ -1,28 +1,20 @@
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import styles from "./styles.module.scss";
 // import required modules
-import {
-    ArrowBackIos,
-    ArrowBackIosNew,
-    ArrowForwardIos,
-} from "@mui/icons-material";
-import { Box, Button, useMediaQuery, useTheme } from "@mui/material";
-import { useRef } from "react";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { ReactNode, useRef } from "react";
 import { Autoplay, Swiper as SwiperType } from "swiper";
-import CategoryCard from "../Card/CategoryCard";
 import RoundArrowButton from "../Button/RoundArrowButton";
-const items: { url: string; title: string }[] = Array(5)
-    .fill(undefined)
-    .map((value, index) => ({
-        title: "Fresh Fruits",
-        url: `/images/categories/cat-${index + 1}.jpg`,
-    }));
 
-export default function Slide() {
+export interface ISlideProps {
+    children?: ReactNode[] | ReactNode;
+}
+
+export default function Slide(props: ISlideProps) {
+    const { children } = props;
     const swiperRef = useRef<SwiperType>();
     const theme = useTheme();
     const matchMd = useMediaQuery(theme.breakpoints.up("md"));
@@ -44,16 +36,7 @@ export default function Slide() {
                 modules={[Autoplay]}
                 className="mySwiper"
             >
-                {items.map((item, index) => (
-                    <SwiperSlide key={item.url}>
-                        <CategoryCard url={item.url} title={item.title} />
-                    </SwiperSlide>
-                ))}
-                {items.map((item, index) => (
-                    <SwiperSlide key={item.url + "" + index}>
-                        <CategoryCard url={item.url} title={item.title} />
-                    </SwiperSlide>
-                ))}
+                {children}
             </Swiper>
             <RoundArrowButton
                 onClick={() => swiperRef.current?.slideNext()}
