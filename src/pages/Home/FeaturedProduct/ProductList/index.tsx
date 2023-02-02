@@ -7,9 +7,9 @@ export type ProductCategoryType =
     | "oranges"
     | "vegetables"
     | "fastfood";
-interface Product {
+export interface Product {
     id: number;
-    url: string;
+    image: string;
     name: string;
     price: number;
     categories: ProductCategoryType[];
@@ -18,56 +18,56 @@ interface Product {
 const products: Product[] = [
     {
         id: 1,
-        url: "/images/featured/feature-1.jpg",
+        image: "/images/featured/feature-1.jpg",
         name: "Pork",
         price: 100,
         categories: ["fresh-meat"],
     },
     {
         id: 2,
-        url: "/images/featured/feature-2.jpg",
+        image: "/images/featured/feature-2.jpg",
         name: "Banana",
         price: 200,
         categories: ["oranges"],
     },
     {
         id: 3,
-        url: "/images/featured/feature-3.jpg",
+        image: "/images/featured/feature-3.jpg",
         name: "Guava",
         price: 300,
         categories: ["oranges"],
     },
     {
         id: 4,
-        url: "/images/featured/feature-4.jpg",
+        image: "/images/featured/feature-4.jpg",
         name: "Watermelon",
         price: 400,
         categories: ["oranges"],
     },
     {
         id: 5,
-        url: "/images/featured/feature-5.jpg",
+        image: "/images/featured/feature-5.jpg",
         name: "Grape",
         price: 500,
         categories: ["oranges"],
     },
     {
         id: 6,
-        url: "/images/featured/feature-6.jpg",
+        image: "/images/featured/feature-6.jpg",
         name: "Hamburger",
         price: 500,
         categories: ["fastfood"],
     },
     {
         id: 7,
-        url: "/images/featured/feature-7.jpg",
+        image: "/images/featured/feature-7.jpg",
         name: "Mango",
         price: 500,
         categories: ["oranges"],
     },
     {
         id: 8,
-        url: "/images/featured/feature-8.jpg",
+        image: "/images/featured/feature-8.jpg",
         name: "Apple",
         price: 500,
         categories: ["oranges"],
@@ -99,11 +99,7 @@ export default function ProductList(props: IProductListProps) {
         <Grid container rowSpacing={6} columnSpacing={4}>
             {filterProduct.map((product) => (
                 <Grid item key={product.id} xs={matchSx ? 6 : 12} sm={4} md={3}>
-                    <ProductCard
-                        url={product.url}
-                        name={product.name}
-                        price={product.price}
-                    />
+                    <ProductCard product={product} />
                 </Grid>
             ))}
         </Grid>

@@ -1,16 +1,23 @@
 import { Box } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
-import { cloneElement, ReactElement, ReactNode } from "react";
+import {
+    cloneElement,
+    MouseEventHandler,
+    ReactElement,
+    ReactNode,
+} from "react";
 
 export interface IProductCardIconProps {
     icon: ReactElement;
+    onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
 export default function ProductCardIcon(props: IProductCardIconProps) {
-    const { icon } = props;
+    const { icon, onClick = () => {} } = props;
     const iconClone = cloneElement(icon, { className: "productCardIcon" });
     return (
         <Box
+            onClick={onClick}
             sx={{
                 cursor: "pointer",
                 backgroundColor: "white",

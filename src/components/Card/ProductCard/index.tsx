@@ -1,17 +1,18 @@
 import { Favorite, ShoppingCart } from "@mui/icons-material";
 import { Box, Stack, SxProps, Theme, Typography } from "@mui/material";
+import { Product } from "../../../pages/Home/FeaturedProduct/ProductList";
+import { useCartStore } from "../../../stores/cartStore";
 import ProductCardIcon from "./Icon";
 
 export interface IProductCardProps {
-    url: string;
-    name: string;
-    price: number;
-    description?: string;
+    product: Product;
     sx?: SxProps<Theme>;
 }
 
 export default function ProductCard(props: IProductCardProps) {
-    const { url, name, price, sx } = props;
+    const { product, sx } = props;
+    const { id, image, name, price } = product;
+    const { addProduct } = useCartStore();
     const priceFormat = price.toFixed(2);
     return (
         <Box
@@ -39,7 +40,7 @@ export default function ProductCard(props: IProductCardProps) {
                 }}
             >
                 <img
-                    src={url}
+                    src={image}
                     alt=""
                     style={{
                         display: "block",
@@ -52,8 +53,20 @@ export default function ProductCard(props: IProductCardProps) {
                     direction="row"
                     spacing={2}
                 >
-                    <ProductCardIcon icon={<ShoppingCart />} />
-                    <ProductCardIcon icon={<Favorite />} />
+                    <ProductCardIcon
+                        icon={<ShoppingCart />}
+                        onClick={() =>
+                            addProduct({
+                                id,
+                                name,
+                                image,
+                                price,
+                                quantity: 1,
+                                selected: false,
+                            })
+                        }
+                    />
+                    <ProductCardIcon icon={<Favorite />} onClick={() => {}} />
                 </Stack>
             </Box>
             <Stack alignItems="center" spacing={1} marginTop={2}>
