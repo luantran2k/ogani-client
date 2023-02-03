@@ -1,19 +1,11 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-
-interface ProductCard {
-    id: number;
-    name: string;
-    price: number;
-    image: string;
-    quantity: number;
-    selected: boolean;
-}
+import { ProductCart } from "../types/Product";
 
 interface CartStore {
-    products: ProductCard[];
+    products: ProductCart[];
     totalPrice: () => number;
-    addProduct: (product: ProductCard) => void;
+    addProduct: (product: ProductCart) => void;
     removeProduct: () => void;
     increaseQuantity: (id: number) => void;
     decreaseQuantity: (id: number) => void;
@@ -23,9 +15,9 @@ interface CartStore {
 }
 
 const findProduct = (
-    products: ProductCard[],
+    products: ProductCart[],
     id: number
-): ProductCard | undefined => {
+): ProductCart | undefined => {
     return products.find((product) => product.id === id);
 };
 

@@ -1,10 +1,9 @@
-import { ShoppingCart, ShoppingCartOutlined } from "@mui/icons-material";
+import { ShoppingCart } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
 import { useCartStore } from "../../../stores/cartStore";
 import PopupMenu from "../../Menu/PopupMenu";
 import CartDetail from "../CartDetail";
-import styles from "./styles.module.scss";
 
 export interface ICartProps {}
 

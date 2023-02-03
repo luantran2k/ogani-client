@@ -1,8 +1,9 @@
+import { Stack } from "@mui/material";
 import { SwiperSlide } from "swiper/react";
 import CategoryCard from "../../../components/Card/CategoryCard";
 import Slide from "../../../components/Slide";
 
-const items: { url: string; title: string }[] = Array(5)
+export const items: { url: string; title: string }[] = Array(5)
     .fill(undefined)
     .map((value, index) => ({
         title: "Fresh Fruits",

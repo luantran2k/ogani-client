@@ -1,19 +1,7 @@
 import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import ProductCard from "../../../../components/Card/ProductCard";
-
-export type ProductCategoryType =
-    | "all"
-    | "fresh-meat"
-    | "oranges"
-    | "vegetables"
-    | "fastfood";
-export interface Product {
-    id: number;
-    image: string;
-    name: string;
-    price: number;
-    categories: ProductCategoryType[];
-}
+import { Product } from "../../../../types/Product";
+import { ProductCategoryType } from "../../../../types/Product/Category";
 
 const products: Product[] = [
     {

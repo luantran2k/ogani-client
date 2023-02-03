@@ -2,19 +2,17 @@ import {
     Box,
     Button,
     Container,
-    List,
     Stack,
     Typography,
     useMediaQuery,
     useTheme,
 } from "@mui/material";
 import { grey, lightGreen } from "@mui/material/colors";
-import categoryImage1 from "../../assets/images/categories/cat-1.jpg";
 import heroImage from "../../assets/images/hero/banner.jpg";
-import CategoryCard from "../../components/Card/CategoryCard";
-import Slide from "../../components/Slide";
+import Banner from "./Banner";
 import CategorySlide from "./Category";
 import FeaturedProduct from "./FeaturedProduct";
+import LatestProduct from "./LatestProduct";
 
 export interface IHomePageProps {}
 
@@ -102,6 +100,12 @@ export default function HomePage(props: IHomePageProps) {
             </section>
             <section id="featuredProduct">
                 <FeaturedProduct />
+            </section>
+            <section id="banner">
+                <Banner />
+            </section>
+            <section id="LatestProduct">
+                <LatestProduct />
             </section>
         </Container>
     );

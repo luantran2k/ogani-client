@@ -1,6 +1,6 @@
 import { Phone } from "@mui/icons-material";
 import { Stack, Typography } from "@mui/material";
-import { lightGreen, grey } from "@mui/material/colors";
+import { grey, lightGreen } from "@mui/material/colors";
 
 export interface ISearchBarPhoneProps {
     visible?: boolean;

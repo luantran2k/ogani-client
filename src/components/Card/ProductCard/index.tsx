@@ -1,7 +1,7 @@
 import { Favorite, ShoppingCart } from "@mui/icons-material";
 import { Box, Stack, SxProps, Theme, Typography } from "@mui/material";
-import { Product } from "../../../pages/Home/FeaturedProduct/ProductList";
 import { useCartStore } from "../../../stores/cartStore";
+import { Product } from "../../../types/Product";
 import ProductCardIcon from "./Icon";
 
 export interface IProductCardProps {

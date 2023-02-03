@@ -1,12 +1,5 @@
 import { KeyboardArrowDown, Menu } from "@mui/icons-material";
-import {
-    Box,
-    MenuItem,
-    Stack,
-    Typography,
-    useMediaQuery,
-    useTheme,
-} from "@mui/material";
+import { Box, MenuItem, Stack, Typography } from "@mui/material";
 import { grey, lightGreen } from "@mui/material/colors";
 import { useState } from "react";
 
