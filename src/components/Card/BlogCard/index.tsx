@@ -20,7 +20,9 @@ export default function BlogCard(props: IBlogCardProps) {
                 overflow="hidden"
                 sx={{
                     borderRadius: "1rem",
+                    height: "16rem",
                     img: {
+                        height: "100%",
                         width: "100%",
                         objectFit: "cover",
                     },
@@ -29,7 +31,7 @@ export default function BlogCard(props: IBlogCardProps) {
                 <img src={image} alt="" />
             </Box>
             <Stack
-                margin="1.6rem 0 1.2rem"
+                margin=".4rem 0 .6rem"
                 direction="row"
                 spacing={4}
                 alignItems="center"

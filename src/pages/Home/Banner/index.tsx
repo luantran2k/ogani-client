@@ -20,10 +20,10 @@ export default function Banner(props: IBannerProps) {
                 },
             }}
         >
-            <Box className="homeBanner">
+            <Box className="homeBanner" overflow="hidden" borderRadius="1rem">
                 <img src={banner1} alt="banner-1" />
             </Box>
-            <Box className="homeBanner">
+            <Box className="homeBanner" overflow="hidden" borderRadius="1rem">
                 <img src={banner2} alt="banner-2" />
             </Box>
         </Stack>

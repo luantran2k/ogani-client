@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
-import { ProductCategoryType } from "../ProductList";
+import { ProductCategoryType } from "../../../../types/Product/Category";
 const productItems: { title: string; value: ProductCategoryType }[] = [
     {
         title: "All",
@@ -35,7 +35,8 @@ export default function FeatureOptions(props: IFeatureOptionsProps) {
             justifyContent="center"
             direction="row"
             flexWrap="wrap"
-            spacing={4}
+            columnGap={4}
+            rowGap={1}
             marginBottom={6}
             sx={{
                 li: {

@@ -28,7 +28,7 @@ const blogs: BlogPreview[] = [
         title: "Visit the clean farm in the US",
         description:
             "Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat",
-        image: "/images/blog/blog-3.jpg",
+        image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*", //images/blog/blog-3.jpg",
         comments: [],
         createAt: new Date(),
     },
@@ -38,7 +38,7 @@ export default function HomeBlog(props: IHomeBlogProps) {
     return (
         <>
             <SectionTitle title={"From The Blog"} />
-            <Grid container spacing={4} marginBottom="4rem">
+            <Grid container columnSpacing={4} rowSpacing={8}>
                 {blogs.map((blog) => (
                     <Grid key={blog.id} item xs={12} sm={6} md={4}>
                         <BlogCard blog={blog} />

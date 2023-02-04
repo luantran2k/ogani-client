@@ -19,7 +19,6 @@ export default function SearchBar(props: ISearchBarProps) {
     const matchSm = useMediaQuery(theme.breakpoints.up("sm"));
     return (
         <Container maxWidth="lg">
-            {" "}
             <Stack
                 direction={{ xs: "column", md: "row" }}
                 spacing={{ xs: 2, md: 4 }}

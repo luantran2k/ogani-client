@@ -22,7 +22,7 @@ export default function Footer(props: IFooterProps) {
     const theme = useTheme();
     const matchSm = useMediaQuery(theme.breakpoints.down("sm"));
     return (
-        <footer style={{ backgroundColor: blueGrey[50] }}>
+        <footer style={{ backgroundColor: blueGrey[50], marginTop: "4rem" }}>
             <Container maxWidth="lg">
                 <Grid
                     container

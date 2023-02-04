@@ -26,7 +26,9 @@ export default function RootLayout(props: IRootLayoutProps) {
                     rotate: "90deg",
                 }}
             />
-            <Outlet />
+            <main style={{ minHeight: "50vh" }}>
+                <Outlet />
+            </main>
             <Footer />
         </Box>
     );

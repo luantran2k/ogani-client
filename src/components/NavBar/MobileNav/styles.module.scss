@@ -1,16 +1,16 @@
 @use "../../../assets/scss/variables/index.scss" as *;
 .navs {
-    li {
-        padding: 0.4rem 0 1rem 0;
-        &:not(:last-child) {
-            border-bottom: 1px solid $grey-300;
+    a {
+        color: $grey-900;
+        text-decoration: none;
+        &:hover,
+        &.active {
+            color: $light-green-700;
         }
-        a {
-            color: $grey-900;
-            text-decoration: none;
-            &:hover,
-            &.active {
-                color: $light-green-700;
+        li {
+            padding-left: 0;
+            &:not(:last-child) {
+                border-bottom: 1px solid $grey-300;
             }
         }
     }

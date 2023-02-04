@@ -55,12 +55,14 @@ export default function LatestProductSlide(props: ILatestProductSlideProps) {
             <Slide slidesPerView={1} ref={slideRef} navigation={false}>
                 {groupedProducts.map((groupedProduct, index) => (
                     <SwiperSlide key={index}>
-                        {groupedProduct.map((product) => (
-                            <LatestProductCard
-                                key={product.id}
-                                product={product}
-                            />
-                        ))}
+                        <Stack spacing={2}>
+                            {groupedProduct.map((product) => (
+                                <LatestProductCard
+                                    key={product.id}
+                                    product={product}
+                                />
+                            ))}
+                        </Stack>
                     </SwiperSlide>
                 ))}
             </Slide>
