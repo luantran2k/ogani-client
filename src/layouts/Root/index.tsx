@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import RoundArrowButton from "../../components/Button/RoundArrowButton";
+import Footer from "../../components/Footer";
 import Navbar from "../../components/NavBar";
 import SearchBar from "../../components/SearchBar";
 import TopBar from "../../components/TopBar";
@@ -26,6 +27,7 @@ export default function RootLayout(props: IRootLayoutProps) {
                 }}
             />
             <Outlet />
+            <Footer />
         </Box>
     );
 }

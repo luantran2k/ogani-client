@@ -1,19 +1,17 @@
 import { MoreVert } from "@mui/icons-material";
 import { Box, SxProps, Theme } from "@mui/material";
-import { grey } from "@mui/material/colors";
-import { cloneElement, ReactNode, useState } from "react";
+import { ReactElement, ReactNode, useState } from "react";
 import { BOX_SHADOW } from "../../../const/style";
-import styles from "./styles.module.scss";
 
 export interface IPopupMenuProps {
-    trigger?: JSX.Element;
+    trigger?: ReactElement;
     sx?: SxProps<Theme>;
     className?: string;
     children: ReactNode[] | ReactNode;
 }
 
 export default function MouseOverMenu(props: IPopupMenuProps) {
-    const { trigger, children, className, sx } = props;
+    const { trigger: Trigger, children, className, sx } = props;
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -22,12 +20,8 @@ export default function MouseOverMenu(props: IPopupMenuProps) {
     const handleClose = () => {
         setOpen(false);
     };
-
-    const triggerElement = trigger ? (
-        cloneElement(trigger, {
-            onMouseEnter: handleOpen,
-            // onMouseLeave: () => setOpen(false),
-        })
+    const triggerElement = Trigger ? (
+        <Trigger.type {...Trigger.props} {...{ onMouseEnter: handleOpen }} />
     ) : (
         <MoreVert sx={{ cursor: "pointer" }} onMouseEnter={handleOpen} />
     );

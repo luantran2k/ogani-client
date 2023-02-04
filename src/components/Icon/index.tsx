@@ -1,20 +1,15 @@
 import { Box } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
-import {
-    cloneElement,
-    MouseEventHandler,
-    ReactElement,
-    ReactNode,
-} from "react";
+import { MouseEventHandler, ReactElement } from "react";
 
-export interface IProductCardIconProps {
+export interface IRoundIconProps {
     icon: ReactElement;
     onClick?: MouseEventHandler<HTMLDivElement>;
+    rotate?: boolean;
 }
 
-export default function ProductCardIcon(props: IProductCardIconProps) {
-    const { icon, onClick = () => {} } = props;
-    const iconClone = cloneElement(icon, { className: "productCardIcon" });
+export default function RoundIcon(props: IRoundIconProps) {
+    const { icon: Icon, onClick = () => {}, rotate } = props;
     return (
         <Box
             onClick={onClick}
@@ -37,7 +32,7 @@ export default function ProductCardIcon(props: IProductCardIconProps) {
                     backgroundColor: lightGreen[600],
                     ".productCardIcon": {
                         color: "white",
-                        rotate: "360deg",
+                        rotate: rotate ? "360deg" : "0",
                     },
                 },
                 ":active": {
@@ -45,7 +40,7 @@ export default function ProductCardIcon(props: IProductCardIconProps) {
                 },
             }}
         >
-            {iconClone}
+            <Icon.type {...Icon.props} className="productCardIcon" />
         </Box>
     );
 }

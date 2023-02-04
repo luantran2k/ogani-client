@@ -10,6 +10,7 @@ import {
 import { grey, lightGreen } from "@mui/material/colors";
 import heroImage from "../../assets/images/hero/banner.jpg";
 import Banner from "./Banner";
+import HomeBlog from "./Blog";
 import CategorySlide from "./Category";
 import FeaturedProduct from "./FeaturedProduct";
 import LatestProduct from "./LatestProduct";
@@ -104,8 +105,11 @@ export default function HomePage(props: IHomePageProps) {
             <section id="banner">
                 <Banner />
             </section>
-            <section id="LatestProduct">
+            <section id="latestProduct">
                 <LatestProduct />
+            </section>
+            <section id="homeBlog">
+                <HomeBlog />
             </section>
         </Container>
     );

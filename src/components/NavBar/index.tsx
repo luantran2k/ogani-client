@@ -14,7 +14,6 @@ export interface INavbarProps {}
 export default function Navbar(props: INavbarProps) {
     return (
         <Container
-            maxWidth="lg"
             sx={{
                 backgroundColor: "white",
                 margin: "1rem auto",

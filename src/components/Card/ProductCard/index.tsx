@@ -1,8 +1,8 @@
 import { Favorite, ShoppingCart } from "@mui/icons-material";
-import { Box, Stack, SxProps, Theme, Typography } from "@mui/material";
+import { Box, Button, Stack, SxProps, Theme, Typography } from "@mui/material";
 import { useCartStore } from "../../../stores/cartStore";
 import { Product } from "../../../types/Product";
-import ProductCardIcon from "./Icon";
+import RoundIcon from "../../Icon";
 
 export interface IProductCardProps {
     product: Product;
@@ -53,8 +53,9 @@ export default function ProductCard(props: IProductCardProps) {
                     direction="row"
                     spacing={2}
                 >
-                    <ProductCardIcon
+                    <RoundIcon
                         icon={<ShoppingCart />}
+                        rotate={true}
                         onClick={() =>
                             addProduct({
                                 id,
@@ -66,7 +67,11 @@ export default function ProductCard(props: IProductCardProps) {
                             })
                         }
                     />
-                    <ProductCardIcon icon={<Favorite />} onClick={() => {}} />
+                    <RoundIcon
+                        icon={<Favorite />}
+                        onClick={() => {}}
+                        rotate={true}
+                    />
                 </Stack>
             </Box>
             <Stack alignItems="center" spacing={1} marginTop={2}>

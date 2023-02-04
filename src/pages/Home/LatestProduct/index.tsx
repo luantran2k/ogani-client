@@ -3,13 +3,6 @@ import { Product } from "../../../types/Product";
 import LatestProductSlide from "./Slide";
 
 export interface ILatestProductProps {}
-// {
-//     id: 1,
-//     categories: ["all"],
-//     image: "/image/Latest-product/lq-1.jpg",
-//     name: "Product 1",
-//     price: 100,
-// },
 const products: Product[] = new Array(10).fill(undefined).map((p, i) => {
     const productNumber = Math.floor(Math.random() * 3 + 1);
     return {
@@ -22,7 +15,7 @@ const products: Product[] = new Array(10).fill(undefined).map((p, i) => {
 });
 export default function LatestProduct(props: ILatestProductProps) {
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} marginBottom="6rem">
             <Grid item xs={12} sm={6} md={4}>
                 <LatestProductSlide products={products} />
             </Grid>

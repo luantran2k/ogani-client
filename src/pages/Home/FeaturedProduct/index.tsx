@@ -1,8 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
+import SectionTitle from "../../../components/Typography/SectionTitle";
+import { ProductCategoryType } from "../../../types/Product/Category";
 import FeatureOptions from "./FeatureOptions";
-import ProductList, { ProductCategoryType } from "./ProductList";
+import ProductList from "./ProductList";
 
 export interface IFeaturedProductProps {}
 
@@ -10,23 +12,7 @@ export default function FeaturedProduct(props: IFeaturedProductProps) {
     const [active, setActive] = useState<ProductCategoryType>("all");
     return (
         <>
-            <Typography
-                variant="h2"
-                fontSize="2rem"
-                fontWeight="bold"
-                textAlign="center"
-                sx={{
-                    ":after": {
-                        content: '""',
-                        display: "block",
-                        margin: ".6rem auto 2rem",
-                        width: "4rem",
-                        borderBottom: `.25rem solid ${lightGreen[600]}`,
-                    },
-                }}
-            >
-                Featured Product
-            </Typography>
+            <SectionTitle title="Featured Product" />
             <FeatureOptions active={active} setActive={setActive} />
             <ProductList active={active} />
         </>

@@ -1,6 +1,6 @@
 import { MoreVert } from "@mui/icons-material";
-import { Button, MenuItem, Popover, PopoverOrigin } from "@mui/material";
-import { cloneElement, ReactElement, ReactNode, useState } from "react";
+import { Button, Popover, PopoverOrigin } from "@mui/material";
+import { ReactElement, ReactNode, useState } from "react";
 
 export interface IPopupMenuProps {
     children: ReactNode[] | ReactNode;
@@ -12,7 +12,7 @@ export interface IPopupMenuProps {
 export default function PopupMenu(props: IPopupMenuProps) {
     const {
         children,
-        trigger,
+        trigger: Trigger,
         transformOrigin = {
             vertical: "top",
             horizontal: "right",
@@ -29,10 +29,13 @@ export default function PopupMenu(props: IPopupMenuProps) {
         setAnchorEl(e.currentTarget);
         setOpen(true);
     };
-    const triggerElement = trigger ? (
-        cloneElement(trigger, {
-            onClick: handleOpen,
-        })
+    const triggerElement = Trigger ? (
+        <Trigger.type
+            {...Trigger.props}
+            {...{
+                onClick: handleOpen,
+            }}
+        />
     ) : (
         <Button onClick={handleOpen}>
             <MoreVert />

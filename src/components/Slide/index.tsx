@@ -5,16 +5,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import {
-    cloneElement,
-    ReactElement,
-    ReactNode,
-    useImperativeHandle,
-    useRef,
-} from "react";
+import React, { ReactNode, useImperativeHandle, useRef } from "react";
 import { Autoplay, Swiper as SwiperType } from "swiper";
 import RoundArrowButton from "../Button/RoundArrowButton";
-import React from "react";
 
 export interface ISlideProps {
     children?: ReactNode[] | ReactNode;
@@ -50,7 +43,7 @@ export default React.forwardRef<SildeRef, ISlideProps>(function Slide(
     const matchSm = useMediaQuery(theme.breakpoints.up("sm"));
     const matchSx = useMediaQuery("(min-width: 25rem)");
     const {
-        navigation,
+        navigation = true,
         children,
         slidesPerView = matchMd ? 4 : matchSm ? 3 : matchSx ? 2 : 1,
     } = props;
