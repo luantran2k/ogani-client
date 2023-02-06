@@ -1,20 +1,57 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/scss/index.scss";
-import RootLayout from "./layouts/Root";
-import BlogsPage from "./pages/Blog";
-import ContactPage from "./pages/Contact";
-import HomePage from "./pages/Home";
-import ShopPage from "./pages/Shop";
+import ElasticLoading from "./components/Loading/ElasticLoading";
+const RootLayout = lazy(() => import("./layouts/Root"));
+const BlogsPage = lazy(() => import("./pages/Blog"));
+const ContactPage = lazy(() => import("./pages/Contact"));
+const HomePage = lazy(() => import("./pages/Home"));
+const ShopPage = lazy(() => import("./pages/Shop"));
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<RootLayout />}>
-                    <Route index element={<HomePage />}></Route>
-                    <Route path="shop" element={<ShopPage />}></Route>
-                    <Route path="blogs" element={<BlogsPage />}></Route>
-                    <Route path="contact" element={<ContactPage />}></Route>
+                <Route
+                    path="/"
+                    element={
+                        <Suspense fallback={<ElasticLoading />}>
+                            <RootLayout />
+                        </Suspense>
+                    }
+                >
+                    <Route
+                        index
+                        element={
+                            <Suspense fallback={<ElasticLoading />}>
+                                <HomePage />
+                            </Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="shop"
+                        element={
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <ShopPage />
+                            </Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="blogs"
+                        element={
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <BlogsPage />
+                            </Suspense>
+                        }
+                    ></Route>
+                    <Route
+                        path="contact"
+                        element={
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <ContactPage />
+                            </Suspense>
+                        }
+                    ></Route>
                 </Route>
             </Routes>
         </BrowserRouter>

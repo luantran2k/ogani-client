@@ -15,16 +15,18 @@ const products: Product[] = new Array(10).fill(undefined).map((p, i) => {
 });
 export default function LatestProduct(props: ILatestProductProps) {
     return (
-        <Grid container spacing={2} marginBottom="6rem">
-            <Grid item xs={12} sm={6} md={4}>
-                <LatestProductSlide products={products} />
+        <section id="latestProduct">
+            <Grid container spacing={2} marginBottom="6rem">
+                <Grid item xs={12} sm={6} md={4}>
+                    <LatestProductSlide products={products} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <LatestProductSlide products={products} />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4}>
+                    <LatestProductSlide products={products} />
+                </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-                <LatestProductSlide products={products} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-                <LatestProductSlide products={products} />
-            </Grid>
-        </Grid>
+        </section>
     );
 }

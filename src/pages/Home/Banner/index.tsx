@@ -6,26 +6,36 @@ export interface IBannerProps {}
 
 export default function Banner(props: IBannerProps) {
     return (
-        <Stack
-            margin="6rem 0"
-            direction={{ xs: "column", md: "row" }}
-            spacing={2}
-            sx={{
-                img: {
-                    display: "block",
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center center",
-                },
-            }}
-        >
-            <Box className="homeBanner" overflow="hidden" borderRadius="1rem">
-                <img src={banner1} alt="banner-1" />
-            </Box>
-            <Box className="homeBanner" overflow="hidden" borderRadius="1rem">
-                <img src={banner2} alt="banner-2" />
-            </Box>
-        </Stack>
+        <section id="banner">
+            <Stack
+                margin="6rem 0"
+                direction={{ xs: "column", md: "row" }}
+                spacing={2}
+                sx={{
+                    img: {
+                        display: "block",
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "cover",
+                        objectPosition: "center center",
+                    },
+                }}
+            >
+                <Box
+                    className="homeBanner"
+                    overflow="hidden"
+                    borderRadius="1rem"
+                >
+                    <img src={banner1} alt="banner-1" />
+                </Box>
+                <Box
+                    className="homeBanner"
+                    overflow="hidden"
+                    borderRadius="1rem"
+                >
+                    <img src={banner2} alt="banner-2" />
+                </Box>
+            </Stack>
+        </section>
     );
 }

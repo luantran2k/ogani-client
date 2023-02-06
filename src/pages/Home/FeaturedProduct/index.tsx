@@ -11,10 +11,10 @@ export interface IFeaturedProductProps {}
 export default function FeaturedProduct(props: IFeaturedProductProps) {
     const [active, setActive] = useState<ProductCategoryType>("all");
     return (
-        <>
+        <section id="featuredProduct">
             <SectionTitle title="Featured Product" />
             <FeatureOptions active={active} setActive={setActive} />
             <ProductList active={active} />
-        </>
+        </section>
     );
 }

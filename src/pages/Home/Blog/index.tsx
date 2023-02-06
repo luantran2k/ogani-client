@@ -36,7 +36,7 @@ const blogs: BlogPreview[] = [
 
 export default function HomeBlog(props: IHomeBlogProps) {
     return (
-        <>
+        <section id="homeBlog">
             <SectionTitle title={"From The Blog"} />
             <Grid container columnSpacing={4} rowSpacing={8}>
                 {blogs.map((blog) => (
@@ -45,6 +45,6 @@ export default function HomeBlog(props: IHomeBlogProps) {
                     </Grid>
                 ))}
             </Grid>
-        </>
+        </section>
     );
 }
