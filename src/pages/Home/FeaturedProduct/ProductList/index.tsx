@@ -3,7 +3,7 @@ import ProductCard from "../../../../components/Card/ProductCard";
 import { Product } from "../../../../types/Product";
 import { ProductCategoryType } from "../../../../types/Product/Category";
 
-const products: Product[] = [
+export const products: Product[] = [
     {
         id: 1,
         image: "/images/featured/feature-1.jpg",
@@ -17,6 +17,7 @@ const products: Product[] = [
         name: "Banana",
         price: 200,
         categories: ["oranges"],
+        salePercent: 20,
     },
     {
         id: 3,

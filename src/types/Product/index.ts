@@ -5,6 +5,8 @@ export interface Product {
     image: string;
     name: string;
     price: number;
+    salePercent?: number;
+    salePrice?: number;
     categories: ProductCategoryType[];
 }
 

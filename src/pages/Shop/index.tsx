@@ -4,6 +4,7 @@ import MenuTitle from "../../components/Typography/MenuTitle";
 import ColorPicker from "./ColorPicker";
 import Department from "./Department";
 import PriceSlideBar from "./PriceSlideBar";
+import ShopProductList from "./ProductList";
 import ProductSize from "./Size";
 
 export interface IShopPageProps {}
@@ -14,7 +15,7 @@ export default function ShopPage(props: IShopPageProps) {
             <BreadCrumb />
             <Container maxWidth="lg">
                 <Grid container columnSpacing={4}>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} sm={4} md={3}>
                         <Stack spacing={4}>
                             <Department />
                             <PriceSlideBar />
@@ -22,10 +23,8 @@ export default function ShopPage(props: IShopPageProps) {
                             <ProductSize />
                         </Stack>
                     </Grid>
-                    <Grid item xs={9}>
-                        <Typography fontWeight="bold" fontSize="1.4rem">
-                            Product
-                        </Typography>
+                    <Grid item xs={12} sm={8} md={9}>
+                        <ShopProductList />
                     </Grid>
                 </Grid>
             </Container>

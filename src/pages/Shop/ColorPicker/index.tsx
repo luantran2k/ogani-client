@@ -16,7 +16,7 @@ const colors: IColorOptionProps[] = [
 ];
 
 export default function ColorPicker(props: IColorPickerProps) {
-    const [checkedColors, setCheckedColors] = useState<string[]>(["red"]);
+    const [checkedColors, setCheckedColors] = useState<string[]>([]);
     const handleCheckColor = (color: string) => {
         if (checkedColors.some((col) => col === color)) {
             setCheckedColors(checkedColors.filter((col) => col !== color));

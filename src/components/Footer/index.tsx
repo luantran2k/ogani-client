@@ -86,9 +86,6 @@ export default function Footer(props: IFooterProps) {
                                 placeholder="Enter your mail"
                                 size="small"
                                 fullWidth
-                                InputProps={{
-                                    sx: { border: "none" },
-                                }}
                                 sx={{
                                     borderRadius: ".4rem",
                                     backgroundColor: "white",

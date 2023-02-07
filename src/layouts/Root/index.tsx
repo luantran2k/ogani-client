@@ -21,8 +21,8 @@ export default function RootLayout(props: IRootLayoutProps) {
                 sx={{
                     zIndex: 2,
                     position: "fixed",
-                    bottom: "3.2rem",
-                    right: "3.2rem",
+                    bottom: { xs: "2rem", md: "3.2rem" },
+                    right: { xs: "1rem", md: "3.2rem" },
                     rotate: "90deg",
                 }}
             />

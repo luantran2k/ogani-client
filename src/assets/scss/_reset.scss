@@ -1,0 +1,24 @@
+@use "./variables/index.scss" as *;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    height: 100%;
+}
+body {
+    font-family: "Cairo", "Roboto", "Helvetica Neue', Arial", sans-serif;
+}
+
+img {
+    display: block;
+}
+
+a {
+    color: $grey-900;
+    text-decoration: none;
+    &:hover {
+        color: $light-green-600;
+    }
+}

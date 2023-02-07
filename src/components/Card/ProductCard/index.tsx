@@ -1,6 +1,12 @@
 import { Favorite, ShoppingCart } from "@mui/icons-material";
 import { Box, Button, Stack, SxProps, Theme, Typography } from "@mui/material";
-import { useCartStore } from "../../../stores/cartStore";
+import { grey, lightGreen, red } from "@mui/material/colors";
+import { Link } from "react-router-dom";
+import {
+    getLastPrice,
+    getSalePercent,
+    useCartStore,
+} from "../../../stores/cartStore";
 import { Product } from "../../../types/Product";
 import RoundIcon from "../../Icon";
 
@@ -11,9 +17,16 @@ export interface IProductCardProps {
 
 export default function ProductCard(props: IProductCardProps) {
     const { product, sx } = props;
-    const { id, image, name, price } = product;
+    const { id, image, name, price, salePercent, salePrice } = product;
     const { addProduct } = useCartStore();
+    const lastPrice = getLastPrice({ price, salePercent, salePrice });
     const priceFormat = price.toFixed(2);
+    const lastPriceFormat = lastPrice.toFixed(2);
+    const salePercentDisplay = getSalePercent({
+        price,
+        salePrice,
+        salePercent,
+    });
     return (
         <Box
             sx={{
@@ -39,6 +52,22 @@ export default function ProductCard(props: IProductCardProps) {
                     },
                 }}
             >
+                <Typography
+                    position="absolute"
+                    top="1rem"
+                    left="1rem"
+                    height="2.8rem"
+                    width="2.8rem"
+                    display={salePercentDisplay ? "flex" : "none"}
+                    alignItems="center"
+                    justifyContent="center"
+                    fontSize=".8rem"
+                    color="white"
+                    borderRadius="50%"
+                    bgcolor={red[500]}
+                >
+                    -{salePercentDisplay}%
+                </Typography>
                 <img
                     src={image}
                     alt=""
@@ -60,10 +89,7 @@ export default function ProductCard(props: IProductCardProps) {
                         rotate={true}
                         onClick={() =>
                             addProduct({
-                                id,
-                                name,
-                                image,
-                                price,
+                                ...product,
                                 quantity: 1,
                                 selected: false,
                             })
@@ -77,9 +103,37 @@ export default function ProductCard(props: IProductCardProps) {
                 </Stack>
             </Box>
             <Stack alignItems="center" spacing={1} marginTop={2}>
-                <Typography fontSize="1.1rem">{name}</Typography>
-                <Typography fontSize="1.1rem" fontWeight="bold">
-                    ${priceFormat}
+                <Link to={"/products/" + id} style={{ textDecoration: "none" }}>
+                    <Typography
+                        fontSize="1.1rem"
+                        sx={{
+                            color: grey[900],
+
+                            cursor: "pointer",
+                            ":hover": {
+                                color: lightGreen[800],
+                            },
+                        }}
+                    >
+                        {name}
+                    </Typography>
+                </Link>
+                <Typography
+                    fontSize="1.1rem"
+                    fontWeight="bold"
+                    sx={{
+                        span: {
+                            display: price !== lastPrice ? "inline" : "none",
+                        },
+                        ".originalPrice": {
+                            color: grey[500],
+                            position: "relative",
+                            textDecoration: "line-through",
+                        },
+                    }}
+                >
+                    <span className="originalPrice">${priceFormat}</span>
+                    <span> - </span>${lastPriceFormat}
                 </Typography>
             </Stack>
         </Box>

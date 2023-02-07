@@ -13,12 +13,40 @@ interface CartStore {
     selectAll: () => void;
     unSelectAll: () => void;
 }
-
+interface PriceArgument {
+    price: number;
+    salePrice?: number;
+    salePercent?: number;
+}
 const findProduct = (
     products: ProductCart[],
     id: number
 ): ProductCart | undefined => {
     return products.find((product) => product.id === id);
+};
+
+export const getLastPrice = ({
+    price,
+    salePrice,
+    salePercent,
+}: PriceArgument) => {
+    return salePercent
+        ? price - (price * salePercent) / 100
+        : salePrice
+        ? price - salePrice
+        : price;
+};
+
+export const getSalePercent = ({
+    price,
+    salePrice,
+    salePercent,
+}: PriceArgument) => {
+    return salePercent
+        ? salePercent
+        : salePrice
+        ? 1 - salePrice / price
+        : undefined;
 };
 
 export const useCartStore = create<CartStore>()(
@@ -27,11 +55,23 @@ export const useCartStore = create<CartStore>()(
             (set, get) => ({
                 products: [],
                 totalPrice() {
-                    return get().products.reduce((price, product) => {
-                        if (product.selected) {
-                            return (price += product.price * product.quantity);
+                    return get().products.reduce((total, product) => {
+                        const {
+                            selected,
+                            quantity,
+                            price,
+                            salePrice,
+                            salePercent,
+                        } = product;
+                        const lastPrice = getLastPrice({
+                            price,
+                            salePrice,
+                            salePercent,
+                        });
+                        if (selected) {
+                            return (total += lastPrice * quantity);
                         }
-                        return price;
+                        return total;
                     }, 0);
                 },
                 addProduct(product) {

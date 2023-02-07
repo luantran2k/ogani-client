@@ -10,7 +10,7 @@ export interface INavbarProps {}
 
 export default function Navbar(props: INavbarProps) {
     return (
-        <Container
+        <Box
             sx={{
                 backgroundColor: "white",
                 margin: "1rem auto",
@@ -19,60 +19,62 @@ export default function Navbar(props: INavbarProps) {
                 zIndex: 3,
             }}
         >
-            <Stack
-                direction="row"
-                spacing={4}
-                alignItems="center"
-                padding=".4rem 0"
-            >
-                <Box flex="0 0 25%" display="flex" alignItems="center">
-                    <img src={logoImage} alt="web-logo" />
-                </Box>
-                <Stack direction="row" flex={1}>
-                    <Stack direction="row" className={styles.navs} flex={1}>
-                        <NavLink
-                            to={"/"}
-                            className={({ isActive }) =>
-                                isActive ? styles.active : ""
-                            }
+            <Container>
+                <Stack
+                    direction="row"
+                    spacing={4}
+                    alignItems="center"
+                    padding=".4rem 0"
+                >
+                    <Box flex="0 0 25%" display="flex" alignItems="center">
+                        <img src={logoImage} alt="web-logo" />
+                    </Box>
+                    <Stack direction="row" flex={1}>
+                        <Stack direction="row" className={styles.navs} flex={1}>
+                            <NavLink
+                                to={"/"}
+                                className={({ isActive }) =>
+                                    isActive ? styles.active : ""
+                                }
+                            >
+                                Home
+                            </NavLink>
+                            <NavLink
+                                to={"/shop"}
+                                className={({ isActive }) =>
+                                    isActive ? styles.active : ""
+                                }
+                            >
+                                shop
+                            </NavLink>
+                            <NavLink
+                                to={"/blogs"}
+                                className={({ isActive }) =>
+                                    isActive ? styles.active : ""
+                                }
+                            >
+                                Blog
+                            </NavLink>
+                            <NavLink
+                                to={"/contact"}
+                                className={({ isActive }) =>
+                                    isActive ? styles.active : ""
+                                }
+                            >
+                                Contact
+                            </NavLink>
+                        </Stack>
+                        <Stack
+                            className={styles.options}
+                            direction="row"
+                            alignItems="center"
                         >
-                            Home
-                        </NavLink>
-                        <NavLink
-                            to={"/shop"}
-                            className={({ isActive }) =>
-                                isActive ? styles.active : ""
-                            }
-                        >
-                            shop
-                        </NavLink>
-                        <NavLink
-                            to={"/blogs"}
-                            className={({ isActive }) =>
-                                isActive ? styles.active : ""
-                            }
-                        >
-                            Blog
-                        </NavLink>
-                        <NavLink
-                            to={"/contact"}
-                            className={({ isActive }) =>
-                                isActive ? styles.active : ""
-                            }
-                        >
-                            Contact
-                        </NavLink>
+                            <Cart />
+                        </Stack>
                     </Stack>
-                    <Stack
-                        className={styles.options}
-                        direction="row"
-                        alignItems="center"
-                    >
-                        <Cart />
-                    </Stack>
+                    <MobileNav />
                 </Stack>
-                <MobileNav />
-            </Stack>
-        </Container>
+            </Container>
+        </Box>
     );
 }
