@@ -1,6 +1,7 @@
 import { Grid, Pagination } from "@mui/material";
 import ProductCard from "../../../components/Card/ProductCard";
-import ProductList, { products } from "../../Home/FeaturedProduct/ProductList";
+import { products } from "../../../mock/product";
+import ProductList from "../../Home/FeaturedProduct/ProductList";
 import ShopProductListOptions from "./Options";
 
 export interface IShopProductListProps {}
