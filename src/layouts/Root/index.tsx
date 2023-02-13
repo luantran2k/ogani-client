@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import RoundArrowButton from "../../components/Button/RoundArrowButton";
 import Footer from "../../components/Footer";

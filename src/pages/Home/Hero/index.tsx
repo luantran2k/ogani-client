@@ -8,17 +8,48 @@ import {
 } from "@mui/material";
 import { lightGreen, grey } from "@mui/material/colors";
 import heroImage from "../../../assets/images/hero/banner.jpg";
+import { products } from "../FeaturedProduct/ProductList";
+import HotSaleCard from "./HotSaleCard";
 
 export interface IHeroSectionProps {}
 
 export default function HeroSection(props: IHeroSectionProps) {
     const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.up("md"));
+    const matchMd = useMediaQuery(theme.breakpoints.up("md"));
     const matchSm = useMediaQuery(theme.breakpoints.up("sm"));
+    const productsList = products
+        .filter((product) => product.salePercent)
+        .sort((a, b) => {
+            const leftCondition = a.salePercent || 0;
+            const rightCondition = b.salePercent || 0;
+            return rightCondition - leftCondition;
+        });
+
     return (
         <section id="hero">
-            <Stack direction="row" spacing={matches ? 4 : 0}>
-                <Box flex={matches ? "0 0 25%" : ""}></Box>
+            <Stack direction="row" spacing={matchMd ? 4 : 0}>
+                <Box flex={"0 0 25%"} display={matchMd ? "block" : "none"}>
+                    <Typography fontWeight="bold" fontSize="1.4rem">
+                        Hot sale
+                    </Typography>
+                    <Stack
+                        spacing={1}
+                        overflow="auto"
+                        maxHeight="26rem"
+                        className="hideScrollbar"
+                    >
+                        {productsList.length == 0 ? (
+                            <Typography textAlign="center">Empty</Typography>
+                        ) : (
+                            productsList.map((product) => (
+                                <HotSaleCard
+                                    key={product.id}
+                                    product={product}
+                                />
+                            ))
+                        )}
+                    </Stack>
+                </Box>
                 <Box
                     flex="1"
                     borderRadius="1rem"
@@ -74,7 +105,7 @@ export default function HeroSection(props: IHeroSectionProps) {
                         alt="hero-image"
                         height="100%"
                         style={{
-                            filter: matches ? "" : "brightness(0.95) blur(2px)",
+                            filter: matchMd ? "" : "brightness(0.95) blur(2px)",
                             position: "relative",
                             top: "50%",
                             left: "50%",

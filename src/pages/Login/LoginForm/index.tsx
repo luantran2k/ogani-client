@@ -1,33 +1,43 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Facebook, Google } from "@mui/icons-material";
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { Dispatch } from "react";
-import { Link } from "react-router-dom";
-import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
+import { z } from "zod";
+import { AuthStoreState, useAuthStore } from "../../../stores/authStore";
+import { request } from "../../../utils/request";
 
-const schema = z.object({
-    username: z.string().min(6, { message: "Minimum is 6 character" }),
-    password: z.string().min(6, { message: "Minimum is 6 character" }),
+const loginFormSchema = z.object({
+    username: z.string().min(5, { message: "Minimum is 5 character" }),
+    password: z.string().min(5, { message: "Minimum is 5 character" }),
 });
 
-export interface ILoginFormProps {
-    setLogginForm: Dispatch<React.SetStateAction<boolean>>;
-}
+type loginFormType = z.infer<typeof loginFormSchema>;
+
+export interface ILoginFormProps {}
 
 export default function LoginForm(props: ILoginFormProps) {
-    const { setLogginForm } = props;
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({
-        resolver: zodResolver(schema),
+    } = useForm<loginFormType>({
+        resolver: zodResolver(loginFormSchema),
         mode: "all",
     });
-
+    const { setUser } = useAuthStore();
+    const navigate = useNavigate();
+    const onSubmit: SubmitHandler<loginFormType> = async (data) => {
+        const res = await request.post<AuthStoreState>("auth/login", {
+            ...data,
+        });
+        if (res) {
+            setUser(res.data);
+            navigate("/");
+        }
+    };
     return (
-        <form onSubmit={handleSubmit((d) => console.log(d))}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={1} width="100%">
                 <TextField
                     fullWidth
@@ -58,12 +68,7 @@ export default function LoginForm(props: ILoginFormProps) {
                 <Button variant="contained" type="submit">
                     Login
                 </Button>
-                <Button
-                    variant="outlined"
-                    onClick={() =>
-                        setLogginForm((isLogginForm) => !isLogginForm)
-                    }
-                >
+                <Button variant="outlined" onClick={() => navigate("register")}>
                     Register
                 </Button>
                 <Typography textAlign="center">or</Typography>

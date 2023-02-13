@@ -15,7 +15,6 @@ interface CartStore {
 }
 interface PriceArgument {
     price: number;
-    salePrice?: number;
     salePercent?: number;
 }
 const findProduct = (
@@ -25,28 +24,12 @@ const findProduct = (
     return products.find((product) => product.id === id);
 };
 
-export const getLastPrice = ({
-    price,
-    salePrice,
-    salePercent,
-}: PriceArgument) => {
-    return salePercent
-        ? price - (price * salePercent) / 100
-        : salePrice
-        ? price - salePrice
-        : price;
+export const getLastPrice = ({ price, salePercent }: PriceArgument) => {
+    return salePercent ? price - (price * salePercent) / 100 : price;
 };
 
-export const getSalePercent = ({
-    price,
-    salePrice,
-    salePercent,
-}: PriceArgument) => {
-    return salePercent
-        ? salePercent
-        : salePrice
-        ? 1 - salePrice / price
-        : undefined;
+export const getSalePercent = ({ price, salePercent }: PriceArgument) => {
+    return salePercent ? salePercent : undefined;
 };
 
 export const useCartStore = create<CartStore>()(
@@ -56,16 +39,10 @@ export const useCartStore = create<CartStore>()(
                 products: [],
                 totalPrice() {
                     return get().products.reduce((total, product) => {
-                        const {
-                            selected,
-                            quantity,
-                            price,
-                            salePrice,
-                            salePercent,
-                        } = product;
+                        const { selected, quantity, price, salePercent } =
+                            product;
                         const lastPrice = getLastPrice({
                             price,
-                            salePrice,
                             salePercent,
                         });
                         if (selected) {

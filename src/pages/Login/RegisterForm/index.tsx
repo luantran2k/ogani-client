@@ -3,15 +3,20 @@ import { ArrowBack } from "@mui/icons-material";
 import { Button, Stack, TextField } from "@mui/material";
 import { Dispatch } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { AuthStoreState, useAuthStore } from "../../../stores/authStore";
+import { useNotificationStore } from "../../../stores/notificationStore";
+import { request } from "../../../utils/request";
+import GetCodeButton from "./GetCodeButton";
 
 const registerForm = z
     .object({
-        username: z.string().min(6, { message: "Minimum is 6 character" }),
-        password: z.string().min(6, { message: "Minimum is 6 character" }),
+        username: z.string().min(5, { message: "Minimum is 5 character" }),
+        password: z.string().min(5, { message: "Minimum is 5 character" }),
         confirmPassword: z.string(),
         email: z.string().email({ message: "Must be a valid email address" }),
-        code: z.string().optional(),
+        verificationCode: z.string(),
     })
     .superRefine(({ confirmPassword, password }, ctx) => {
         if (confirmPassword !== password) {
@@ -23,27 +28,39 @@ const registerForm = z
         }
     });
 type registerFormType = typeof registerForm._output;
-export interface IRegisterFormProps {
-    setLogginForm: Dispatch<React.SetStateAction<boolean>>;
-}
+
+export interface IRegisterFormProps {}
 
 export default function RegisterForm(props: IRegisterFormProps) {
-    const { setLogginForm } = props;
     const {
         register,
         handleSubmit,
         setError,
+        getValues,
+        watch,
         formState: { errors },
     } = useForm<registerFormType>({
         resolver: zodResolver(registerForm),
-        mode: "onBlur",
+        mode: "all",
     });
+    const { pushNotification } = useNotificationStore();
+    const { setUser } = useAuthStore();
+    const navigate = useNavigate();
 
-    const onSubmit: SubmitHandler<registerFormType> = (data) => {
-        console.log(data);
-        // setError("code", {
-        //     message: "Verification code failed",
-        // });
+    const onSubmit: SubmitHandler<registerFormType> = async (data) => {
+        const { confirmPassword, ...payload } = data;
+        const res = await request.post<AuthStoreState>("auth/register", {
+            ...payload,
+        });
+        if (res) {
+            console.log(res);
+            setUser(res.data);
+            pushNotification({
+                message: "Registration successful",
+                severity: "success",
+            });
+            navigate("/");
+        }
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -84,6 +101,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
 
                     <TextField
                         fullWidth
+                        type="email"
                         label="Email Address"
                         {...register("email")}
                         error={Boolean(errors.email?.message)}
@@ -91,24 +109,34 @@ export default function RegisterForm(props: IRegisterFormProps) {
                             errors.email?.message && `${errors.email?.message}`
                         }
                     />
-                    <TextField
-                        fullWidth
-                        label="Verification code"
-                        {...register("code")}
-                        error={Boolean(errors.code?.message)}
-                        helperText={
-                            errors.code?.message && `${errors.code?.message}`
-                        }
-                    />
+                    <Stack direction="row" spacing={1}>
+                        <TextField
+                            fullWidth
+                            label="Verification code"
+                            {...register("verificationCode")}
+                            error={Boolean(errors.verificationCode?.message)}
+                            helperText={
+                                errors.verificationCode?.message &&
+                                `${errors.verificationCode?.message}`
+                            }
+                            InputProps={{
+                                sx: {
+                                    height: "100%",
+                                },
+                            }}
+                        />
+                        <GetCodeButton
+                            email={watch("email")}
+                            isValidEmail={!Boolean(errors.email?.message)}
+                        />
+                    </Stack>
                 </Stack>
                 <Button variant="contained" type="submit">
                     Register
                 </Button>
                 <Button
                     startIcon={<ArrowBack />}
-                    onClick={() =>
-                        setLogginForm((isLogginForm) => !isLogginForm)
-                    }
+                    onClick={() => navigate("/login")}
                 >
                     Login
                 </Button>

@@ -1,19 +1,18 @@
-import { Box, Stack, useMediaQuery, useTheme } from "@mui/material";
-import { blueGrey, lightGreen, teal } from "@mui/material/colors";
-import { SetStateAction, useState } from "react";
-import { Link } from "react-router-dom";
+import { Box, Stack } from "@mui/material";
+import { lightGreen, teal } from "@mui/material/colors";
+import { Navigate, Outlet } from "react-router-dom";
 import loginImage from "../../assets/images/login.jpg";
 import logo from "../../assets/images/logo.png";
 import { BOX_SHADOW_LARGE } from "../../const/style";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
+import { useAuthStore } from "../../stores/authStore";
 
 export interface ILoginPageProps {}
 
 export default function LoginPage(props: ILoginPageProps) {
-    const theme = useTheme();
-    const [isLogginForm, setLogginForm] = useState(true);
-    const matchSm = useMediaQuery(theme.breakpoints.down("sm"));
+    const { info } = useAuthStore();
+    if (info) {
+        return <Navigate to="/" />;
+    }
     return (
         <Box
             display="flex"
@@ -66,11 +65,7 @@ export default function LoginPage(props: ILoginPageProps) {
                         <Box width="fit-content" sx={{ margin: "1rem auto" }}>
                             <img src={logo} alt="" />
                         </Box>
-                        {isLogginForm ? (
-                            <LoginForm setLogginForm={setLogginForm} />
-                        ) : (
-                            <RegisterForm setLogginForm={setLogginForm} />
-                        )}
+                        <Outlet />
                     </Box>
                 </Box>
             </Stack>

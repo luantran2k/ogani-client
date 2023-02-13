@@ -36,20 +36,10 @@ export default function CardProductItem(props: ICardProductItemProps) {
     const matchSm = useMediaQuery(theme.breakpoints.down("sm"));
     const { increaseQuantity, decreaseQuantity, toggleSelectProduct } =
         useCartStore();
-    const {
-        id,
-        name,
-        image,
-        price,
-        salePercent,
-        salePrice,
-        selected,
-        quantity,
-    } = product;
+    const { id, name, image, price, salePercent, selected, quantity } = product;
 
     const lastPrice = getLastPrice({
         price,
-        salePrice,
         salePercent,
     });
     return (

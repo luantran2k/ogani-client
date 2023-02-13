@@ -9,6 +9,7 @@ import {
 } from "../../../stores/cartStore";
 import { Product } from "../../../types/Product";
 import RoundIcon from "../../Icon";
+import Price from "../../Typography/Price";
 
 export interface IProductCardProps {
     product: Product;
@@ -17,14 +18,13 @@ export interface IProductCardProps {
 
 export default function ProductCard(props: IProductCardProps) {
     const { product, sx } = props;
-    const { id, image, name, price, salePercent, salePrice } = product;
+    const { id, image, name, price, salePercent } = product;
     const { addProduct } = useCartStore();
-    const lastPrice = getLastPrice({ price, salePercent, salePrice });
+    const lastPrice = getLastPrice({ price, salePercent });
     const priceFormat = price.toFixed(2);
     const lastPriceFormat = lastPrice.toFixed(2);
     const salePercentDisplay = getSalePercent({
         price,
-        salePrice,
         salePercent,
     });
     return (
@@ -118,23 +118,7 @@ export default function ProductCard(props: IProductCardProps) {
                         {name}
                     </Typography>
                 </Link>
-                <Typography
-                    fontSize="1.1rem"
-                    fontWeight="bold"
-                    sx={{
-                        span: {
-                            display: price !== lastPrice ? "inline" : "none",
-                        },
-                        ".originalPrice": {
-                            color: grey[500],
-                            position: "relative",
-                            textDecoration: "line-through",
-                        },
-                    }}
-                >
-                    <span className="originalPrice">${priceFormat}</span>
-                    <span> - </span>${lastPriceFormat}
-                </Typography>
+                <Price price={price} salePercent={salePercent} />
             </Stack>
         </Box>
     );
