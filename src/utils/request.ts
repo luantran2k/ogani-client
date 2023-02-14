@@ -11,14 +11,14 @@ export const request = axios.create({
     timeout: 10 * 1000,
 });
 
-request.interceptors.response.use(
-    async (config) => {
-        return config;
-    },
-    (error) => {
-        pushNotification({
-            message: error.response?.data.message || "Unknown Error",
-            severity: "error",
-        });
-    }
-);
+// request.interceptors.response.use(
+//     async (config) => {
+//         return config;
+//     },
+//     (error) => {
+//         pushNotification({
+//             message: error.response?.data.message || "Unknown Error",
+//             severity: "error",
+//         });
+//     }
+// );

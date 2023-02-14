@@ -4,3 +4,9 @@ export type ProductCategoryType =
     | "oranges"
     | "vegetables"
     | "fastfood";
+export interface ProductCategory {
+    id: number;
+    name: string;
+}
+
+export type ProductCategoryPayload = Omit<ProductCategory, "id">;

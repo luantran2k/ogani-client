@@ -7,11 +7,18 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./themes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const client = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <App />
-        </ThemeProvider>
+        <QueryClientProvider client={client}>
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
+            <ReactQueryDevtools />
+        </QueryClientProvider>
     </React.StrictMode>
 );

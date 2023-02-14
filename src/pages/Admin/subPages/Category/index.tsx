@@ -1,5 +1,12 @@
+import { Box, Typography } from "@mui/material";
+import ProductCategoriesTable from "./ProductCategoriesTable";
+
 export interface IAdminCategoryPageProps {}
 
 export default function AdminCategoryPage(props: IAdminCategoryPageProps) {
-    return <div>Admin Category page</div>;
+    return (
+        <Box>
+            <ProductCategoriesTable />
+        </Box>
+    );
 }
