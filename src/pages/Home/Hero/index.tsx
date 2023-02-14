@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { lightGreen, grey } from "@mui/material/colors";
 import heroImage from "../../../assets/images/hero/banner.jpg";
-import { products } from "../FeaturedProduct/ProductList";
+import { products } from "../../../mock/product";
 import HotSaleCard from "./HotSaleCard";
 
 export interface IHeroSectionProps {}

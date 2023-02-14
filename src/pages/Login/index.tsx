@@ -1,6 +1,7 @@
 import { Box, Stack } from "@mui/material";
 import { lightGreen, teal } from "@mui/material/colors";
-import { Navigate, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import loginImage from "../../assets/images/login.jpg";
 import logo from "../../assets/images/logo.png";
 import { BOX_SHADOW_LARGE } from "../../const/style";
@@ -10,9 +11,12 @@ export interface ILoginPageProps {}
 
 export default function LoginPage(props: ILoginPageProps) {
     const { info } = useAuthStore();
-    if (info) {
-        return <Navigate to="/" />;
-    }
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (info) {
+            return navigate("/");
+        }
+    }, []);
     return (
         <Box
             display="flex"

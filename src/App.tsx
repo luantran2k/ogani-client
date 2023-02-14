@@ -14,16 +14,16 @@ const ContactPage = lazy(() => import("./pages/Contact"));
 const HomePage = lazy(() => import("./pages/Home"));
 const ShopPage = lazy(() => import("./pages/Shop"));
 const Login = lazy(() => import("./pages/Login"));
+const AdminPage = lazy(() => import("./pages/Admin"));
+const AdminDashboardPage = lazy(
+    () => import("./pages/Admin/subPages/Dashboard")
+);
+const AdminProductPage = lazy(() => import("./pages/Admin/subPages/Product"));
+const AdminCategoryPage = lazy(() => import("./pages/Admin/subPages/Category"));
+const AdminUserPage = lazy(() => import("./pages/Admin/subPages/User"));
+const AdminBlogPage = lazy(() => import("./pages/Admin/subPages/Blog"));
 
 function App() {
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const response = await request.get<{ name: string }[]>("users");
-    //         const data = response.data;
-    //         console.table(data);
-    //     };
-    //     getData();
-    // }, []);
     return (
         <>
             <AppNotifications />
@@ -73,6 +73,63 @@ function App() {
                             element={
                                 <Suspense fallback={<ElasticLoading />}>
                                     <ContactPage />
+                                </Suspense>
+                            }
+                        ></Route>
+                    </Route>
+                    <Route
+                        path="admin"
+                        element={
+                            <Suspense fallback={<ElasticLoading />}>
+                                <AdminPage />
+                            </Suspense>
+                        }
+                    >
+                        <Route
+                            index
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <AdminDashboardPage />
+                                </Suspense>
+                            }
+                        ></Route>
+                        <Route
+                            path="dashboard"
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <AdminDashboardPage />
+                                </Suspense>
+                            }
+                        ></Route>
+                        <Route
+                            path="products"
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <AdminProductPage />
+                                </Suspense>
+                            }
+                        ></Route>
+                        <Route
+                            path="categories"
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <AdminCategoryPage />
+                                </Suspense>
+                            }
+                        ></Route>
+                        <Route
+                            path="users"
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <AdminUserPage />
+                                </Suspense>
+                            }
+                        ></Route>
+                        <Route
+                            path="blogs"
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <AdminBlogPage />
                                 </Suspense>
                             }
                         ></Route>

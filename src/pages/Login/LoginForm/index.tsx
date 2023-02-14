@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Facebook, Google } from "@mui/icons-material";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { AuthStoreState, useAuthStore } from "../../../stores/authStore";
 import { request } from "../../../utils/request";
@@ -25,6 +25,7 @@ export default function LoginForm(props: ILoginFormProps) {
         resolver: zodResolver(loginFormSchema),
         mode: "all",
     });
+    const location = useLocation();
     const { setUser } = useAuthStore();
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<loginFormType> = async (data) => {
@@ -33,7 +34,10 @@ export default function LoginForm(props: ILoginFormProps) {
         });
         if (res) {
             setUser(res.data);
-            navigate("/");
+            const from = location.state?.from || "/";
+            console.log(location.state);
+            console.log(from);
+            navigate(from);
         }
     };
     return (
