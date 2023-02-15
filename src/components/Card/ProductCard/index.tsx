@@ -18,7 +18,7 @@ export interface IProductCardProps {
 
 export default function ProductCard(props: IProductCardProps) {
     const { product, sx } = props;
-    const { id, image, name, price, salePercent } = product;
+    const { id, images, name, price, salePercent } = product;
     const { addProduct } = useCartStore();
     const lastPrice = getLastPrice({ price, salePercent });
     const priceFormat = price.toFixed(2);
@@ -69,7 +69,7 @@ export default function ProductCard(props: IProductCardProps) {
                     -{salePercentDisplay}%
                 </Typography>
                 <img
-                    src={image}
+                    src={images[0]}
                     alt=""
                     style={{
                         display: "block",

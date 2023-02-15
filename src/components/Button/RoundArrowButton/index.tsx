@@ -7,16 +7,19 @@ import { MouseEventHandler } from "react";
 export interface IRoundArrowButtonProps {
     onClick?: MouseEventHandler;
     sx?: SxProps<Theme>;
+    disabled?: boolean;
 }
 // /RoundArrowButton
 export default React.forwardRef<SVGSVGElement, IRoundArrowButtonProps>(
     function RoundArrowButton(props, ref) {
-        const { onClick, sx } = props;
+        const { onClick, sx, disabled = false } = props;
         return (
             <ArrowBackIosNew
                 onClick={onClick}
                 ref={ref}
                 sx={{
+                    pointerEvents: disabled ? "none" : "all",
+                    filter: disabled ? "grayscale(100%)" : "none",
                     height: "2.4rem",
                     width: "2.4rem",
                     padding: ".4rem",

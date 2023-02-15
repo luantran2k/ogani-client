@@ -6,7 +6,7 @@ export interface IAdminSideBarProps {}
 
 export default function AdminSideBar(props: IAdminSideBarProps) {
     return (
-        <Stack>
+        <Stack bgcolor={lightGreen[50]} height="100vh">
             <Link to="/">
                 <img
                     src={logo}
@@ -14,6 +14,7 @@ export default function AdminSideBar(props: IAdminSideBarProps) {
                     style={{
                         display: "block",
                         margin: "2rem auto",
+                        padding: "0 2rem",
                     }}
                 />
             </Link>

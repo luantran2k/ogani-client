@@ -8,7 +8,7 @@ const products: Product[] = new Array(10).fill(undefined).map((p, i) => {
     return {
         id: i,
         categories: ["all"],
-        image: `/images/latest-product/lp-${productNumber}.jpg`,
+        images: [`/images/latest-product/lp-${productNumber}.jpg`],
         name: `Product ${productNumber}`,
         price: i * 100,
     };

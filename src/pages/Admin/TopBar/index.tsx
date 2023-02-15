@@ -1,6 +1,7 @@
 import { Menu } from "@mui/icons-material";
 import {
     AppBar,
+    Drawer,
     MenuItem,
     Stack,
     TextField,
@@ -8,13 +9,15 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import { lightGreen } from "@mui/material/colors";
+import { useState } from "react";
 import UserControl from "../../../components/TopBar/Login/UserControl";
-import { useAdminPageSettings } from "../../../stores/adminPageSetting";
+import AdminSideBar from "../SideBar";
 
 export interface IAdminTopBarProps {}
 
 export default function AdminTopBar(props: IAdminTopBarProps) {
-    const { isSideBarOpen, toggleSideBar } = useAdminPageSettings();
+    const [isSideBarOpen, setIsSideBarOpen] = useState(false);
     return (
         <AppBar
             color="transparent"
@@ -23,9 +26,20 @@ export default function AdminTopBar(props: IAdminTopBarProps) {
         >
             <Toolbar>
                 <Stack direction="row" flex={1}>
-                    <MenuItem onClick={() => toggleSideBar()}>
+                    <MenuItem
+                        onClick={() => {
+                            setIsSideBarOpen(true);
+                        }}
+                        sx={{ display: { xs: "block", md: "none" } }}
+                    >
                         <Menu />
                     </MenuItem>
+                    <Drawer
+                        open={isSideBarOpen}
+                        onClose={() => setIsSideBarOpen(false)}
+                    >
+                        <AdminSideBar />
+                    </Drawer>
                 </Stack>
                 <UserControl />
             </Toolbar>

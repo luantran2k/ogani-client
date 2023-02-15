@@ -9,7 +9,7 @@ export interface IHotSaleCardProps {
 
 export default function HotSaleCard(props: IHotSaleCardProps) {
     const { product } = props;
-    const { id, name, price, salePercent, image } = product;
+    const { id, name, price, salePercent, images } = product;
     return (
         <Stack direction="row" spacing={1}>
             <Box
@@ -19,7 +19,7 @@ export default function HotSaleCard(props: IHotSaleCardProps) {
                 borderRadius="1rem"
             >
                 <img
-                    src={image}
+                    src={images[0]}
                     alt=""
                     style={{
                         width: "100%",

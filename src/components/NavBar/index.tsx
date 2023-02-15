@@ -22,7 +22,7 @@ export default function Navbar(props: INavbarProps) {
             <Container>
                 <Stack
                     direction="row"
-                    spacing={4}
+                    spacing={{ xs: 0, md: 4 }}
                     alignItems="center"
                     padding=".4rem 0"
                 >
@@ -64,14 +64,8 @@ export default function Navbar(props: INavbarProps) {
                                 Contact
                             </NavLink>
                         </Stack>
-                        <Stack
-                            className={styles.options}
-                            direction="row"
-                            alignItems="center"
-                        >
-                            <Cart />
-                        </Stack>
                     </Stack>
+                    <Cart />
                     <MobileNav />
                 </Stack>
             </Container>

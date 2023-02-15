@@ -14,7 +14,7 @@ export default function Cart(props: ICartProps) {
         <Stack direction="row" spacing={2} alignItems="center">
             <PopupMenu
                 trigger={
-                    <Box sx={{ position: "relative" }}>
+                    <Box sx={{ position: "relative", marginTop: ".5rem" }}>
                         <ShoppingCart
                             sx={{ cursor: "pointer", fontSize: "1.8rem" }}
                         ></ShoppingCart>

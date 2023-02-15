@@ -8,12 +8,12 @@ export interface ILatestProductCardProps {
 
 export default function LatestProductCard(props: ILatestProductCardProps) {
     const { product } = props;
-    const { id, name, image, price } = product;
+    const { id, name, images, price } = product;
     return (
         <Stack direction="row" spacing={2}>
             <Box borderRadius="1rem" overflow="hidden">
                 <img
-                    src={image}
+                    src={images[0]}
                     alt=""
                     style={{
                         height: "100%",

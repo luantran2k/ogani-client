@@ -42,7 +42,6 @@ export default function MobileNav(props: IMobileNavProps) {
                             style={{ width: "60%" }}
                         />
                     </Link>
-                    <Cart />
                     <Stack direction="row" spacing={2}>
                         <Language />
                         <Login />

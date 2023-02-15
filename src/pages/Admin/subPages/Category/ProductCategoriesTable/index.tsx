@@ -11,6 +11,7 @@ import {
     TableHead,
     TablePagination,
     TableRow,
+    TableSortLabel,
     TextField,
     Typography,
 } from "@mui/material";
@@ -105,7 +106,11 @@ export default function ProductCategoriesTable(
     return (
         <Stack spacing={4}>
             <Typography variant="h4">Product Categories</Typography>
-            <Stack direction="row" justifyContent="space-between">
+            <Stack
+                direction={{ xs: "column", sm: "row" }}
+                justifyContent="space-between"
+                spacing={4}
+            >
                 <TextField
                     placeholder="Search"
                     value={search}
@@ -116,7 +121,7 @@ export default function ProductCategoriesTable(
                         }))
                     }
                 />
-                <Stack direction="row" spacing={2}>
+                <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
                     <ConfirmModal
                         trigger={
                             <Button
@@ -164,7 +169,10 @@ export default function ProductCategoriesTable(
                                 />
                             </TableCell>
                             <TableCell width="2rem"></TableCell>
-                            <TableCell>Name</TableCell>
+
+                            <TableCell>
+                                <TableSortLabel>Name</TableSortLabel>
+                            </TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                         </TableRow>
