@@ -1,27 +1,23 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Typography, Stack, TextField, Button } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useRef, useState } from "react";
-import { updateProductCategory } from "../../../../../../apis/productCategories";
+import { createProductCategory } from "../../../../../../apis/productCategories";
 import AppModal, { AppModalRef } from "../../../../../../components/Modal";
 import { ProductCategory } from "../../../../../../types/Product/Category";
 
-export interface IUpdateProductCategoryModalProps {
-    productCategory: ProductCategory;
-}
-export default function UpdateProductCategoryModal(
-    props: IUpdateProductCategoryModalProps
+export interface IAddProductCategoryModalProps {}
+
+export default function AddProductCategoryModal(
+    props: IAddProductCategoryModalProps
 ) {
     const nameRef = useRef<HTMLInputElement>(null);
     const appModalRef = useRef<AppModalRef>(null);
-    const [error, setError] = useState("");
-    const { productCategory } = props;
-    const { id, name } = productCategory;
     const queryClient = useQueryClient();
-
-    const updateProductCategoryMutation = useMutation({
-        mutationFn: updateProductCategory,
+    const [error, setError] = useState("");
+    const addProductCategoryMutation = useMutation({
+        mutationFn: createProductCategory,
         onSuccess: () => {
             appModalRef.current?.setOpen(false);
             queryClient.invalidateQueries(["productCategories"]);
@@ -31,20 +27,11 @@ export default function UpdateProductCategoryModal(
             setError(error.message);
         },
     });
-    const { data, isError, isLoading } = updateProductCategoryMutation;
+    const { data, isError, isLoading } = addProductCategoryMutation;
 
     return (
         <AppModal
-            trigger={
-                <Typography
-                    sx={{
-                        color: blue[700],
-                        cursor: "pointer",
-                    }}
-                >
-                    Update
-                </Typography>
-            }
+            trigger={<Button variant="contained">Add</Button>}
             sx={{ color: blue[700] }}
             ref={appModalRef}
         >
@@ -60,15 +47,14 @@ export default function UpdateProductCategoryModal(
                     variant="contained"
                     onClick={(e) => {
                         if (nameRef.current) {
-                            updateProductCategoryMutation.mutate({
-                                id,
+                            addProductCategoryMutation.mutate({
                                 name: nameRef.current.value,
                             });
                         }
                     }}
                     disabled={isLoading}
                 >
-                    Save
+                    Add
                 </Button>
             </Stack>
         </AppModal>

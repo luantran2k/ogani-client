@@ -11,7 +11,6 @@ export interface IConfirmModalProps {
 
 export default function ConfirmModal(props: IConfirmModalProps) {
     const { trigger, onConfirm, question, questionStyle } = props;
-    const [isConfirm, setConfirm] = useState(false);
     const appModalRef = useRef<AppModalRef>(null);
     return (
         <AppModal trigger={trigger} ref={appModalRef}>
