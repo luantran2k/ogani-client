@@ -2,12 +2,12 @@ import { Favorite, ShoppingCart } from "@mui/icons-material";
 import { Box, Button, Stack, SxProps, Theme, Typography } from "@mui/material";
 import { grey, lightGreen, red } from "@mui/material/colors";
 import { Link } from "react-router-dom";
+import { Product } from "../../../schemas/product";
 import {
     getLastPrice,
     getSalePercent,
     useCartStore,
 } from "../../../stores/cartStore";
-import { Product } from "../../../types/Product";
 import RoundIcon from "../../Icon";
 import Price from "../../Typography/Price";
 

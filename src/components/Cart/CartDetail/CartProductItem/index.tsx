@@ -10,8 +10,8 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
+import { ProductCart } from "../../../../schemas/product";
 import { getLastPrice, useCartStore } from "../../../../stores/cartStore";
-import { ProductCart } from "../../../../types/Product";
 
 export interface ICardProductItemProps {
     product: ProductCart;

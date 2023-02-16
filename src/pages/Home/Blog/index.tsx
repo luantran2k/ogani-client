@@ -1,7 +1,7 @@
 import { Grid, Stack } from "@mui/material";
 import BlogCard from "../../../components/Card/BlogCard";
 import SectionTitle from "../../../components/Typography/SectionTitle";
-import { BlogPreview } from "../../../types/Blog";
+import { BlogPreview } from "../../../schemas/blog";
 
 export interface IHomeBlogProps {}
 const blogs: BlogPreview[] = [

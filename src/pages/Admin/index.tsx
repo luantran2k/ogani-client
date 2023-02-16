@@ -26,6 +26,7 @@ export default function AdminPage(props: IAdminPageProps) {
                 <Box
                     padding="1rem"
                     width={{ xs: "100vw", md: "auto" }}
+                    height="calc(100vh - 4rem)"
                     overflow="auto"
                 >
                     <Outlet />

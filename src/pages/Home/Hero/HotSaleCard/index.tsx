@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
 import Price from "../../../../components/Typography/Price";
-import { Product } from "../../../../types/Product";
+import { Product } from "../../../../schemas/product";
 
 export interface IHotSaleCardProps {
     product: Product;

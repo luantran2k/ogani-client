@@ -1,6 +1,6 @@
 import {
-    Box,
     Checkbox,
+    MenuItem,
     Paper,
     Table,
     TableBody,
@@ -10,7 +10,16 @@ import {
     TablePagination,
     TableRow,
 } from "@mui/material";
-import { ReactNode, useState } from "react";
+import { lightGreen } from "@mui/material/colors";
+import {
+    Dispatch,
+    ReactElement,
+    ReactNode,
+    Ref,
+    SetStateAction,
+    useImperativeHandle,
+    useState,
+} from "react";
 import TableImagesPreview from "./ImagesPreview";
 
 export interface ITableOptions {
@@ -28,19 +37,36 @@ export interface ITableHeader<T> {
 export interface IAppTableProps<T> {
     tableHeads: ITableHeader<T>[];
     items: T[];
+    tableRef?: Ref<IAppTableRef>;
     onClickDelete?: Function;
     onClickUpdate?: Function;
+    createElement?: ReactElement;
+    tableOptions: ITableOptions;
+    setTableOptions: Dispatch<SetStateAction<ITableOptions>>;
 }
 
-export default function AppTable<T extends object & { id: string | number }>(
+export interface IAppTableRef {
+    selected: (number | string)[];
+}
+
+function AppTable<T extends object & { id: string | number }>(
     props: IAppTableProps<T>
 ) {
-    const { tableHeads, items, onClickDelete, onClickUpdate } = props;
+    const {
+        tableHeads,
+        items,
+        onClickDelete,
+        onClickUpdate,
+        createElement,
+        tableRef,
+        tableOptions,
+        setTableOptions,
+    } = props;
     const [selected, setSelected] = useState<(number | string)[]>([]);
-    const [tableOptions, setTableOptions] = useState<ITableOptions>({
-        page: 0,
-        rowsPerPage: 10,
-    });
+
+    useImperativeHandle(tableRef, () => ({
+        selected,
+    }));
 
     const handleChangeCheckBox = (id: number | string, selected: boolean) => {
         if (selected) {
@@ -63,6 +89,7 @@ export default function AppTable<T extends object & { id: string | number }>(
             <Table>
                 <TableHead
                     sx={{
+                        bgcolor: lightGreen[100],
                         th: {
                             fontWeight: "bold",
                         },
@@ -90,6 +117,8 @@ export default function AppTable<T extends object & { id: string | number }>(
                                 {tableHead.label}
                             </TableCell>
                         ))}
+                        {onClickUpdate && <TableCell width="1rem"></TableCell>}
+                        {onClickDelete && <TableCell width="1rem"></TableCell>}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -116,7 +145,11 @@ export default function AppTable<T extends object & { id: string | number }>(
                             {tableHeads.map((tableHead) => {
                                 if (tableHead.isImages) {
                                     return (
-                                        <TableCell>
+                                        <TableCell
+                                            key={
+                                                String(tableHead.field) + "head"
+                                            }
+                                        >
                                             <TableImagesPreview
                                                 srcs={
                                                     item[
@@ -128,11 +161,31 @@ export default function AppTable<T extends object & { id: string | number }>(
                                     );
                                 }
                                 return (
-                                    <TableCell>
+                                    <TableCell
+                                        key={String(tableHead.field) + "head"}
+                                    >
                                         {item[tableHead.field] as ReactNode}
                                     </TableCell>
                                 );
                             })}
+                            {onClickUpdate && (
+                                <TableCell width="1rem">
+                                    <MenuItem
+                                        onClick={() => onClickUpdate(item.id)}
+                                    >
+                                        Update
+                                    </MenuItem>
+                                </TableCell>
+                            )}
+                            {onClickDelete && (
+                                <TableCell width="1rem">
+                                    <MenuItem
+                                        onClick={() => onClickDelete(item.id)}
+                                    >
+                                        Delete
+                                    </MenuItem>
+                                </TableCell>
+                            )}
                         </TableRow>
                     ))}
                 </TableBody>
@@ -158,3 +211,9 @@ export default function AppTable<T extends object & { id: string | number }>(
         </TableContainer>
     );
 }
+
+export default AppTable;
+// const A = forwardRef<
+//     IAppTableRef,
+//     IAppTableProps<object & { id: string | number }>
+// >(AppTable);

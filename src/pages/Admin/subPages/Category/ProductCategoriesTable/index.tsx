@@ -1,8 +1,6 @@
 import {
     Button,
     Checkbox,
-    colors,
-    MenuItem,
     Stack,
     Table,
     TableBody,
@@ -15,16 +13,14 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import { blue, red } from "@mui/material/colors";
 import Paper from "@mui/material/Paper";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Axios, AxiosError } from "axios";
-import { useDeferredValue, useState, useTransition } from "react";
+import { AxiosError } from "axios";
+import { useDeferredValue, useState } from "react";
 import {
     deleteProductCategories,
     getProductCategories,
 } from "../../../../../apis/productCategories";
-import AppModal from "../../../../../components/Modal";
 import ConfirmModal from "../../../../../components/Modal/ConfirmModal";
 import { useNotificationStore } from "../../../../../stores/notificationStore";
 import BaseFilter from "../../../../../types/base/BaseFilter";
@@ -196,12 +192,20 @@ export default function ProductCategoriesTable(
                                 <TableCell>{name}</TableCell>
                                 <TableCell width="1rem">
                                     <UpdateProductCategoryModal
-                                        productCategory={{ id, name }}
+                                        productCategory={{
+                                            id,
+                                            name,
+                                            image: "",
+                                        }}
                                     />
                                 </TableCell>
                                 <TableCell width="1rem">
                                     <DeleteProductCategoryModal
-                                        productCategory={{ id, name }}
+                                        productCategory={{
+                                            id,
+                                            name,
+                                            image: "",
+                                        }}
                                     />
                                 </TableCell>
                             </TableRow>

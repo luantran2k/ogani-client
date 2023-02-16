@@ -1,25 +1,12 @@
-import { ArrowBackIosNew } from "@mui/icons-material";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useRef } from "react";
 import { SwiperSlide } from "swiper/react";
 import RoundArrowButton from "../../../../components/Button/RoundArrowButton";
-import CategoryCard from "../../../../components/Card/CategoryCard";
 import Slide, { SildeRef } from "../../../../components/Slide";
-import { Product } from "../../../../types/Product";
-import { items } from "../../Category";
-import { Swiper as SwiperType } from "swiper";
+import { Product } from "../../../../schemas/product";
+import { chunkArray } from "../../../../utils/utils";
 import LatestProductCard from "./Card";
 
-const chunkArray = <T,>(array: T[], size: number): T[][] => {
-    const length = array.length;
-    const res: T[][] = [];
-    let index: number = size;
-    for (let i = 0; i < length; i += size) {
-        res.push(array.slice(i, index));
-        index += size;
-    }
-    return res;
-};
 export interface ILatestProductSlideProps {
     products: Product[];
 }

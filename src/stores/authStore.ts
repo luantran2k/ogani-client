@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { UserInfo } from "./../types/User/index";
+import { UserInfo } from "../schemas/user";
 
 export interface AuthStore {
     info?: UserInfo;

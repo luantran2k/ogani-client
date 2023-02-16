@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import { Product } from "../../../../../types/Product";
+import { Product } from "../../../../../schemas/product";
 
 export interface ILatestProductCardProps {
     product: Product;

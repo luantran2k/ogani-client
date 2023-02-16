@@ -2,10 +2,9 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import ProductCard from "../../../../components/Card/ProductCard";
 import { products } from "../../../../mock/product";
-import { ProductCategoryType } from "../../../../types/Product/Category";
 
 export interface IProductListProps {
-    active: ProductCategoryType;
+    active: string;
 }
 
 export default function ProductList(props: IProductListProps) {
@@ -16,7 +15,7 @@ export default function ProductList(props: IProductListProps) {
     const filterProduct = products.filter(
         (product) =>
             active === "all" ||
-            product.categories.some((category) => category === active)
+            product.categories.some((category) => category.name === active)
     );
 
     if (filterProduct.length == 0) {

@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import { useRef, useState } from "react";
 import { updateProductCategory } from "../../../../../../apis/productCategories";
 import AppModal, { AppModalRef } from "../../../../../../components/Modal";
-import { ProductCategory } from "../../../../../../types/Product/Category";
+import { ProductCategory } from "../../../../../../schemas/productCategory";
 
 export interface IUpdateProductCategoryModalProps {
     productCategory: ProductCategory;
@@ -63,6 +63,7 @@ export default function UpdateProductCategoryModal(
                             updateProductCategoryMutation.mutate({
                                 id,
                                 name: nameRef.current.value,
+                                image: "",
                             });
                         }
                     }}

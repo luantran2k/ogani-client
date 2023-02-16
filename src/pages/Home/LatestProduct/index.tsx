@@ -1,5 +1,6 @@
-import { Box, Container, Grid, Stack } from "@mui/material";
-import { Product } from "../../../types/Product";
+import { Grid } from "@mui/material";
+import { Product } from "../../../schemas/product";
+
 import LatestProductSlide from "./Slide";
 
 export interface ILatestProductProps {}
@@ -7,7 +8,7 @@ const products: Product[] = new Array(10).fill(undefined).map((p, i) => {
     const productNumber = Math.floor(Math.random() * 3 + 1);
     return {
         id: i,
-        categories: ["all"],
+        categories: [],
         images: [`/images/latest-product/lp-${productNumber}.jpg`],
         name: `Product ${productNumber}`,
         price: i * 100,

@@ -5,8 +5,7 @@ import {
 } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import { BlogPreview } from "../../../types/Blog";
-
+import { BlogPreview } from "../../../schemas/blog";
 export interface IBlogCardProps {
     blog: BlogPreview;
 }

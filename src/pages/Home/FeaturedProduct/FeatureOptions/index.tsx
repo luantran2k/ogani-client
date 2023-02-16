@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
-import { ProductCategoryType } from "../../../../types/Product/Category";
-const productItems: { title: string; value: ProductCategoryType }[] = [
+import { ProductCategory } from "../../../../schemas/productCategory";
+const productItems: { title: string; value: string }[] = [
     {
         title: "All",
         value: "all",
@@ -25,7 +25,7 @@ const productItems: { title: string; value: ProductCategoryType }[] = [
 ];
 export interface IFeatureOptionsProps {
     active: string;
-    setActive: React.Dispatch<React.SetStateAction<ProductCategoryType>>;
+    setActive: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function FeatureOptions(props: IFeatureOptionsProps) {

@@ -3,7 +3,7 @@ import { red } from "@mui/material/colors";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProductCategory } from "../../../../../../apis/productCategories";
 import ConfirmModal from "../../../../../../components/Modal/ConfirmModal";
-import { ProductCategory } from "../../../../../../types/Product/Category";
+import { ProductCategory } from "../../../../../../schemas/productCategory";
 
 export interface IDeleteProductCategoryModalProps {
     productCategory: ProductCategory;
