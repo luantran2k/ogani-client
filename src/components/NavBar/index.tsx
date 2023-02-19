@@ -47,14 +47,14 @@ export default function Navbar(props: INavbarProps) {
                             >
                                 shop
                             </NavLink>
-                            <NavLink
+                            {/* <NavLink
                                 to={"/blogs"}
                                 className={({ isActive }) =>
                                     isActive ? styles.active : ""
                                 }
                             >
                                 Blog
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink
                                 to={"/contact"}
                                 className={({ isActive }) =>

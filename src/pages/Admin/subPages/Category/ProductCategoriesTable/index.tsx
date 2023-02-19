@@ -22,6 +22,7 @@ import {
     getProductCategories,
 } from "../../../../../apis/productCategories";
 import ConfirmModal from "../../../../../components/Modal/ConfirmModal";
+import { useProductCategories } from "../../../../../hooks/productCategories";
 import { useNotificationStore } from "../../../../../stores/notificationStore";
 import BaseFilter from "../../../../../types/base/BaseFilter";
 import AddProductCategoryModal from "./AddModal";
@@ -32,21 +33,16 @@ export interface IProductCategoriesTableProps {}
 export default function ProductCategoriesTable(
     props: IProductCategoriesTableProps
 ) {
-    const [filter, setFilter] = useState<BaseFilter>({
-        page: 0,
-        quantity: 10,
-        search: "",
-    });
+    const {
+        filter,
+        setFilter,
+        productCategoriesQuery,
+        deleteProductCategoriesMutation,
+    } = useProductCategories();
     const { page, quantity, search } = filter;
-    const defferedSearch = useDeferredValue(search);
     const [selected, setSelected] = useState<number[]>([]);
-    const { pushNotification } = useNotificationStore();
-    const productCategoriesQuery = useQuery({
-        queryKey: ["productCategories", filter],
-        queryFn: () => getProductCategories(filter),
-        keepPreviousData: true,
-        staleTime: 1000 * 60 * 10,
-    });
+    const { data, error, isLoading } = productCategoriesQuery;
+
     const handleChangeCheckBox = (id: number, selected: boolean) => {
         if (selected) {
             setSelected((selected) => [...selected, id]);
@@ -63,18 +59,6 @@ export default function ProductCategoriesTable(
     const deselectAll = () => {
         setSelected([]);
     };
-
-    const querryClient = useQueryClient();
-    const deleteProductCategoriesMutation = useMutation({
-        mutationFn: deleteProductCategories,
-        onSuccess: () => {
-            querryClient.invalidateQueries(["productCategories"]);
-        },
-        onError: (error: AxiosError) => {
-            pushNotification({ message: error.message, severity: "error" });
-        },
-    });
-    const { data, error, isLoading } = productCategoriesQuery;
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,

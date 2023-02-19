@@ -1,5 +1,6 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { getProducts } from "../../../../apis/products";
 import ElasticLoading from "../../../../components/Loading/ElasticLoading";
 import AppModal from "../../../../components/Modal";
@@ -32,7 +33,9 @@ const tableHeads: ITableHeader<Product>[] = [
 ];
 
 export default function AdminProductPage(props: IAdminProductPageProps) {
+    const navigate = useNavigate();
     const { tableOptions, setTableOptions, tableRef } = useTable();
+
     const { getProductsQuery } = useProducts();
     const { data, isError, isLoading } = getProductsQuery({
         page: tableOptions.page,
@@ -66,7 +69,14 @@ export default function AdminProductPage(props: IAdminProductPageProps) {
                     >
                         Delete
                     </Button>
-                    <CreateProductModal />
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            navigate("create");
+                        }}
+                    >
+                        Create
+                    </Button>
                 </Stack>
             </Stack>
             <AppTable<Product>

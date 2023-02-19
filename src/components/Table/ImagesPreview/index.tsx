@@ -1,5 +1,5 @@
 import { Close } from "@mui/icons-material";
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Badge, Box, Button, Stack, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { positions } from "@mui/system";
 import { useRef, useState } from "react";
@@ -14,29 +14,35 @@ export default function TableImagesPreview(props: ITableImagesPreviewProps) {
     const { srcs } = props;
     const [imageIndex, setImageIndex] = useState(0);
     const appModalRef = useRef<AppModalRef>(null);
+    const restImages = srcs.length - 1;
     return (
         <AppModal
             ref={appModalRef}
             trigger={
-                <Box
-                    sx={{
-                        width: "3.2rem",
-                        height: "3.2rem",
-                        overflow: "hidden",
-                        borderRadius: ".4rem",
-                    }}
+                <Badge
+                    badgeContent={restImages > 0 ? "+" + restImages : undefined}
+                    color="primary"
                 >
-                    <img
-                        src={srcs[0] || ""}
-                        alt=""
-                        style={{
-                            height: "100%",
-                            width: "100%",
-                            objectFit: "cover",
-                            objectPosition: "center",
+                    <Box
+                        sx={{
+                            width: "3.2rem",
+                            height: "3.2rem",
+                            overflow: "hidden",
+                            borderRadius: ".4rem",
                         }}
-                    />
-                </Box>
+                    >
+                        <img
+                            src={srcs[0] || ""}
+                            alt=""
+                            style={{
+                                height: "100%",
+                                width: "100%",
+                                objectFit: "cover",
+                                objectPosition: "center",
+                            }}
+                        />
+                    </Box>
+                </Badge>
             }
             defaultStyles={false}
             sx={{

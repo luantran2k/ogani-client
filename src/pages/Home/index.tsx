@@ -17,7 +17,7 @@ export default function HomePage(props: IHomePageProps) {
             <FeaturedProduct />
             <Banner />
             <LatestProduct />
-            <HomeBlog />
+            {/* <HomeBlog /> */}
         </Container>
     );
 }

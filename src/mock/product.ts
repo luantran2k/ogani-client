@@ -26,6 +26,7 @@ export const products: Product[] = [
         ],
         name: "Pork",
         price: 100,
+        quantity: 12,
         categories,
     },
     {
@@ -33,6 +34,7 @@ export const products: Product[] = [
         images: ["/images/featured/feature-2.jpg"],
         name: "Banana",
         price: 200,
+        quantity: 12,
         categories,
         salePercent: 20,
     },
@@ -41,6 +43,7 @@ export const products: Product[] = [
         images: ["/images/featured/feature-3.jpg"],
         name: "Guava",
         price: 300,
+        quantity: 12,
         categories,
     },
     {
@@ -48,6 +51,7 @@ export const products: Product[] = [
         images: ["/images/featured/feature-4.jpg"],
         name: "Watermelon",
         price: 400,
+        quantity: 12,
         categories,
     },
     {
@@ -55,6 +59,7 @@ export const products: Product[] = [
         images: ["/images/featured/feature-5.jpg"],
         name: "Grape",
         price: 500,
+        quantity: 12,
         categories,
     },
     {
@@ -62,6 +67,7 @@ export const products: Product[] = [
         images: ["/images/featured/feature-6.jpg"],
         name: "Hamburger",
         price: 500,
+        quantity: 12,
         categories,
     },
     {
@@ -69,6 +75,7 @@ export const products: Product[] = [
         images: ["/images/featured/feature-7.jpg"],
         name: "Mango",
         price: 500,
+        quantity: 12,
         categories,
     },
     {
@@ -76,6 +83,7 @@ export const products: Product[] = [
         images: ["/images/featured/feature-8.jpg"],
         name: "Apple",
         price: 500,
+        quantity: 12,
         categories,
     },
 ];

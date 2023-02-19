@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/scss/index.scss";
 import AppNotifications from "./components/AppNotifications";
@@ -7,7 +7,6 @@ import LoginForm from "./pages/Login/LoginForm";
 import RegisterForm from "./pages/Login/RegisterForm";
 import ProductPage from "./pages/Product";
 import ProductDetailPage from "./pages/Product/ProductDetail";
-import { request } from "./utils/request";
 const RootLayout = lazy(() => import("./layouts/Root"));
 const BlogsPage = lazy(() => import("./pages/Blog"));
 const ContactPage = lazy(() => import("./pages/Contact"));
@@ -22,6 +21,9 @@ const AdminProductPage = lazy(() => import("./pages/Admin/subPages/Product"));
 const AdminCategoryPage = lazy(() => import("./pages/Admin/subPages/Category"));
 const AdminUserPage = lazy(() => import("./pages/Admin/subPages/User"));
 const AdminBlogPage = lazy(() => import("./pages/Admin/subPages/Blog"));
+const CreateProductPage = lazy(
+    () => import("./pages/Admin/subPages/Product/CreateProduct")
+);
 
 function App() {
     return (
@@ -93,22 +95,24 @@ function App() {
                                 </Suspense>
                             }
                         ></Route>
-                        <Route
-                            path="dashboard"
-                            element={
-                                <Suspense fallback={<ElasticLoading />}>
-                                    <AdminDashboardPage />
-                                </Suspense>
-                            }
-                        ></Route>
-                        <Route
-                            path="products"
-                            element={
-                                <Suspense fallback={<ElasticLoading />}>
-                                    <AdminProductPage />
-                                </Suspense>
-                            }
-                        ></Route>
+                        <Route path="products">
+                            <Route
+                                index
+                                element={
+                                    <Suspense fallback={<ElasticLoading />}>
+                                        <AdminProductPage />
+                                    </Suspense>
+                                }
+                            ></Route>
+                            <Route
+                                path="create"
+                                element={
+                                    <Suspense fallback={<ElasticLoading />}>
+                                        <CreateProductPage />
+                                    </Suspense>
+                                }
+                            ></Route>
+                        </Route>
                         <Route
                             path="categories"
                             element={

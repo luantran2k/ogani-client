@@ -1,6 +1,7 @@
+import { Delete, Edit } from "@mui/icons-material";
 import {
+    Button,
     Checkbox,
-    MenuItem,
     Paper,
     Table,
     TableBody,
@@ -169,21 +170,25 @@ function AppTable<T extends object & { id: string | number }>(
                                 );
                             })}
                             {onClickUpdate && (
-                                <TableCell width="1rem">
-                                    <MenuItem
+                                <TableCell>
+                                    <Button
+                                        variant="outlined"
+                                        color="info"
                                         onClick={() => onClickUpdate(item.id)}
                                     >
-                                        Update
-                                    </MenuItem>
+                                        <Edit />
+                                    </Button>
                                 </TableCell>
                             )}
                             {onClickDelete && (
-                                <TableCell width="1rem">
-                                    <MenuItem
+                                <TableCell>
+                                    <Button
+                                        variant="outlined"
+                                        color="error"
                                         onClick={() => onClickDelete(item.id)}
                                     >
-                                        Delete
-                                    </MenuItem>
+                                        <Delete />
+                                    </Button>
                                 </TableCell>
                             )}
                         </TableRow>

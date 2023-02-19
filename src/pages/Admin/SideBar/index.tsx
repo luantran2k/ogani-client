@@ -1,5 +1,6 @@
 import { MenuItem, Stack } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
+import { Dispatch, SetStateAction } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/images/logo.png";
 export interface IAdminSideBarProps {}
@@ -33,7 +34,7 @@ export default function AdminSideBar(props: IAdminSideBarProps) {
                     },
                 }}
             >
-                <NavLink to={"dashboard"}>
+                <NavLink to={"/admin"} end>
                     <MenuItem>Dashboard</MenuItem>
                 </NavLink>
                 <NavLink to={"products"}>
@@ -45,9 +46,9 @@ export default function AdminSideBar(props: IAdminSideBarProps) {
                 <NavLink to={"users"}>
                     <MenuItem>User</MenuItem>
                 </NavLink>
-                <NavLink to={"blogs"}>
+                {/* <NavLink to={"blogs"}>
                     <MenuItem>Blog</MenuItem>
-                </NavLink>
+                </NavLink> */}
             </Stack>
         </Stack>
     );
