@@ -5,11 +5,10 @@ import { getProducts } from "../../../../apis/products";
 import ElasticLoading from "../../../../components/Loading/ElasticLoading";
 import AppModal from "../../../../components/Modal";
 import AppTable, { ITableHeader } from "../../../../components/Table";
-import useProducts from "../../../../hooks/products";
+import { useProducts } from "../../../../hooks/products";
 import { useTable } from "../../../../hooks/table";
 import { products } from "../../../../mock/product";
 import { Product } from "../../../../schemas/product";
-import CreateProductModal from "./CreateProductModal";
 
 export interface IAdminProductPageProps {}
 const tableHeads: ITableHeader<Product>[] = [

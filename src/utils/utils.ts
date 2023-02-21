@@ -17,3 +17,8 @@ export const assginValueForPropertyOfObject = <T, Prop extends keyof T>(
     obj[prop] = value;
     return obj;
 };
+export const getMinMax = (array: number[]) => {
+    const min = Math.min(...array);
+    const max = Math.max(...array);
+    return { min, max };
+};

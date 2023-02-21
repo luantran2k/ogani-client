@@ -2,27 +2,30 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Box, Grid, Typography, useMediaQuery } from "@mui/material";
 import ProductCard from "../../../../components/Card/ProductCard";
 import { products } from "../../../../mock/product";
+import { ProductCardType } from "../../../../schemas/product";
+import { ProductCategory } from "../../../../schemas/productCategory";
 
 export interface IProductListProps {
-    active: string;
+    active?: number;
+    featuredProduct: ProductCardType[];
 }
 
 export default function ProductList(props: IProductListProps) {
-    const { active } = props;
+    const { active, featuredProduct } = props;
     const matchSx = useMediaQuery("(min-width: 25rem)");
     const [parent, enableAnimations] = useAutoAnimate();
 
-    const filterProduct = products.filter(
+    const filterProduct = featuredProduct.filter(
         (product) =>
-            active === "all" ||
-            product.categories.some((category) => category.name === active)
+            active === undefined ||
+            product.categoryIds.some((id) => id === active)
     );
 
     if (filterProduct.length == 0) {
         return (
             <Box minHeight="24rem">
                 <Typography textAlign="center" fontSize="2rem">
-                    Not Found
+                    Empty
                 </Typography>
             </Box>
         );

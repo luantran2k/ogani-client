@@ -4,7 +4,7 @@ import { Swiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { Box, SxProps, Theme, useMediaQuery, useTheme } from "@mui/material";
 import React, { ReactNode, useImperativeHandle, useRef } from "react";
 import { Autoplay, Swiper as SwiperType } from "swiper";
 import RoundArrowButton from "../Button/RoundArrowButton";
@@ -16,6 +16,7 @@ export interface ISlideProps {
     slidesPerView?: number;
     flex?: string;
     navigation?: boolean;
+    sx?: SxProps<Theme>;
 }
 
 export interface SildeRef {
@@ -46,6 +47,7 @@ export default React.forwardRef<SildeRef, ISlideProps>(function Slide(
         navigation = true,
         children,
         slidesPerView = matchMd ? 4 : matchSm ? 3 : matchSx ? 2 : 1,
+        sx,
     } = props;
 
     const handleNextSlide = () => swiperRef.current?.slideNext();
@@ -82,7 +84,7 @@ export default React.forwardRef<SildeRef, ISlideProps>(function Slide(
     );
 
     return (
-        <Box position="relative">
+        <Box position="relative" sx={sx}>
             <Swiper
                 speed={1000}
                 slidesPerView={slidesPerView}

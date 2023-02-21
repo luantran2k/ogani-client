@@ -1,7 +1,10 @@
+@use "../../../assets/scss/variables/index.scss" as *;
+
 .backgroundImage {
-    object-fit: cover;
+    object-fit: contain;
     height: 100%;
     width: 100%;
+    background-color: $blue-grey-50;
     transition: all 0.2s ease-in-out;
     &:hover {
         scale: 1.2;

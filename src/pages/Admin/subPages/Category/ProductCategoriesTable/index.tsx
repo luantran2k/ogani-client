@@ -41,7 +41,7 @@ export default function ProductCategoriesTable(
     } = useProductCategories();
     const { page, quantity, search } = filter;
     const [selected, setSelected] = useState<number[]>([]);
-    const { data, error, isLoading } = productCategoriesQuery;
+    const { data, error, isLoading } = productCategoriesQuery();
 
     const handleChangeCheckBox = (id: number, selected: boolean) => {
         if (selected) {

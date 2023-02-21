@@ -1,12 +1,14 @@
 import { Grid, Pagination } from "@mui/material";
 import ProductCard from "../../../components/Card/ProductCard";
-import { products } from "../../../mock/product";
-import ProductList from "../../Home/FeaturedProduct/ProductList";
+import { ProductCardType } from "../../../schemas/product";
 import ShopProductListOptions from "./Options";
 
-export interface IShopProductListProps {}
+export interface IShopProductListProps {
+    products: ProductCardType[];
+}
 
 export default function ShopProductList(props: IShopProductListProps) {
+    const { products } = props;
     return (
         <>
             <ShopProductListOptions numberOfItems={products.length} />

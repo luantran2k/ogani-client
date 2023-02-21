@@ -28,7 +28,7 @@ export const getLastPrice = ({ price, salePercent }: PriceArgument) => {
     return salePercent ? price - (price * salePercent) / 100 : price;
 };
 
-export const getSalePercent = ({ price, salePercent }: PriceArgument) => {
+export const getSalePercent = (salePercent?: number) => {
     return salePercent ? salePercent : undefined;
 };
 

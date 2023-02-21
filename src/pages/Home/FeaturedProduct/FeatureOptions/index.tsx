@@ -1,35 +1,15 @@
 import { Stack } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
 import { ProductCategory } from "../../../../schemas/productCategory";
-const productItems: { title: string; value: string }[] = [
-    {
-        title: "All",
-        value: "all",
-    },
-    {
-        title: "Oranges",
-        value: "oranges",
-    },
-    {
-        title: "Fresh Meat",
-        value: "fresh-meat",
-    },
-    {
-        title: "Vegetables",
-        value: "vegetables",
-    },
-    {
-        title: "Fastfood",
-        value: "fastfood",
-    },
-];
+
 export interface IFeatureOptionsProps {
-    active: string;
-    setActive: React.Dispatch<React.SetStateAction<string>>;
+    active: number | undefined;
+    setActive: React.Dispatch<React.SetStateAction<number | undefined>>;
+    categories: ProductCategory[];
 }
 
 export default function FeatureOptions(props: IFeatureOptionsProps) {
-    const { active, setActive } = props;
+    const { active, setActive, categories } = props;
     return (
         <Stack
             justifyContent="center"
@@ -52,13 +32,20 @@ export default function FeatureOptions(props: IFeatureOptionsProps) {
                 },
             }}
         >
-            {productItems.map((item, index) => (
+            <li
+                key={"all"}
+                className={active === undefined ? "active" : ""}
+                onClick={() => setActive(undefined)}
+            >
+                All
+            </li>
+            {categories.map((category, index) => (
                 <li
-                    key={item.value}
-                    className={active == item.value ? "active" : ""}
-                    onClick={() => setActive(item.value)}
+                    key={category.id}
+                    className={active == category.id ? "active" : ""}
+                    onClick={() => setActive(category.id)}
                 >
-                    {item.title}
+                    {category.name}
                 </li>
             ))}
         </Stack>

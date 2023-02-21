@@ -1,18 +1,7 @@
 import { ProductCategory } from "./../schemas/productCategory";
 import { Product } from "../schemas/product";
 
-const categories: ProductCategory[] = [
-    {
-        id: 1,
-        name: "Meat",
-        image: "img1",
-    },
-    {
-        id: 2,
-        name: "Juice",
-        image: "img2",
-    },
-];
+const categories: number[] = [];
 
 export const products: Product[] = [
     {
@@ -28,6 +17,7 @@ export const products: Product[] = [
         price: 100,
         quantity: 12,
         categories,
+        variant: "",
     },
     {
         id: 2,
@@ -35,8 +25,9 @@ export const products: Product[] = [
         name: "Banana",
         price: 200,
         quantity: 12,
-        categories,
         salePercent: 20,
+        categories,
+        variant: "",
     },
     {
         id: 3,
@@ -45,6 +36,7 @@ export const products: Product[] = [
         price: 300,
         quantity: 12,
         categories,
+        variant: "",
     },
     {
         id: 4,
@@ -53,6 +45,7 @@ export const products: Product[] = [
         price: 400,
         quantity: 12,
         categories,
+        variant: "",
     },
     {
         id: 5,
@@ -61,6 +54,7 @@ export const products: Product[] = [
         price: 500,
         quantity: 12,
         categories,
+        variant: "",
     },
     {
         id: 6,
@@ -69,6 +63,7 @@ export const products: Product[] = [
         price: 500,
         quantity: 12,
         categories,
+        variant: "",
     },
     {
         id: 7,
@@ -77,6 +72,7 @@ export const products: Product[] = [
         price: 500,
         quantity: 12,
         categories,
+        variant: "",
     },
     {
         id: 8,
@@ -85,5 +81,6 @@ export const products: Product[] = [
         price: 500,
         quantity: 12,
         categories,
+        variant: "",
     },
 ];

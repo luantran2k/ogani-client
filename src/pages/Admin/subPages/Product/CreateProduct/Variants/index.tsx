@@ -29,22 +29,45 @@ const getEmptyVariant = (): CreateProductVariant => {
     };
 };
 
+export interface VariantRef {
+    variants: CreateProductVariant[];
+    vaildateVariant: () => void;
+}
 export interface IProductVariantListProps {
-    variantsRef: Ref<CreateProductVariant[]>;
+    variantsRef: Ref<VariantRef>;
 }
 
 export default function ProductVariantList(props: IProductVariantListProps) {
     const { variantsRef } = props;
-    let a: ZodError<CreateProductVariant> | undefined =
-        {} as ZodError<CreateProductVariant>;
     const [variantList] = useAutoAnimate();
-    const [errors, setErrors] = useState<ZodError<CreateProductVariant>[]>([]);
     const [variants, setVariants] = useState<CreateProductVariant[]>([
         getEmptyVariant(),
     ]);
 
-    useImperativeHandle(variantsRef, () => variants);
+    useImperativeHandle(variantsRef, () => ({
+        variants,
+        vaildateVariant,
+    }));
 
+    const vaildateVariant = () => {
+        setVariants((variants) => {
+            const vaildateVariant = variants.map((variant) => {
+                try {
+                    const validVariant = productVariantSchema.parse(variant);
+                    return { ...variant, errors: undefined };
+                } catch (e) {
+                    if (e instanceof ZodError<CreateProductVariant>) {
+                        return {
+                            ...variant,
+                            errors: e.formErrors.fieldErrors,
+                        };
+                    }
+                    throw e;
+                }
+            });
+            return vaildateVariant;
+        });
+    };
     const onBlurUpdateFieldVariant = (
         e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
         id: string,
@@ -61,6 +84,7 @@ export default function ProductVariantList(props: IProductVariantListProps) {
             }
             return newVariants;
         });
+        vaildateVariant();
     };
 
     const handleRemoveVariant = (variantId: string) => {
@@ -68,10 +92,11 @@ export default function ProductVariantList(props: IProductVariantListProps) {
             variants.filter((variant) => variant.id !== variantId)
         );
     };
+
     return (
         <Box ref={variantList} margin="0">
             {variants?.map((variant, index) => (
-                <Grid container spacing={2} key={index} margin="1rem 0">
+                <Grid container spacing={2} key={index} marginLeft={-2}>
                     <Grid item xs={12} display="flex">
                         <Typography variant="h6">
                             Variant {index + 1}
@@ -83,7 +108,7 @@ export default function ProductVariantList(props: IProductVariantListProps) {
                             <Delete />
                         </Button>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             defaultValue={variant.price}
                             type="number"
@@ -101,7 +126,7 @@ export default function ProductVariantList(props: IProductVariantListProps) {
                             fullWidth
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             type="number"
                             defaultValue={variant.salePercent}
@@ -119,7 +144,7 @@ export default function ProductVariantList(props: IProductVariantListProps) {
                             fullWidth
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             type="number"
                             defaultValue={variant.quantity}
@@ -137,7 +162,7 @@ export default function ProductVariantList(props: IProductVariantListProps) {
                             fullWidth
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <TextField
                             label="Variant"
                             defaultValue={variant.variant}
@@ -169,38 +194,13 @@ export default function ProductVariantList(props: IProductVariantListProps) {
                 >
                     Create new variant
                 </Button>
-                <Button
+                {/* <Button
                     color="error"
                     variant="contained"
-                    onClick={() => {
-                        setVariants((variants) => {
-                            const vaildateVariant = variants.map((variant) => {
-                                try {
-                                    const validVariant =
-                                        productVariantSchema.parse(variant);
-                                    console.log(validVariant);
-                                    return { ...variant, errors: undefined };
-                                } catch (e) {
-                                    if (
-                                        e instanceof
-                                        ZodError<CreateProductVariant>
-                                    ) {
-                                        console.log(e.formErrors.fieldErrors);
-                                        return {
-                                            ...variant,
-                                            errors: e.formErrors.fieldErrors,
-                                        };
-                                    }
-                                    throw e;
-                                }
-                            });
-                            console.log(vaildateVariant);
-                            return vaildateVariant;
-                        });
-                    }}
+                    onClick={vaildateVariant}
                 >
                     Check
-                </Button>
+                </Button> */}
             </Stack>
         </Box>
     );

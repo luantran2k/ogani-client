@@ -2,13 +2,13 @@ import { Box, Typography } from "@mui/material";
 import { BOX_SHADOW } from "../../../const/style";
 import styles from "./styles.module.scss";
 export interface ICategoryCardProps {
-    url: string;
+    image: string;
     title: string;
     description?: string;
 }
 
 export default function CategoryCard(props: ICategoryCardProps) {
-    const { url, title, description } = props;
+    const { image, title, description } = props;
     return (
         <Box
             position="relative"
@@ -18,7 +18,7 @@ export default function CategoryCard(props: ICategoryCardProps) {
             sx={{ userSelect: "none", cursor: "pointer" }}
         >
             <img
-                src={url}
+                src={image}
                 alt={description || ""}
                 className={styles.backgroundImage}
             />

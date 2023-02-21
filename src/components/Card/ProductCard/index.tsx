@@ -2,31 +2,44 @@ import { Favorite, ShoppingCart } from "@mui/icons-material";
 import { Box, Button, Stack, SxProps, Theme, Typography } from "@mui/material";
 import { grey, lightGreen, red } from "@mui/material/colors";
 import { Link } from "react-router-dom";
-import { Product } from "../../../schemas/product";
+import { Product, ProductCardType } from "../../../schemas/product";
 import {
     getLastPrice,
     getSalePercent,
     useCartStore,
 } from "../../../stores/cartStore";
+import { getMinMax } from "../../../utils/utils";
 import RoundIcon from "../../Icon";
 import Price from "../../Typography/Price";
 
 export interface IProductCardProps {
-    product: Product;
+    product: ProductCardType;
     sx?: SxProps<Theme>;
 }
 
 export default function ProductCard(props: IProductCardProps) {
     const { product, sx } = props;
-    const { id, images, name, price, salePercent } = product;
     const { addProduct } = useCartStore();
-    const lastPrice = getLastPrice({ price, salePercent });
-    const priceFormat = price.toFixed(2);
-    const lastPriceFormat = lastPrice.toFixed(2);
-    const salePercentDisplay = getSalePercent({
-        price,
-        salePercent,
-    });
+    const { id, images, name, variants } = product;
+    const { min: minPrice, max: maxPrice } = getMinMax(
+        variants.map((v) =>
+            getLastPrice({ price: v.price, salePercent: v.salePercent })
+        )
+    );
+
+    //Get max sale percent
+    const salePercent: number = variants.reduce(
+        (salePercent, currentVariant) => {
+            if (!currentVariant.salePercent) {
+                return salePercent;
+            }
+            return salePercent < currentVariant.salePercent
+                ? currentVariant.salePercent
+                : salePercent;
+        },
+        0
+    );
+    const salePercentDisplay = getSalePercent(salePercent);
     return (
         <Box
             sx={{
@@ -89,8 +102,13 @@ export default function ProductCard(props: IProductCardProps) {
                         rotate={true}
                         onClick={() =>
                             addProduct({
-                                ...product,
+                                id: product.id,
+                                image: images[0],
+                                name: product.name,
+                                price: 100,
+                                salePercent: 20,
                                 quantity: 1,
+                                variant: "",
                                 selected: false,
                             })
                         }
@@ -118,7 +136,11 @@ export default function ProductCard(props: IProductCardProps) {
                         {name}
                     </Typography>
                 </Link>
-                <Price price={price} salePercent={salePercent} />
+                <Typography fontWeight="bold">
+                    {minPrice === maxPrice
+                        ? `$${minPrice}`
+                        : `$${minPrice} - $${maxPrice}`}
+                </Typography>
             </Stack>
         </Box>
     );

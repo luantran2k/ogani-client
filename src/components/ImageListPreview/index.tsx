@@ -29,6 +29,8 @@ export default function ImageListPreview(props: IImageListPreviewProps) {
                     height="10rem"
                     flex="0 0 20rem"
                     position="relative"
+                    borderRadius=".4rem"
+                    overflow="hidden"
                     sx={{
                         ".remove-image-btn": {
                             position: "absolute",

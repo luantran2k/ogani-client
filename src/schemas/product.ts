@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { productCategorySchema } from "./productCategory";
+import { ProductCategory, productCategorySchema } from "./productCategory";
 
 export const sizeEnum = z.enum(["small", "medium", "big"]);
 export type ProductSize = z.infer<typeof sizeEnum>;
@@ -11,7 +11,7 @@ export const productSchema = z.object({
     description: z.string().optional(),
     detail: z.string().optional(),
     categories: z
-        .array(productCategorySchema)
+        .array(z.number())
         .min(1, "Al least one product category required"),
 });
 
@@ -42,13 +42,22 @@ export const createProductSchema = productSchema
 export type Product = z.infer<
     typeof productSchema & typeof productVariantSchema
 >;
+export type ProductInfo = z.infer<typeof productSchema>;
 export type ProductVariant = z.infer<typeof productVariantSchema>;
 export type ProductCreate = z.infer<typeof createProductSchema>;
 export type ProductPayload = Omit<Product, "id">;
 
-export type ProductCart = Omit<Product, "categories"> & {
-    quantity: number;
+export type ProductCart = Pick<
+    Product,
+    "id" | "name" | "price" | "quantity" | "salePercent" | "variant"
+> & {
+    image: string;
     selected: boolean;
+};
+
+export type ProductCardType = Pick<Product, "id" | "name" | "images"> & {
+    variants: ProductVariant[];
+    categoryIds: number[];
 };
 
 export default productSchema;

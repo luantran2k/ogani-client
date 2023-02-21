@@ -1,6 +1,6 @@
 import { Box, Container } from "@mui/material";
 import { Stack } from "@mui/system";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logoImage from "../../assets/images/logo.png";
 import Cart from "../Cart";
 import MobileNav from "./MobileNav";
@@ -27,7 +27,9 @@ export default function Navbar(props: INavbarProps) {
                     padding=".4rem 0"
                 >
                     <Box flex="0 0 25%" display="flex" alignItems="center">
-                        <img src={logoImage} alt="web-logo" />
+                        <Link to="/">
+                            <img src={logoImage} alt="web-logo" />
+                        </Link>
                     </Box>
                     <Stack direction="row" flex={1}>
                         <Stack direction="row" className={styles.navs} flex={1}>

@@ -2,11 +2,15 @@ import { KeyboardArrowDown, Menu } from "@mui/icons-material";
 import { Box, MenuItem, Stack, Typography } from "@mui/material";
 import { grey, lightGreen } from "@mui/material/colors";
 import { useState } from "react";
+import { useProductCategories } from "../../../hooks/productCategories";
 
 export interface IDropDownProps {}
 
 export default function DropDown(props: IDropDownProps) {
     const [open, setOpen] = useState(false);
+    const { productCategoriesQuery } = useProductCategories();
+    const { data, isLoading, isError } = productCategoriesQuery();
+
     return (
         <Box position="relative" flex="0 0 25%">
             <Stack
@@ -55,17 +59,19 @@ export default function DropDown(props: IDropDownProps) {
                     },
                 }}
             >
-                <MenuItem>Fresh Meats</MenuItem>
-                <MenuItem>Vegetabless</MenuItem>
-                <MenuItem>Fruit & Nut Giftss</MenuItem>
-                <MenuItem>Fresh Berriess</MenuItem>
-                <MenuItem>Ocean Foodss</MenuItem>
-                <MenuItem>Butter & Eggss</MenuItem>
-                <MenuItem>Fastfoods</MenuItem>
-                <MenuItem>Fresh Onions</MenuItem>
-                <MenuItem>Papayaya & Crispss</MenuItem>
-                <MenuItem>Oatmeals</MenuItem>
-                <MenuItem>Fresh Bananass</MenuItem>
+                {isLoading ? (
+                    <MenuItem>Loading...</MenuItem>
+                ) : isError ? (
+                    <MenuItem>Error</MenuItem>
+                ) : (
+                    <>
+                        {data.productCategories.map((category) => (
+                            <MenuItem key={category.id}>
+                                {category.name}
+                            </MenuItem>
+                        ))}
+                    </>
+                )}
             </Box>
         </Box>
     );

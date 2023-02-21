@@ -13,6 +13,7 @@ const products: Product[] = new Array(10).fill(undefined).map((p, i) => {
         quantity: 12,
         name: `Product ${productNumber}`,
         price: i * 100,
+        variant: "2",
     };
 });
 export default function LatestProduct(props: ILatestProductProps) {
