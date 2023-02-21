@@ -16,7 +16,7 @@ export const productSchema = z.object({
 });
 
 export const productVariantSchema = z.object({
-    size: sizeEnum,
+    variant: z.string(),
     price: z.number().min(0),
     salePercent: z
         .number()

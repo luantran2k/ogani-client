@@ -16,7 +16,7 @@ const registerForm = z
         password: z.string().min(5, { message: "Minimum is 5 character" }),
         confirmPassword: z.string(),
         email: z.string().email({ message: "Must be a valid email address" }),
-        verificationCode: z.string(),
+        verificationCode: z.string().optional(),
     })
     .superRefine(({ confirmPassword, password }, ctx) => {
         if (confirmPassword !== password) {
@@ -109,7 +109,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
                             errors.email?.message && `${errors.email?.message}`
                         }
                     />
-                    <Stack direction="row" spacing={1}>
+                    {/* <Stack direction="row" spacing={1}>
                         <TextField
                             fullWidth
                             label="Verification code"
@@ -129,7 +129,7 @@ export default function RegisterForm(props: IRegisterFormProps) {
                             email={watch("email")}
                             isValidEmail={!Boolean(errors.email?.message)}
                         />
-                    </Stack>
+                    </Stack> */}
                 </Stack>
                 <Button variant="contained" type="submit">
                     Register

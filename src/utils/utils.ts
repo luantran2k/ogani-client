@@ -8,3 +8,12 @@ export const chunkArray = <T>(array: T[], size: number): T[][] => {
     }
     return res;
 };
+
+export const assginValueForPropertyOfObject = <T, Prop extends keyof T>(
+    obj: T,
+    prop: Prop,
+    value: T[Prop]
+): T => {
+    obj[prop] = value;
+    return obj;
+};

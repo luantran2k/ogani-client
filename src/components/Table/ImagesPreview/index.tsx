@@ -62,13 +62,19 @@ export default function TableImagesPreview(props: ITableImagesPreviewProps) {
             >
                 <Close />
             </Button>
-            <img
-                src={srcs[imageIndex]}
-                alt=""
-                style={{
-                    objectFit: "cover",
+            <Box
+                sx={{
+                    maxWidth: "96vw",
+                    maxHeight: "96vh",
                 }}
-            />
+            >
+                <img
+                    src={srcs[imageIndex]}
+                    alt=""
+                    className="image-cover"
+                    loading="lazy"
+                />
+            </Box>
             {srcs.length >= 2 && (
                 <>
                     <RoundArrowButton

@@ -16,13 +16,15 @@ export const useProductCategories = () => {
         quantity: 10,
         search: "",
     });
-    const productCategoriesQuery = useQuery({
-        queryKey: ["productCategories", filter],
-        queryFn: () => getProductCategories(filter),
-        keepPreviousData: true,
-        staleTime: 1000 * 60 * 10,
-    });
-
+    const productCategoriesQuery = (filterParam = filter) => {
+        return useQuery({
+            queryKey: ["productCategories", filterParam],
+            queryFn: () => getProductCategories(filterParam),
+            keepPreviousData: true,
+            staleTime: 1000 * 60 * 10,
+            retry: 3,
+        });
+    };
     const deleteProductCategoriesMutation = useMutation({
         mutationFn: deleteProductCategories,
         onSuccess: () => {

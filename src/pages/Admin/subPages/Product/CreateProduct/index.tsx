@@ -1,32 +1,30 @@
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { DevTool } from "@hookform/devtools";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Delete } from "@mui/icons-material";
 import {
-    Box,
     Button,
     Container,
     Grid,
     InputLabel,
-    MenuItem,
     Stack,
     TextField,
     Typography,
 } from "@mui/material";
-import { ChangeEvent, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { ChangeEvent, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
+import { getProductCategories } from "../../../../../apis/productCategories";
 import ImageListPreview from "../../../../../components/ImageListPreview";
 import ImageInput from "../../../../../components/Inputs/ImageInput";
 import MultiSelectChip from "../../../../../components/Inputs/MultiSelectChip";
 import RichTextEditor from "../../../../../components/RichTextEditor";
+import { useProductCategories } from "../../../../../hooks/productCategories";
 import {
     createProductSchema,
     ProductCreate,
-    ProductVariant,
-    sizeEnum,
 } from "../../../../../schemas/product";
 import { ProductCategory } from "../../../../../schemas/productCategory";
+import ProductVariantList, { CreateProductVariant } from "./Variants";
 
 const productCategories: ProductCategory[] = [
     {
@@ -54,15 +52,7 @@ export interface ICreateProductPageProps {}
 
 export default function CreateProductPage(props: ICreateProductPageProps) {
     const [images, setImages] = useState<{ id: string; file: File }[]>([]);
-    const emptyVariant: ProductVariant & { id: string } = {
-        id: uuidv4(),
-        price: 0,
-        quantity: 0,
-        size: "small",
-    };
-    const [variants, setVariants] = useState<
-        (ProductVariant & { id: string })[]
-    >([emptyVariant]);
+    const variantsRef = useRef<CreateProductVariant[]>([]);
     const {
         register,
         handleSubmit,
@@ -78,11 +68,12 @@ export default function CreateProductPage(props: ICreateProductPageProps) {
             categories: [],
             description: "",
             detail: "",
-            variants: variants,
+            variants: variantsRef.current,
         },
     });
-    const [variantList] = useAutoAnimate();
 
+    const { productCategoriesQuery } = useProductCategories();
+    const { data: categories, isError, isLoading } = productCategoriesQuery();
     const handleChangeImages = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.item(0)) {
             setImages((images) => {
@@ -102,12 +93,6 @@ export default function CreateProductPage(props: ICreateProductPageProps) {
         }
     };
 
-    const handleRemoveVariant = (variantId: string) => {
-        setVariants((variants) =>
-            variants.filter((variant) => variant.id !== variantId)
-        );
-    };
-
     const onSubmit: SubmitHandler<ProductCreate> = (data: ProductCreate) => {
         console.log(data);
     };
@@ -116,7 +101,7 @@ export default function CreateProductPage(props: ICreateProductPageProps) {
     };
     return (
         <Container fixed>
-            <Typography variant="h5" align="center">
+            <Typography variant="h5" align="center" marginBottom="1rem">
                 Create new product
             </Typography>
             <form onSubmit={handleSubmit(onSubmit, onErrors)}>
@@ -132,7 +117,7 @@ export default function CreateProductPage(props: ICreateProductPageProps) {
                     </Grid>
                     <Grid item xs={6}>
                         <MultiSelectChip<ProductCategory>
-                            items={productCategories}
+                            items={categories?.productCategories || []}
                             onChange={(items) => {
                                 setValue("categories", items);
                             }}
@@ -174,56 +159,8 @@ export default function CreateProductPage(props: ICreateProductPageProps) {
                         <InputLabel>Detail</InputLabel>
                         <RichTextEditor />
                     </Grid>
-                    <Grid ref={variantList} item xs={12}>
-                        {variants?.map((variant, index) => (
-                            <Grid
-                                container
-                                spacing={2}
-                                margin="1rem 0"
-                                key={index}
-                            >
-                                <Grid item xs={12} display="flex">
-                                    <Typography variant="h6">
-                                        Variant {index + 1}
-                                    </Typography>
-                                    <Button
-                                        color="error"
-                                        onClick={() =>
-                                            handleRemoveVariant(variant.id)
-                                        }
-                                    >
-                                        <Delete />
-                                    </Button>
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <TextField
-                                        type="number"
-                                        label="Price"
-                                        fullWidth
-                                    />
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <TextField
-                                        type="number"
-                                        label="Sale percent"
-                                        fullWidth
-                                    />
-                                </Grid>
-
-                                <Grid item xs={3}>
-                                    <TextField
-                                        type="number"
-                                        label="Quantity"
-                                        fullWidth
-                                    />
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <TextField label="Size" fullWidth select>
-                                        {/* {JSON.stringify(sizeEnum)} */}
-                                    </TextField>
-                                </Grid>
-                            </Grid>
-                        ))}
+                    <Grid item xs={12}>
+                        <ProductVariantList variantsRef={variantsRef} />
                     </Grid>
 
                     <Grid item xs={12}>
@@ -232,18 +169,6 @@ export default function CreateProductPage(props: ICreateProductPageProps) {
                             justifyContent="center"
                             spacing={1}
                         >
-                            <Button
-                                variant="outlined"
-                                onClick={() =>
-                                    setVariants((variants) => [
-                                        ...variants,
-                                        emptyVariant,
-                                    ])
-                                }
-                            >
-                                Create new variant
-                            </Button>
-
                             <Button type="reset" variant="outlined">
                                 Clear
                             </Button>

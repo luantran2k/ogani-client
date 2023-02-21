@@ -6,6 +6,7 @@ import styles from "./styles.module.scss";
 export interface ILanguageProps {}
 
 export default function Language(props: ILanguageProps) {
+    return <></>;
     return (
         <Stack
             direction="row"

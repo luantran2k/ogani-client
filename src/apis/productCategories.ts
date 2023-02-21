@@ -4,7 +4,7 @@ import {
 } from "../schemas/productCategory";
 import BaseFilter from "../types/base/BaseFilter";
 import { request } from "./../utils/request";
-export const getProductCategories = async (options: BaseFilter) => {
+export const getProductCategories = async (options?: BaseFilter) => {
     const response = await request.get<{
         productCategories: ProductCategory[];
         total: number;
