@@ -6,10 +6,12 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import { lightGreen, grey } from "@mui/material/colors";
+import { grey, lightGreen } from "@mui/material/colors";
 import heroImage from "../../../assets/images/hero/banner.jpg";
-import { products } from "../../../mock/product";
+import { useProducts } from "../../../hooks/products";
+import { getEmptyArray } from "../../../utils/utils";
 import HotSaleCard from "./HotSaleCard";
+import HotSaleCardSekeleton from "./HotSaleCard/Skeleton";
 
 export interface IHeroSectionProps {}
 
@@ -17,14 +19,9 @@ export default function HeroSection(props: IHeroSectionProps) {
     const theme = useTheme();
     const matchMd = useMediaQuery(theme.breakpoints.up("md"));
     const matchSm = useMediaQuery(theme.breakpoints.up("sm"));
-    const productsList = products
-        .filter((product) => product.salePercent)
-        .sort((a, b) => {
-            const leftCondition = a.salePercent || 0;
-            const rightCondition = b.salePercent || 0;
-            return rightCondition - leftCondition;
-        });
-
+    const { getHotSaleProductsQuery } = useProducts();
+    const { data: products, isLoading, isError } = getHotSaleProductsQuery();
+    const emptyArray = getEmptyArray(4);
     return (
         <section id="hero">
             <Stack direction="row" spacing={matchMd ? 4 : 0}>
@@ -36,12 +33,16 @@ export default function HeroSection(props: IHeroSectionProps) {
                         spacing={1}
                         overflow="auto"
                         maxHeight="26rem"
-                        className="hideScrollbar"
+                        className="hideScrollbarHover"
                     >
-                        {productsList.length == 0 ? (
+                        {isLoading ? (
+                            emptyArray.map((product, index) => (
+                                <HotSaleCardSekeleton key={index} />
+                            ))
+                        ) : products?.length == 0 ? (
                             <Typography textAlign="center">Empty</Typography>
                         ) : (
-                            productsList.map((product) => (
+                            products?.map((product) => (
                                 <HotSaleCard
                                     key={product.id}
                                     product={product}

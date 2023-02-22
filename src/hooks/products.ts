@@ -1,9 +1,18 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+    useMutation,
+    useQueries,
+    useQuery,
+    useQueryClient,
+} from "@tanstack/react-query";
 import {
     createProduct,
-    getHomePageProducts,
+    getBestSellerProducts,
+    getFeaturedProducts,
+    getHotSaleProducts,
+    getLastestProduct,
     getProduct,
     getProducts,
+    getTopRateProducts,
 } from "../apis/products";
 import BaseFilter from "../types/base/BaseFilter";
 
@@ -39,9 +48,45 @@ export const useProducts = () => {
         },
     });
 
+    const getHotSaleProductsQuery = () =>
+        useQuery({
+            queryKey: ["hot-sale-products"],
+            queryFn: getHotSaleProducts,
+            staleTime: Infinity,
+        });
+    const getFeaturedProductsQuery = () =>
+        useQuery({
+            queryKey: ["featured-products"],
+            queryFn: getFeaturedProducts,
+            staleTime: Infinity,
+        });
+    const getLastestProductQuery = () =>
+        useQuery({
+            queryKey: ["latest-products"],
+            queryFn: getLastestProduct,
+            staleTime: Infinity,
+        });
+    const getBestSellerProductsQuery = () =>
+        useQuery({
+            queryKey: ["best-sellers-products"],
+            queryFn: getBestSellerProducts,
+            staleTime: Infinity,
+        });
+    const getTopRateProductsQuery = () =>
+        useQuery({
+            queryKey: ["top-rate-products"],
+            queryFn: getTopRateProducts,
+            staleTime: Infinity,
+        });
+
     return {
         getProductsQuery,
         getProductQuery,
         createProductMutation,
+        getHotSaleProductsQuery,
+        getFeaturedProductsQuery,
+        getLastestProductQuery,
+        getBestSellerProductsQuery,
+        getTopRateProductsQuery,
     };
 };

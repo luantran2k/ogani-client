@@ -57,7 +57,7 @@ export type ProductCart = Pick<
 
 export type ProductCardType = Pick<Product, "id" | "name" | "images"> & {
     variants: ProductVariant[];
-    categoryIds: number[];
+    categories: ProductCategory[];
 };
 
 export default productSchema;

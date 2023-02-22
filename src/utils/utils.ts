@@ -22,3 +22,18 @@ export const getMinMax = (array: number[]) => {
     const max = Math.max(...array);
     return { min, max };
 };
+
+export const getEmptyArray = (length: number, fillValue?: any) =>
+    new Array(length).fill(fillValue);
+
+export const removeDublicateObject = <T, TKey extends keyof T>(
+    array: T[] = [],
+    key: TKey
+) => {
+    return array.reduce((output: T[], current: T) => {
+        if (output.find((item) => item[key] === current[key])) {
+            return output;
+        }
+        return [...output, current];
+    }, []);
+};

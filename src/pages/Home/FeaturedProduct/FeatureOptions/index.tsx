@@ -5,7 +5,7 @@ import { ProductCategory } from "../../../../schemas/productCategory";
 export interface IFeatureOptionsProps {
     active: number | undefined;
     setActive: React.Dispatch<React.SetStateAction<number | undefined>>;
-    categories: ProductCategory[];
+    categories?: ProductCategory[];
 }
 
 export default function FeatureOptions(props: IFeatureOptionsProps) {
@@ -39,15 +39,19 @@ export default function FeatureOptions(props: IFeatureOptionsProps) {
             >
                 All
             </li>
-            {categories.map((category, index) => (
-                <li
-                    key={category.id}
-                    className={active == category.id ? "active" : ""}
-                    onClick={() => setActive(category.id)}
-                >
-                    {category.name}
-                </li>
-            ))}
+            {categories ? (
+                categories.map((category, index) => (
+                    <li
+                        key={category.id}
+                        className={active == category.id ? "active" : ""}
+                        onClick={() => setActive(category.id)}
+                    >
+                        {category.name}
+                    </li>
+                ))
+            ) : (
+                <p>loading</p>
+            )}
         </Stack>
     );
 }

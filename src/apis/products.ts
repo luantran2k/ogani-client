@@ -61,10 +61,26 @@ export const createProduct = async (product: ProductCreate) => {
     return data;
 };
 
-export const getHomePageProducts = async () => {
-    const { data } = await request.get<{
-        featuredProduct: ProductCardType[];
-        categories: ProductCategory[];
-    }>("/products/home-page");
+export const getHotSaleProducts = async () => {
+    const { data } = await request.get<ProductCardType[]>("/products/hot-sale");
+    return data;
+};
+
+export const getFeaturedProducts = async () => {
+    const { data } = await request.get<ProductCardType[]>("products/featured");
+    return data;
+};
+export const getLastestProduct = async () => {
+    const { data } = await request.get<ProductCardType[]>("products/latest");
+    return data;
+};
+export const getBestSellerProducts = async () => {
+    const { data } = await request.get<ProductCardType[]>(
+        "products/best-sellers"
+    );
+    return data;
+};
+export const getTopRateProducts = async () => {
+    const { data } = await request.get<ProductCardType[]>("products/top-rate");
     return data;
 };

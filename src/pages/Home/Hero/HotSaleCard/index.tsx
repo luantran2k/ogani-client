@@ -1,17 +1,27 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { red } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 import Price from "../../../../components/Typography/Price";
-import { Product } from "../../../../schemas/product";
+import { Product, ProductCardType } from "../../../../schemas/product";
+import { getMinMax } from "../../../../utils/utils";
 
 export interface IHotSaleCardProps {
-    product: Product;
+    product: ProductCardType;
 }
 
 export default function HotSaleCard(props: IHotSaleCardProps) {
     const { product } = props;
-    const { id, name, price, salePercent, images } = product;
+    const { id, name, variants, images } = product;
+    const { min, max } = getMinMax(variants.map((v) => v.price || 0));
+    const maxSalePercent = Math.max(...variants.map((v) => v.salePercent || 0));
+    const navigate = useNavigate();
     return (
-        <Stack direction="row" spacing={1}>
+        <Stack
+            direction="row"
+            spacing={1}
+            sx={{ cursor: "pointer" }}
+            onClick={() => navigate("/products/" + id)}
+        >
             <Box
                 width="6rem"
                 height="6rem"
@@ -31,21 +41,17 @@ export default function HotSaleCard(props: IHotSaleCardProps) {
             <Stack>
                 <Stack>
                     <Typography fontWeight={600}>{name}</Typography>
-                    {salePercent && (
+                    {maxSalePercent && (
                         <Typography>
                             Sale:{" "}
                             <span
                                 style={{ color: red[700], fontWeight: "bold" }}
                             >
-                                {salePercent}%
+                                {maxSalePercent}%
                             </span>
                         </Typography>
                     )}
-                    <Price
-                        fontSize="1rem"
-                        price={price}
-                        salePercent={salePercent}
-                    />
+                    <Price variants={variants} />
                 </Stack>
             </Stack>
         </Stack>

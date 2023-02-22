@@ -33,6 +33,18 @@
     }
 }
 
+.hideScrollbarHover {
+    @extend .hideScrollbar;
+    &:hover {
+        -ms-overflow-style: block; /* IE and Edge */
+        scrollbar-width: block; /* Firefox */
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+            display: block;
+        }
+    }
+}
+
 .image-cover {
     height: 100%;
     width: 100%;

@@ -21,11 +21,6 @@ export default function ProductCard(props: IProductCardProps) {
     const { product, sx } = props;
     const { addProduct } = useCartStore();
     const { id, images, name, variants } = product;
-    const { min: minPrice, max: maxPrice } = getMinMax(
-        variants.map((v) =>
-            getLastPrice({ price: v.price, salePercent: v.salePercent })
-        )
-    );
 
     //Get max sale percent
     const salePercent: number = variants.reduce(
@@ -136,11 +131,7 @@ export default function ProductCard(props: IProductCardProps) {
                         {name}
                     </Typography>
                 </Link>
-                <Typography fontWeight="bold">
-                    {minPrice === maxPrice
-                        ? `$${minPrice}`
-                        : `$${minPrice} - $${maxPrice}`}
-                </Typography>
+                <Price variants={variants} />
             </Stack>
         </Box>
     );
