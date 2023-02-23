@@ -46,6 +46,10 @@ export type ProductInfo = z.infer<typeof productSchema>;
 export type ProductVariant = z.infer<typeof productVariantSchema>;
 export type ProductCreate = z.infer<typeof createProductSchema>;
 export type ProductPayload = Omit<Product, "id">;
+export type ProductDetail = Product & {
+    variants: ProductVariant[];
+    categories: ProductCategory[];
+};
 
 export type ProductCart = Pick<
     Product,

@@ -10,6 +10,7 @@ import {
     useMediaQuery,
 } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
+import { Link } from "react-router-dom";
 import { ProductCart } from "../../../../schemas/product";
 import { getLastPrice, useCartStore } from "../../../../stores/cartStore";
 
@@ -36,7 +37,8 @@ export default function CardProductItem(props: ICardProductItemProps) {
     const matchSm = useMediaQuery(theme.breakpoints.down("sm"));
     const { increaseQuantity, decreaseQuantity, toggleSelectProduct } =
         useCartStore();
-    const { id, name, image, price, salePercent, selected, quantity } = product;
+    const { id, name, image, price, salePercent, selected, quantity, variant } =
+        product;
 
     const lastPrice = getLastPrice({
         price,
@@ -51,30 +53,37 @@ export default function CardProductItem(props: ICardProductItemProps) {
             {!matchSm && (
                 <Checkbox
                     checked={selected}
-                    onClick={() => toggleSelectProduct(id)}
+                    onClick={() => toggleSelectProduct(id, variant)}
                 />
             )}
             <Stack direction="row" spacing={2}>
                 <Box width="4rem" borderRadius=".6rem" overflow="hidden">
-                    <img
-                        src={image}
-                        alt=""
-                        style={{
-                            display: "block",
-                            width: "100%",
-                            objectFit: "cover",
-                        }}
-                    />
+                    <Link to={"/products/" + id}>
+                        <img
+                            src={image}
+                            alt=""
+                            style={{
+                                display: "block",
+                                width: "100%",
+                                objectFit: "cover",
+                            }}
+                        />
+                    </Link>
                 </Box>
                 <Stack justifyContent="space-around">
-                    <Typography
-                        fontWeight="bold"
-                        whiteSpace="nowrap"
-                        overflow="hidden"
-                        textOverflow="ellipsis"
-                        maxWidth="16rem"
-                    >
-                        {name}
+                    <Link to={"/products/" + id}>
+                        <Typography
+                            fontWeight="bold"
+                            whiteSpace="nowrap"
+                            overflow="hidden"
+                            textOverflow="ellipsis"
+                            maxWidth="16rem"
+                        >
+                            {name}
+                        </Typography>
+                    </Link>
+                    <Typography fontSize="0.8rem">
+                        Variant: {variant}
                     </Typography>
                     <Stack direction="row" spacing={2}>
                         <Typography fontSize=".8rem">
@@ -96,11 +105,17 @@ export default function CardProductItem(props: ICardProductItemProps) {
                 {matchSm && (
                     <Checkbox
                         checked={selected}
-                        onClick={() => toggleSelectProduct(id)}
+                        onClick={() => toggleSelectProduct(id, variant)}
                     />
                 )}
-                <Add sx={ButtonStyle} onClick={() => increaseQuantity(id)} />
-                <Remove sx={ButtonStyle} onClick={() => decreaseQuantity(id)} />
+                <Add
+                    sx={ButtonStyle}
+                    onClick={() => increaseQuantity(id, variant)}
+                />
+                <Remove
+                    sx={ButtonStyle}
+                    onClick={() => decreaseQuantity(id, variant)}
+                />
             </Stack>
         </Stack>
     );

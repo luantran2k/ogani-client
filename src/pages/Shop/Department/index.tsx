@@ -1,5 +1,7 @@
 import { Box, MenuItem, TextField } from "@mui/material";
 import MenuTitle from "../../../components/Typography/MenuTitle";
+import { useProductCategories } from "../../../hooks/productCategories";
+import { useShopStore } from "../../../stores/shopStore";
 
 export interface IDepartmentProps {}
 
@@ -18,13 +20,28 @@ const departments: { label: string; value: string }[] = [
 ];
 
 export default function Department(props: IDepartmentProps) {
+    const { productCategoriesQuery } = useProductCategories();
+    const { filter } = useShopStore();
+    const {
+        data = {
+            productCategories: [],
+            total: 0,
+        },
+        isLoading,
+    } = productCategoriesQuery();
     return (
         <Box>
             <MenuTitle title="Department" />
-            <TextField fullWidth select defaultValue="all">
-                {departments.map(({ label, value }, index) => (
-                    <MenuItem key={index} value={value}>
-                        {label}
+            <TextField
+                fullWidth
+                select
+                defaultValue="all"
+                onChange={(e) => console.log(e.target.value)}
+            >
+                <MenuItem value={"all"}>All</MenuItem>
+                {data.productCategories.map(({ id, name }) => (
+                    <MenuItem key={id} value={id}>
+                        {name}
                     </MenuItem>
                 ))}
             </TextField>

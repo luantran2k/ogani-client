@@ -1,7 +1,7 @@
-import { Container, Grid, Stack, Typography } from "@mui/material";
+import { Container, Grid, Stack } from "@mui/material";
 import BreadCrumb from "../../components/BreadCrumb";
-import MenuTitle from "../../components/Typography/MenuTitle";
 import { useProducts } from "../../hooks/products";
+import { useShopStore } from "../../stores/shopStore";
 import ColorPicker from "./ColorPicker";
 import Department from "./Department";
 import PriceSlideBar from "./PriceSlideBar";
@@ -27,7 +27,7 @@ export default function ShopPage(props: IShopPageProps) {
                         </Stack>
                     </Grid>
                     <Grid item xs={12} sm={8} md={9}>
-                        <ShopProductList products={[]} />
+                        <ShopProductList products={data?.products} />
                     </Grid>
                 </Grid>
             </Container>

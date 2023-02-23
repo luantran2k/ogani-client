@@ -1,3 +1,4 @@
+import { ProductDetail } from "./../schemas/product";
 import {
     Product,
     ProductCardType,
@@ -8,14 +9,15 @@ import {
 import { ProductCategory } from "../schemas/productCategory";
 import BaseFilter from "../types/base/BaseFilter";
 import { request } from "../utils/request";
+import { ProductFilter } from "../stores/shopStore";
 
-export const getProducts = async (filter: BaseFilter) => {
-    const { data } = await request.get<{ products: Product[]; total: number }>(
-        "/products",
-        {
-            params: filter,
-        }
-    );
+export const getProducts = async (filter: ProductFilter) => {
+    const { data } = await request.get<{
+        products: ProductDetail[];
+        total: number;
+    }>("/products", {
+        params: filter,
+    });
     return data;
 };
 

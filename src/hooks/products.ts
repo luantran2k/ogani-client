@@ -1,9 +1,4 @@
-import {
-    useMutation,
-    useQueries,
-    useQuery,
-    useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
     createProduct,
     getBestSellerProducts,
@@ -14,23 +9,19 @@ import {
     getProducts,
     getTopRateProducts,
 } from "../apis/products";
-import BaseFilter from "../types/base/BaseFilter";
+import { ProductFilter } from "../stores/shopStore";
 
 export const useProducts = () => {
     const queryClient = useQueryClient();
     const getProductsQuery = (
-        filter: BaseFilter = {
+        filter: ProductFilter = {
             page: 0,
             quantity: 10,
         }
     ) =>
         useQuery({
             queryKey: ["products"],
-            queryFn: () =>
-                getProducts({
-                    page: filter.page,
-                    quantity: filter.quantity,
-                }),
+            queryFn: () => getProducts(filter),
             keepPreviousData: true,
             staleTime: 1000 * 60 * 10,
         });

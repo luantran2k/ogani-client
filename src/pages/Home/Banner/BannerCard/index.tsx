@@ -1,4 +1,5 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export interface IBannerCardProps {
     image: string;
@@ -9,6 +10,7 @@ export interface IBannerCardProps {
 
 export default function BannerCard(props: IBannerCardProps) {
     const { image, title, description, color } = props;
+    const navigate = useNavigate();
     return (
         <Stack
             direction="row"
@@ -32,6 +34,7 @@ export default function BannerCard(props: IBannerCardProps) {
                         color="error"
                         variant="contained"
                         sx={{ marginTop: "1rem" }}
+                        onClick={() => navigate("/shop")}
                     >
                         Shop now
                     </Button>

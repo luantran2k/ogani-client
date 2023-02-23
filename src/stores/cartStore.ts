@@ -7,9 +7,9 @@ interface CartStore {
     totalPrice: () => number;
     addProduct: (product: ProductCart) => void;
     removeProduct: () => void;
-    increaseQuantity: (id: number) => void;
-    decreaseQuantity: (id: number) => void;
-    toggleSelectProduct: (id: number) => void;
+    increaseQuantity: (id: number, variant: string) => void;
+    decreaseQuantity: (id: number, variant: string) => void;
+    toggleSelectProduct: (id: number, variant: string) => void;
     selectAll: () => void;
     unSelectAll: () => void;
 }
@@ -19,9 +19,12 @@ interface PriceArgument {
 }
 const findProduct = (
     products: ProductCart[],
-    id: number
+    id: number,
+    variant: string
 ): ProductCart | undefined => {
-    return products.find((product) => product.id === id);
+    return products.find(
+        (product) => product.id === id && product.variant === variant
+    );
 };
 
 export const getLastPrice = ({ price, salePercent }: PriceArgument) => {
@@ -56,10 +59,11 @@ export const useCartStore = create<CartStore>()(
                         (state) => {
                             const productFinded = findProduct(
                                 state.products,
-                                product.id
+                                product.id,
+                                product.variant
                             );
                             if (productFinded) {
-                                productFinded.quantity += 1;
+                                productFinded.quantity += product.quantity;
                                 return {
                                     products: state.products,
                                 };
@@ -70,9 +74,13 @@ export const useCartStore = create<CartStore>()(
                         "addProduct"
                     );
                 },
-                increaseQuantity(id) {
+                increaseQuantity(id, variant) {
                     set((state) => {
-                        const product = findProduct(state.products, id);
+                        const product = findProduct(
+                            state.products,
+                            id,
+                            variant
+                        );
                         if (product) {
                             product.quantity += 1;
                         }
@@ -81,9 +89,13 @@ export const useCartStore = create<CartStore>()(
                         };
                     }, false);
                 },
-                decreaseQuantity(id) {
+                decreaseQuantity(id, variant) {
                     set((state) => {
-                        const product = findProduct(state.products, id);
+                        const product = findProduct(
+                            state.products,
+                            id,
+                            variant
+                        );
                         if (product) {
                             if (product.quantity === 1) {
                                 state.products = state.products.filter(
@@ -107,9 +119,13 @@ export const useCartStore = create<CartStore>()(
                         };
                     }, false);
                 },
-                toggleSelectProduct(id) {
+                toggleSelectProduct(id, variant) {
                     set((state) => {
-                        const product = findProduct(state.products, id);
+                        const product = findProduct(
+                            state.products,
+                            id,
+                            variant
+                        );
                         if (product) {
                             product.selected = !product.selected;
                         }

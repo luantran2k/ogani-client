@@ -94,10 +94,10 @@ export default function ProductCard(props: IProductCardProps) {
                                 id: product.id,
                                 image: images[0],
                                 name: product.name,
-                                price: 100,
-                                salePercent: 20,
+                                price: variants[0].price,
+                                salePercent: variants[0].salePercent,
                                 quantity: 1,
-                                variant: "",
+                                variant: variants[0].variant,
                                 selected: false,
                             })
                         }
