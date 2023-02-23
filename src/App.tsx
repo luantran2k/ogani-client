@@ -3,10 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./assets/scss/index.scss";
 import AppNotifications from "./components/AppNotifications";
 import ElasticLoading from "./components/Loading/ElasticLoading";
-import LoginForm from "./pages/Login/LoginForm";
-import RegisterForm from "./pages/Login/RegisterForm";
-import ProductPage from "./pages/Product";
-import ProductDetailPage from "./pages/Product/ProductDetail";
+const LoginForm = lazy(() => import("./pages/Login/LoginForm"));
+const RegisterForm = lazy(() => import("./pages/Login/RegisterForm"));
+const ProductPage = lazy(() => import("./pages/Product"));
+const ProductDetailPage = lazy(() => import("./pages/Product/ProductDetail"));
 const RootLayout = lazy(() => import("./layouts/Root"));
 const BlogsPage = lazy(() => import("./pages/Blog"));
 const ContactPage = lazy(() => import("./pages/Contact"));
@@ -56,10 +56,21 @@ function App() {
                             }
                         ></Route>
                         <Route path="products">
-                            <Route index element={<ProductPage />}></Route>
+                            <Route
+                                index
+                                element={
+                                    <Suspense fallback={<ElasticLoading />}>
+                                        <ProductPage />
+                                    </Suspense>
+                                }
+                            ></Route>
                             <Route
                                 path=":id"
-                                element={<ProductDetailPage />}
+                                element={
+                                    <Suspense fallback={<ElasticLoading />}>
+                                        <ProductDetailPage />
+                                    </Suspense>
+                                }
                             ></Route>
                         </Route>
                         <Route
@@ -146,10 +157,21 @@ function App() {
                             </Suspense>
                         }
                     >
-                        <Route index element={<LoginForm />}></Route>
+                        <Route
+                            index
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <LoginForm />
+                                </Suspense>
+                            }
+                        ></Route>
                         <Route
                             path="register"
-                            element={<RegisterForm />}
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <RegisterForm />
+                                </Suspense>
+                            }
                         ></Route>
                     </Route>
                     <Route path="*" element={<h1>Not found</h1>}></Route>

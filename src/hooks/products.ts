@@ -9,21 +9,20 @@ import {
     getProducts,
     getTopRateProducts,
 } from "../apis/products";
-import { ProductFilter } from "../stores/shopStore";
+import { ProductFilter } from "../types/Product";
 
 export const useProducts = () => {
     const queryClient = useQueryClient();
     const getProductsQuery = (
         filter: ProductFilter = {
             page: 0,
-            quantity: 10,
         }
     ) =>
         useQuery({
-            queryKey: ["products"],
+            queryKey: ["products", { ...filter }],
             queryFn: () => getProducts(filter),
             keepPreviousData: true,
-            staleTime: 1000 * 60 * 10,
+            staleTime: 5 * 60 * 1000,
         });
     const getProductQuery = (id: number) =>
         useQuery({

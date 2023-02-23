@@ -1,4 +1,3 @@
-import { ProductDetail } from "./../schemas/product";
 import {
     Product,
     ProductCardType,
@@ -6,10 +5,9 @@ import {
     ProductInfo,
     ProductVariant,
 } from "../schemas/product";
-import { ProductCategory } from "../schemas/productCategory";
-import BaseFilter from "../types/base/BaseFilter";
+import { ProductFilter } from "../types/Product";
 import { request } from "../utils/request";
-import { ProductFilter } from "../stores/shopStore";
+import { ProductDetail } from "./../schemas/product";
 
 export const getProducts = async (filter: ProductFilter) => {
     const { data } = await request.get<{

@@ -5,8 +5,9 @@ import { SwiperSlide } from "swiper/react";
 import RoundArrowButton from "../../../../components/Button/RoundArrowButton";
 import Slide, { SildeRef } from "../../../../components/Slide";
 import { Product, ProductCardType } from "../../../../schemas/product";
-import { chunkArray } from "../../../../utils/utils";
+import { chunkArray, getEmptyArray } from "../../../../utils/utils";
 import LatestProductCard from "./Card";
+import LatestProductCardSkeleton from "./Card/LatestProductCardSkeleton";
 
 export interface ILatestProductSlideProps {
     title: string;
@@ -15,9 +16,9 @@ export interface ILatestProductSlideProps {
 
 export default function LatestProductSlide(props: ILatestProductSlideProps) {
     const { title } = props;
-    const { products = [] } = props;
-    const groupedProducts = chunkArray(products, 3);
     const slideRef = useRef<SildeRef>(null);
+    const { products } = props;
+    const emptyArray = getEmptyArray(3);
     return (
         <Box>
             <Stack
@@ -42,18 +43,28 @@ export default function LatestProductSlide(props: ILatestProductSlideProps) {
                 />
             </Stack>
             <Slide slidesPerView={1} ref={slideRef} navigation={false}>
-                {groupedProducts.map((groupedProduct, index) => (
-                    <SwiperSlide key={index}>
-                        <Stack spacing={2}>
-                            {groupedProduct.map((product) => (
-                                <LatestProductCard
-                                    key={product.id}
-                                    product={product}
-                                />
-                            ))}
-                        </Stack>
-                    </SwiperSlide>
-                ))}
+                {products
+                    ? chunkArray(products, 3).map((groupedProduct, index) => (
+                          <SwiperSlide key={index}>
+                              <Stack spacing={2}>
+                                  {groupedProduct.map((product) => (
+                                      <LatestProductCard
+                                          key={product.id}
+                                          product={product}
+                                      />
+                                  ))}
+                              </Stack>
+                          </SwiperSlide>
+                      ))
+                    : emptyArray.map((x, i) => (
+                          <SwiperSlide key={i}>
+                              <Stack spacing={2}>
+                                  <LatestProductCardSkeleton />
+                                  <LatestProductCardSkeleton />
+                                  <LatestProductCardSkeleton />
+                              </Stack>
+                          </SwiperSlide>
+                      ))}
             </Slide>
         </Box>
     );

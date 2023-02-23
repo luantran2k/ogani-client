@@ -21,7 +21,7 @@ const departments: { label: string; value: string }[] = [
 
 export default function Department(props: IDepartmentProps) {
     const { productCategoriesQuery } = useProductCategories();
-    const { filter } = useShopStore();
+    const { filter, updateFilter } = useShopStore();
     const {
         data = {
             productCategories: [],
@@ -29,6 +29,13 @@ export default function Department(props: IDepartmentProps) {
         },
         isLoading,
     } = productCategoriesQuery();
+    const handleUpdate = (value: number | string) => {
+        if (typeof value === "string") {
+            updateFilter("categoryId", undefined);
+            return;
+        }
+        updateFilter("categoryId", value);
+    };
     return (
         <Box>
             <MenuTitle title="Department" />
@@ -36,7 +43,7 @@ export default function Department(props: IDepartmentProps) {
                 fullWidth
                 select
                 defaultValue="all"
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) => handleUpdate(e.target.value)}
             >
                 <MenuItem value={"all"}>All</MenuItem>
                 {data.productCategories.map(({ id, name }) => (

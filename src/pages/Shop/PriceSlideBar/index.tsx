@@ -1,38 +1,49 @@
 import { Box, Checkbox, Slider, Stack, Typography } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import MenuTitle from "../../../components/Typography/MenuTitle";
+import { useShopStore } from "../../../stores/shopStore";
 
 export interface IPriceSlideBarProps {}
 
 export default function PriceSlideBar(props: IPriceSlideBarProps) {
-    const [value, setValue] = useState<number[]>([10, 40]);
-    const [usePrice, setUsePrice] = useState(false);
+    const { filter, updateFilter } = useShopStore();
+    const [value, setValue] = useState<number[]>([
+        filter.minPrice!,
+        filter.maxPrice!,
+    ]);
 
     return (
         <Box>
             <MenuTitle title={"Price"} />
             <Stack direction="row" alignItems="center">
                 <Checkbox
-                    value={usePrice}
-                    onChange={(e) => setUsePrice(!usePrice)}
+                    value={!filter.usePrice}
+                    onChange={(e) => updateFilter("usePrice", !filter.usePrice)}
                 />
                 <Typography>Use price range</Typography>
             </Stack>
             <Box
                 sx={{
-                    filter: usePrice ? undefined : "grayscale(1)",
-                    pointerEvents: usePrice ? undefined : "none",
+                    filter: filter.usePrice ? undefined : "grayscale(1)",
+                    pointerEvents: filter.usePrice ? undefined : "none",
                 }}
             >
                 <Slider
                     value={value}
                     min={10}
-                    max={200}
-                    step={1}
+                    max={500}
+                    step={10}
                     valueLabelDisplay="auto"
                     onChange={(event: Event, value: number | number[]) => {
-                        setValue(value as number[]);
+                        const values = value as number[];
+                        setValue(values);
+                    }}
+                    onChangeCommitted={(event, value) => {
+                        const values = value as number[];
+                        updateFilter("minPrice", Number(values[0]));
+                        updateFilter("maxPrice", Number(values[1]));
                     }}
                     disableSwap
                     sx={{

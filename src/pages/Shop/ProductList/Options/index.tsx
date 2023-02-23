@@ -2,13 +2,13 @@ import { FormatListBulleted, GridView } from "@mui/icons-material";
 import { MenuItem, TextField, Typography } from "@mui/material";
 import { grey, lightGreen } from "@mui/material/colors";
 import { Stack } from "@mui/system";
+import { useShopStore } from "../../../../stores/shopStore";
+import { SortType } from "../../../../types/Product";
 
-const sortOptionsL: { label: string; value: string }[] = [
-    { label: "Top Sales", value: "top-sales" },
-    { label: "Percent Discount", value: "percent-discount" },
+const sortOptionsL: { label: string; value: SortType }[] = [
+    { label: "Top Sales", value: "sale" },
+    { label: "Percent Discount", value: "discount" },
     { label: "Latest", value: "latest" },
-    { label: "Descending Price", value: "descending-price" },
-    { label: "Ascending Price", value: "ascending-price" },
 ];
 
 export interface IShopProductListOptionsProps {
@@ -19,19 +19,19 @@ export default function ShopProductListOptions(
     props: IShopProductListOptionsProps
 ) {
     const { numberOfItems = 0 } = props;
+    const { filter, updateFilter } = useShopStore();
     return (
         <Stack
-            direction="row"
+            direction={{ xs: "column", sm: "row" }}
             alignItems="center"
             justifyContent="space-between"
-            marginBottom="2rem"
         >
             <Stack direction="row" spacing={1} alignItems="center">
                 <Typography>Sort By</Typography>
                 <TextField
                     size="small"
                     select
-                    defaultValue="top-sales"
+                    defaultValue="sale"
                     InputProps={{
                         sx: {
                             fontWeight: "bold",
@@ -40,6 +40,9 @@ export default function ShopProductListOptions(
                     sx={{
                         "& fieldset": { border: "none" },
                     }}
+                    onChange={(e) =>
+                        updateFilter("sort", e.target.value as SortType)
+                    }
                 >
                     {sortOptionsL.map((option, index) => (
                         <MenuItem key={index} value={option.value}>
@@ -57,7 +60,7 @@ export default function ShopProductListOptions(
             >
                 <span>{numberOfItems}</span> Products found
             </Typography>
-            <Stack
+            {/* <Stack
                 direction="row"
                 spacing={1}
                 sx={{
@@ -73,7 +76,7 @@ export default function ShopProductListOptions(
             >
                 <GridView className="list-style" />
                 <FormatListBulleted className="list-style" />
-            </Stack>
+            </Stack> */}
         </Stack>
     );
 }

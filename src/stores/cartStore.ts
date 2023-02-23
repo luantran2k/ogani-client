@@ -40,6 +40,7 @@ export const useCartStore = create<CartStore>()(
         persist(
             (set, get) => ({
                 products: [],
+
                 totalPrice() {
                     return get().products.reduce((total, product) => {
                         const { selected, quantity, price, salePercent } =
@@ -152,6 +153,7 @@ export const useCartStore = create<CartStore>()(
                 },
             }),
             { name: "cartStore" }
-        )
+        ),
+        { name: "cartStore" }
     )
 );

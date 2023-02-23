@@ -1,9 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 import breadCrumbImg from "../../assets/images/breadcrumb.jpg";
 export interface IBreadCrumbProps {
-    string?: string;
+    path: string;
 }
 export default function BreadCrumb(props: IBreadCrumbProps) {
+    const { path } = props;
     return (
         <Box
             margin="2rem 0 4rem 0"
@@ -13,7 +14,7 @@ export default function BreadCrumb(props: IBreadCrumbProps) {
                 <Typography color="white" fontSize="2.8rem" fontWeight="bold">
                     Organi Shop
                 </Typography>
-                <Typography color="white">Home - Shop </Typography>
+                <Typography color="white">Home - {path} </Typography>
             </Stack>
         </Box>
     );

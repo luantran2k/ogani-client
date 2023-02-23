@@ -22,7 +22,12 @@ export default function BannerCard(props: IBannerCardProps) {
             alignItems="center"
         >
             <Box flex="1">
-                <img src={image} alt="" loading="lazy" />
+                <img
+                    src={image}
+                    alt=""
+                    loading="lazy"
+                    style={{ filter: "drop-shadow(5px 5px 5px #777)" }}
+                />
             </Box>
             <Box flex="1">
                 <Stack justifyContent="center" alignItems="start">

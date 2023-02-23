@@ -1,3 +1,5 @@
+import { number } from "zod";
+
 export const chunkArray = <T>(array: T[], size: number): T[][] => {
     const length = array.length;
     const res: T[][] = [];
@@ -36,4 +38,8 @@ export const removeDublicateObject = <T, TKey extends keyof T>(
         }
         return [...output, current];
     }, []);
+};
+
+export const copyToClipboard = (value: string) => {
+    navigator.clipboard.writeText(value);
 };

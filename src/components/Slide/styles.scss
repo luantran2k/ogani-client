@@ -1,0 +1,27 @@
+@use "../../assets/scss/variables/index.scss" as *;
+// .navigationBtn {
+//     color: $light-green-700;
+//     border: 1px solid $light-green-600;
+//     height: 2.6rem;
+//     width: 2.6rem;
+//     padding: 0.4rem;
+//     border-radius: 50%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     cursor: pointer;
+// }
+
+.swiper-pagination-bullet {
+    width: 0.8rem;
+    height: 0.8rem;
+    text-align: center;
+    line-height: 0.8rem;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.swiper-pagination-bullet-active {
+    color: #fff;
+    background: $light-green-600;
+}

@@ -1,9 +1,11 @@
-import { Favorite, ShoppingCart } from "@mui/icons-material";
+import { Share, ShoppingCart } from "@mui/icons-material";
 import { Box, Stack, SxProps, Theme, Typography } from "@mui/material";
 import { grey, lightGreen, red } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 import { ProductCardType } from "../../../schemas/product";
-import { getSalePercent, useCartStore } from "../../../stores/cartStore";
+import { useCartStore } from "../../../stores/cartStore";
+import { useNotificationStore } from "../../../stores/notificationStore";
+import { copyToClipboard } from "../../../utils/utils";
 import RoundIcon from "../../Icon";
 import Price from "../../Typography/Price";
 
@@ -15,6 +17,7 @@ export interface IProductCardProps {
 export default function ProductCard(props: IProductCardProps) {
     const { product, sx } = props;
     const { addProduct } = useCartStore();
+    const { pushNotification } = useNotificationStore();
     const { id, images, name, variants } = product;
 
     //Get max sale percent
@@ -103,8 +106,18 @@ export default function ProductCard(props: IProductCardProps) {
                         }
                     />
                     <RoundIcon
-                        icon={<Favorite />}
-                        onClick={() => {}}
+                        icon={<Share />}
+                        onClick={() => {
+                            copyToClipboard(
+                                import.meta.env.VITE_CLIENT_BASE_URL +
+                                    "products/" +
+                                    id
+                            );
+                            pushNotification({
+                                severity: "success",
+                                message: "Url has been copied to the clipboard",
+                            });
+                        }}
                         rotate={true}
                     />
                 </Stack>

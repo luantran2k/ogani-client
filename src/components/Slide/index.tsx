@@ -3,19 +3,29 @@ import { Swiper } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
+import "./styles.scss";
 // import required modules
-import { Box, SxProps, Theme, useMediaQuery, useTheme } from "@mui/material";
+import {
+    Box,
+    Stack,
+    SxProps,
+    Theme,
+    useMediaQuery,
+    useTheme,
+} from "@mui/material";
 import React, { ReactNode, useImperativeHandle, useRef } from "react";
-import { Autoplay, Swiper as SwiperType } from "swiper";
+import { Autoplay, Swiper as SwiperType, Pagination } from "swiper";
 import RoundArrowButton from "../Button/RoundArrowButton";
+import { grey } from "@mui/material/colors";
 
 export interface ISlideProps {
-    children?: ReactNode[] | ReactNode;
+    children?: ReactNode[];
     previousElement?: JSX.Element | null;
     nextElement?: JSX.Element | null;
     slidesPerView?: number;
     flex?: string;
     navigation?: boolean;
+    pagination?: boolean;
     sx?: SxProps<Theme>;
 }
 
@@ -45,6 +55,7 @@ export default React.forwardRef<SildeRef, ISlideProps>(function Slide(
     const matchSx = useMediaQuery("(min-width: 25rem)");
     const {
         navigation = true,
+        pagination = false,
         children,
         slidesPerView = matchMd ? 4 : matchSm ? 3 : matchSx ? 2 : 1,
         sx,
@@ -83,6 +94,13 @@ export default React.forwardRef<SildeRef, ISlideProps>(function Slide(
         />
     );
 
+    const paginaltionElement = {
+        clickable: true,
+        renderBullet: function (index: number, className: string) {
+            return '<span class="' + className + '">' + "</span>";
+        },
+    };
+
     return (
         <Box position="relative" sx={sx}>
             <Swiper
@@ -90,6 +108,7 @@ export default React.forwardRef<SildeRef, ISlideProps>(function Slide(
                 slidesPerView={slidesPerView}
                 loop={true}
                 spaceBetween={30}
+                pagination={pagination && paginaltionElement}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
@@ -97,10 +116,11 @@ export default React.forwardRef<SildeRef, ISlideProps>(function Slide(
                 onBeforeInit={(swiper) => {
                     swiperRef.current = swiper;
                 }}
-                modules={[Autoplay]}
+                modules={[Autoplay, Pagination]}
             >
                 {children}
             </Swiper>
+
             {slidePreviousElement}
             {slideNextElement}
         </Box>

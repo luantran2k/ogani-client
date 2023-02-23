@@ -32,19 +32,19 @@ export default function LatestProduct(props: ILatestProductProps) {
                 <Grid item xs={12} sm={6} md={4}>
                     <LatestProductSlide
                         products={latestProducts}
-                        title={"Latest Products"}
+                        title={"Latest"}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
                     <LatestProductSlide
                         products={bestSellerProducts}
-                        title={"Best Seller Products"}
+                        title={"Best Seller"}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={4}>
                     <LatestProductSlide
                         products={topRateProducts}
-                        title={"Top Rate Products"}
+                        title={"Top Rate"}
                     />
                 </Grid>
             </Grid>

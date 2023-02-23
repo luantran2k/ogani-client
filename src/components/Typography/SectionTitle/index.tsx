@@ -1,12 +1,13 @@
-import { Typography } from "@mui/material";
+import { SxProps, Theme, Typography } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
 
 export interface ISectionTitleProps {
     title: string;
+    sx?: SxProps<Theme>;
 }
 
 export default function SectionTitle(props: ISectionTitleProps) {
-    const { title } = props;
+    const { title, sx } = props;
     return (
         <Typography
             variant="h2"
@@ -21,6 +22,7 @@ export default function SectionTitle(props: ISectionTitleProps) {
                     width: "4rem",
                     borderBottom: `.25rem solid ${lightGreen[600]}`,
                 },
+                ...sx,
             }}
         >
             {title}

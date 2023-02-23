@@ -1,16 +1,6 @@
 import { create } from "zustand";
-import BaseFilter from "../types/base/BaseFilter";
-import { SortType } from "../types/Product";
-
-export type ProductFilter = Partial<
-    BaseFilter & {
-        sort: SortType;
-        categoryId: number;
-        minPrice: number;
-        maxPrice: Number;
-        total: boolean;
-    }
->;
+import { devtools } from "zustand/middleware";
+import { ProductFilter } from "../types/Product";
 
 export interface ShopStore {
     filter: ProductFilter;
@@ -20,13 +10,25 @@ export interface ShopStore {
     ) => void;
 }
 
-export const useShopStore = create<ShopStore>()((set, get) => ({
-    filter: {},
-    updateFilter(key, value) {
-        set((state) => {
-            const newFilter = state.filter;
-            newFilter[key] = value;
-            return { ...state, filter: newFilter };
-        });
-    },
-}));
+export const useShopStore = create<ShopStore>()(
+    devtools((set, get) => ({
+        filter: {
+            minPrice: 40,
+            maxPrice: 120,
+            sort: "sale",
+            quantity: 12,
+            usePrice: false,
+            page: 0,
+        },
+        updateFilter(key, value) {
+            set((state) => {
+                const newFilter = state.filter;
+                if (key !== "page") {
+                    newFilter.page = 0;
+                }
+                newFilter[key] = value;
+                return { ...state, filter: newFilter };
+            });
+        },
+    }))
+);
