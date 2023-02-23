@@ -8,7 +8,7 @@ export const request = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
-    timeout: 10 * 1000,
+    timeout: 2 * 60 * 1000,
 });
 
 // request.interceptors.response.use(

@@ -75,13 +75,13 @@ export default function LoginForm(props: ILoginFormProps) {
                 <Button variant="outlined" onClick={() => navigate("register")}>
                     Register
                 </Button>
-                <Typography textAlign="center">or</Typography>
+                {/* <Typography textAlign="center">or</Typography>
                 <Button startIcon={<Google />} variant="outlined">
                     Login with Google
                 </Button>
                 <Button startIcon={<Facebook />} variant="outlined">
                     Login with Facebook
-                </Button>
+                </Button> */}
             </Stack>
             <Link
                 to="/"
