@@ -1,19 +1,21 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 import RoundArrowButton from "../../../../components/Button/RoundArrowButton";
 import Slide, { SildeRef } from "../../../../components/Slide";
-import { Product } from "../../../../schemas/product";
+import { Product, ProductCardType } from "../../../../schemas/product";
 import { chunkArray } from "../../../../utils/utils";
 import LatestProductCard from "./Card";
 
 export interface ILatestProductSlideProps {
-    products: Product[];
+    title: string;
+    products?: ProductCardType[];
 }
 
 export default function LatestProductSlide(props: ILatestProductSlideProps) {
-    const title = "Latest product";
-    const { products } = props;
+    const { title } = props;
+    const { products = [] } = props;
     const groupedProducts = chunkArray(products, 3);
     const slideRef = useRef<SildeRef>(null);
     return (

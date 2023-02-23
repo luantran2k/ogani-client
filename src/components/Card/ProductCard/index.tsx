@@ -1,14 +1,9 @@
 import { Favorite, ShoppingCart } from "@mui/icons-material";
-import { Box, Button, Stack, SxProps, Theme, Typography } from "@mui/material";
+import { Box, Stack, SxProps, Theme, Typography } from "@mui/material";
 import { grey, lightGreen, red } from "@mui/material/colors";
 import { Link } from "react-router-dom";
-import { Product, ProductCardType } from "../../../schemas/product";
-import {
-    getLastPrice,
-    getSalePercent,
-    useCartStore,
-} from "../../../stores/cartStore";
-import { getMinMax } from "../../../utils/utils";
+import { ProductCardType } from "../../../schemas/product";
+import { getSalePercent, useCartStore } from "../../../stores/cartStore";
 import RoundIcon from "../../Icon";
 import Price from "../../Typography/Price";
 
@@ -34,7 +29,6 @@ export default function ProductCard(props: IProductCardProps) {
         },
         0
     );
-    const salePercentDisplay = getSalePercent(salePercent);
     return (
         <Box
             sx={{
@@ -66,7 +60,7 @@ export default function ProductCard(props: IProductCardProps) {
                     left="1rem"
                     height="2.8rem"
                     width="2.8rem"
-                    display={salePercentDisplay ? "flex" : "none"}
+                    display={salePercent ? "flex" : "none"}
                     alignItems="center"
                     justifyContent="center"
                     fontSize=".8rem"
@@ -74,7 +68,7 @@ export default function ProductCard(props: IProductCardProps) {
                     borderRadius="50%"
                     bgcolor={red[500]}
                 >
-                    -{salePercentDisplay}%
+                    -{salePercent}%
                 </Typography>
                 <img
                     src={images[0]}

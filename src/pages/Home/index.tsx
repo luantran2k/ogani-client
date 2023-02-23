@@ -1,8 +1,10 @@
 import { Container } from "@mui/material";
+import Banner from "./Banner";
 import CategorySlide from "./Category";
 import FeaturedProduct from "./FeaturedProduct";
 
 import HeroSection from "./Hero";
+import LatestProduct from "./LatestProduct";
 
 export interface IHomePageProps {}
 
@@ -12,8 +14,8 @@ export default function HomePage(props: IHomePageProps) {
             <HeroSection />
             <CategorySlide />
             <FeaturedProduct />
-            {/* <Banner />
-            <LatestProduct /> */}
+            <Banner />
+            <LatestProduct />
             {/* <HomeBlog /> */}
         </Container>
     );

@@ -17,8 +17,16 @@ export default function CategorySlide(props: ICategorySlideProps) {
     return (
         <section id="categories" style={{ margin: "4rem 0" }}>
             <Slide>
-                {isLoading
-                    ? emptyArray.map((x, i) => (
+                {data
+                    ? data?.productCategories.map((category, index) => (
+                          <SwiperSlide key={category.id}>
+                              <CategoryCard
+                                  image={category.image}
+                                  title={category.name}
+                              />
+                          </SwiperSlide>
+                      ))
+                    : emptyArray.map((x, i) => (
                           <SwiperSlide key={i}>
                               <Skeleton
                                   sx={{
@@ -26,14 +34,6 @@ export default function CategorySlide(props: ICategorySlideProps) {
                                       height: "16rem",
                                   }}
                               ></Skeleton>
-                          </SwiperSlide>
-                      ))
-                    : data?.productCategories.map((category, index) => (
-                          <SwiperSlide key={category.id}>
-                              <CategoryCard
-                                  image={category.image}
-                                  title={category.name}
-                              />
                           </SwiperSlide>
                       ))}
             </Slide>

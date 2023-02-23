@@ -35,18 +35,22 @@ export default function HeroSection(props: IHeroSectionProps) {
                         maxHeight="26rem"
                         className="hideScrollbarHover"
                     >
-                        {isLoading ? (
+                        {products ? (
+                            products?.length == 0 ? (
+                                <Typography textAlign="center">
+                                    Empty
+                                </Typography>
+                            ) : (
+                                products?.map((product) => (
+                                    <HotSaleCard
+                                        key={product.id}
+                                        product={product}
+                                    />
+                                ))
+                            )
+                        ) : (
                             emptyArray.map((product, index) => (
                                 <HotSaleCardSekeleton key={index} />
-                            ))
-                        ) : products?.length == 0 ? (
-                            <Typography textAlign="center">Empty</Typography>
-                        ) : (
-                            products?.map((product) => (
-                                <HotSaleCard
-                                    key={product.id}
-                                    product={product}
-                                />
                             ))
                         )}
                     </Stack>

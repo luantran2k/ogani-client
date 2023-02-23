@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
 import { ProductCategory } from "../../../../schemas/productCategory";
 
@@ -17,7 +17,7 @@ export default function FeatureOptions(props: IFeatureOptionsProps) {
             flexWrap="wrap"
             columnGap={4}
             rowGap={1}
-            marginBottom={6}
+            marginBottom={categories?.length ? 6 : 0}
             sx={{
                 li: {
                     listStyle: "none",
@@ -32,25 +32,32 @@ export default function FeatureOptions(props: IFeatureOptionsProps) {
                 },
             }}
         >
-            <li
-                key={"all"}
-                className={active === undefined ? "active" : ""}
-                onClick={() => setActive(undefined)}
-            >
-                All
-            </li>
-            {categories ? (
-                categories.map((category, index) => (
+            {categories?.length ? (
+                <>
                     <li
-                        key={category.id}
-                        className={active == category.id ? "active" : ""}
-                        onClick={() => setActive(category.id)}
+                        key={"all"}
+                        className={active === undefined ? "active" : ""}
+                        onClick={() => setActive(undefined)}
                     >
-                        {category.name}
+                        All
                     </li>
-                ))
+                    {categories.map((category, index) => (
+                        <li
+                            key={category.id}
+                            className={active == category.id ? "active" : ""}
+                            onClick={() => setActive(category.id)}
+                        >
+                            {category.name}
+                        </li>
+                    ))}
+                </>
             ) : (
-                <p>loading</p>
+                <>
+                    <Skeleton sx={{ height: "2rem", width: "4rem" }}></Skeleton>
+                    <Skeleton sx={{ height: "2rem", width: "4rem" }}></Skeleton>
+                    <Skeleton sx={{ height: "2rem", width: "4rem" }}></Skeleton>
+                    <Skeleton sx={{ height: "2rem", width: "4rem" }}></Skeleton>
+                </>
             )}
         </Stack>
     );
