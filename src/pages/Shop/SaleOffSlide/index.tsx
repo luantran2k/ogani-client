@@ -48,7 +48,7 @@ export default function SaleOffSlide(props: ISaleOffSlideProps) {
                 navigation={false}
             >
                 {data
-                    ? data.map((product) => (
+                    ? data?.products.map((product) => (
                           <SwiperSlide key={product.id}>
                               <ProductCard product={product} />
                           </SwiperSlide>

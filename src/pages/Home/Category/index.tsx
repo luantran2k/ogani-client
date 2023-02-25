@@ -20,10 +20,7 @@ export default function CategorySlide(props: ICategorySlideProps) {
                 {data
                     ? data?.productCategories.map((category, index) => (
                           <SwiperSlide key={category.id}>
-                              <CategoryCard
-                                  image={category.image}
-                                  title={category.name}
-                              />
+                              <CategoryCard category={category} />
                           </SwiperSlide>
                       ))
                     : emptyArray.map((x, i) => (

@@ -13,12 +13,12 @@ export default function FeaturedProduct(props: IFeaturedProductProps) {
     const { getFeaturedProductsQuery } = useProducts();
     const { productCategoriesQuery } = useProductCategories();
     const {
-        data: featuredProduct,
+        data,
         isLoading: isProductsLoading,
         isError: isProductsError,
     } = getFeaturedProductsQuery();
     const categories = removeDublicateObject(
-        featuredProduct?.flatMap((product) => product.categories),
+        data?.products.flatMap((product) => product.categories),
         "id"
     );
 
@@ -31,7 +31,7 @@ export default function FeaturedProduct(props: IFeaturedProductProps) {
                 setActive={setActive}
                 categories={categories}
             />
-            <ProductList active={active} featuredProduct={featuredProduct} />
+            <ProductList active={active} featuredProduct={data?.products} />
         </section>
     );
 }

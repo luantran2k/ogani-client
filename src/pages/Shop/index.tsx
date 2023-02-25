@@ -27,9 +27,14 @@ export default function ShopPage(props: IShopPageProps) {
     const [searchParams, setSearchParams] = useSearchParams();
     const { updateFilter } = useShopStore();
     const search = searchParams.get("search");
+    const categoryId = searchParams.get("categoryId");
+
     useEffect(() => {
         if (search) {
             updateFilter("search", search);
+        }
+        if (categoryId) {
+            updateFilter("categoryId", Number(categoryId));
         }
     }, [search]);
     return (

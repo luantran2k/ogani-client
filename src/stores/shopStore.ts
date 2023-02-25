@@ -15,7 +15,7 @@ export const useShopStore = create<ShopStore>()(
         filter: {
             minPrice: 40,
             maxPrice: 120,
-            sort: "sale",
+            sort: "latest",
             quantity: 12,
             usePrice: false,
             page: 0,

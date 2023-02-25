@@ -7,6 +7,7 @@ import {
     useTheme,
 } from "@mui/material";
 import { grey, lightGreen } from "@mui/material/colors";
+import { useNavigate } from "react-router-dom";
 import heroImage from "../../../assets/images/hero/banner.jpg";
 import { useProducts } from "../../../hooks/products";
 import { getEmptyArray } from "../../../utils/utils";
@@ -20,8 +21,9 @@ export default function HeroSection(props: IHeroSectionProps) {
     const matchMd = useMediaQuery(theme.breakpoints.up("md"));
     const matchSm = useMediaQuery(theme.breakpoints.up("sm"));
     const { getHotSaleProductsQuery } = useProducts();
-    const { data: products, isLoading, isError } = getHotSaleProductsQuery();
+    const { data, isLoading, isError } = getHotSaleProductsQuery();
     const emptyArray = getEmptyArray(4);
+    const navigate = useNavigate();
     return (
         <section id="hero">
             <Stack direction="row" spacing={matchMd ? 4 : 0}>
@@ -35,13 +37,13 @@ export default function HeroSection(props: IHeroSectionProps) {
                         maxHeight="26rem"
                         className="hideScrollbarHover"
                     >
-                        {products ? (
-                            products?.length == 0 ? (
+                        {data?.products ? (
+                            data?.products.length == 0 ? (
                                 <Typography textAlign="center">
                                     Empty
                                 </Typography>
                             ) : (
-                                products?.map((product) => (
+                                data?.products.map((product) => (
                                     <HotSaleCard
                                         key={product.id}
                                         product={product}
@@ -101,6 +103,7 @@ export default function HeroSection(props: IHeroSectionProps) {
                                 fontWeight: "bold",
                                 letterSpacing: ".15rem",
                             }}
+                            onClick={() => navigate("/shop")}
                         >
                             Shop now
                         </Button>

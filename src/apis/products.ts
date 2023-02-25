@@ -3,6 +3,7 @@ import {
     ProductCardType,
     ProductCreate,
     ProductInfo,
+    ProductsCardApiResponse,
     ProductVariant,
 } from "../schemas/product";
 import { ProductFilter } from "../types/Product";
@@ -62,25 +63,33 @@ export const createProduct = async (product: ProductCreate) => {
 };
 
 export const getHotSaleProducts = async () => {
-    const { data } = await request.get<ProductCardType[]>("/products/hot-sale");
+    const { data } = await request.get<ProductsCardApiResponse>(
+        "/products/hot-sale"
+    );
     return data;
 };
 
 export const getFeaturedProducts = async () => {
-    const { data } = await request.get<ProductCardType[]>("products/featured");
+    const { data } = await request.get<ProductsCardApiResponse>(
+        "products/featured"
+    );
     return data;
 };
 export const getLastestProduct = async () => {
-    const { data } = await request.get<ProductCardType[]>("products/latest");
+    const { data } = await request.get<ProductsCardApiResponse>(
+        "products/latest"
+    );
     return data;
 };
 export const getBestSellerProducts = async () => {
-    const { data } = await request.get<ProductCardType[]>(
+    const { data } = await request.get<ProductsCardApiResponse>(
         "products/best-sellers"
     );
     return data;
 };
 export const getTopRateProducts = async () => {
-    const { data } = await request.get<ProductCardType[]>("products/top-rate");
+    const { data } = await request.get<ProductsCardApiResponse>(
+        "products/top-rate"
+    );
     return data;
 };

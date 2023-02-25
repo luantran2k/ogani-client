@@ -30,6 +30,8 @@ export default function Footer(props: IFooterProps) {
                     rowSpacing={4}
                     marginRight="0"
                     marginBottom="2rem"
+                    paddingTop="2rem"
+                    paddingBottom="1rem"
                 >
                     <Grid item xs={12} sm={6} md={4} marginBottom="2rem">
                         <Box>

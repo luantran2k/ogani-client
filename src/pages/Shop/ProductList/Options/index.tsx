@@ -1,14 +1,14 @@
-import { FormatListBulleted, GridView } from "@mui/icons-material";
 import { MenuItem, TextField, Typography } from "@mui/material";
-import { grey, lightGreen } from "@mui/material/colors";
 import { Stack } from "@mui/system";
 import { useShopStore } from "../../../../stores/shopStore";
 import { SortType } from "../../../../types/Product";
 
 const sortOptionsL: { label: string; value: SortType }[] = [
     { label: "Top Sales", value: "sale" },
-    { label: "Percent Discount", value: "discount" },
+    { label: "Discount", value: "discount" },
     { label: "Latest", value: "latest" },
+    // { label: "Accending price", value: "accending price" },
+    // { label: "Decending price", value: "decending price" },
 ];
 
 export interface IShopProductListOptionsProps {
@@ -31,7 +31,7 @@ export default function ShopProductListOptions(
                 <TextField
                     size="small"
                     select
-                    defaultValue="sale"
+                    defaultValue={filter.sort}
                     InputProps={{
                         sx: {
                             fontWeight: "bold",

@@ -31,7 +31,9 @@ export default function UserControl(props: IUserControlProps) {
                 </Box>
             }
         >
-            <MenuItem onClick={() => navigate("/admin")}>Admin</MenuItem>
+            {info?.role === "Admin" && (
+                <MenuItem onClick={() => navigate("/admin")}>Admin</MenuItem>
+            )}
             <MenuItem onClick={() => logOut()}>Logout</MenuItem>
         </PopupMenu>
     );

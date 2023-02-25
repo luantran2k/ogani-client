@@ -42,7 +42,7 @@ export default function Department(props: IDepartmentProps) {
             <TextField
                 fullWidth
                 select
-                defaultValue="all"
+                value={filter.categoryId || "all"}
                 onChange={(e) => handleUpdate(e.target.value)}
             >
                 <MenuItem value={"all"}>All</MenuItem>
