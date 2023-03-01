@@ -25,6 +25,7 @@ export default function AddToCart(props: IAddToCartProps) {
             variant: variant.variant,
             selected: false,
             salePercent: variant.salePercent,
+            variantId: variant.id as number,
         });
     };
     return (

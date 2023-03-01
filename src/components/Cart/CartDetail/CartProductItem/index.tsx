@@ -37,8 +37,17 @@ export default function CardProductItem(props: ICardProductItemProps) {
     const matchSm = useMediaQuery(theme.breakpoints.down("sm"));
     const { increaseQuantity, decreaseQuantity, toggleSelectProduct } =
         useCartStore();
-    const { id, name, image, price, salePercent, selected, quantity, variant } =
-        product;
+    const {
+        id,
+        name,
+        image,
+        price,
+        salePercent,
+        selected,
+        quantity,
+        variant,
+        variantId,
+    } = product;
 
     const lastPrice = getLastPrice({
         price,
@@ -53,7 +62,7 @@ export default function CardProductItem(props: ICardProductItemProps) {
             {!matchSm && (
                 <Checkbox
                     checked={selected}
-                    onClick={() => toggleSelectProduct(id, variant)}
+                    onClick={() => toggleSelectProduct(id, variantId)}
                 />
             )}
             <Stack direction="row" spacing={2}>
@@ -105,16 +114,16 @@ export default function CardProductItem(props: ICardProductItemProps) {
                 {matchSm && (
                     <Checkbox
                         checked={selected}
-                        onClick={() => toggleSelectProduct(id, variant)}
+                        onClick={() => toggleSelectProduct(id, variantId)}
                     />
                 )}
                 <Add
                     sx={ButtonStyle}
-                    onClick={() => increaseQuantity(id, variant)}
+                    onClick={() => increaseQuantity(id, variantId)}
                 />
                 <Remove
                     sx={ButtonStyle}
-                    onClick={() => decreaseQuantity(id, variant)}
+                    onClick={() => decreaseQuantity(id, variantId)}
                 />
             </Stack>
         </Stack>

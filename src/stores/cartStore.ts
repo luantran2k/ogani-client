@@ -7,9 +7,9 @@ interface CartStore {
     totalPrice: () => number;
     addProduct: (product: ProductCart) => void;
     removeProduct: () => void;
-    increaseQuantity: (id: number, variant: string) => void;
-    decreaseQuantity: (id: number, variant: string) => void;
-    toggleSelectProduct: (id: number, variant: string) => void;
+    increaseQuantity: (id: number, variantId: number) => void;
+    decreaseQuantity: (id: number, variantId: number) => void;
+    toggleSelectProduct: (id: number, variantId: number) => void;
     selectAll: () => void;
     unSelectAll: () => void;
 }
@@ -20,10 +20,10 @@ interface PriceArgument {
 const findProduct = (
     products: ProductCart[],
     id: number,
-    variant: string
+    variantId: number
 ): ProductCart | undefined => {
     return products.find(
-        (product) => product.id === id && product.variant === variant
+        (product) => product.id === id && product.variantId === variantId
     );
 };
 
@@ -40,7 +40,6 @@ export const useCartStore = create<CartStore>()(
         persist(
             (set, get) => ({
                 products: [],
-
                 totalPrice() {
                     return get().products.reduce((total, product) => {
                         const { selected, quantity, price, salePercent } =
@@ -61,7 +60,7 @@ export const useCartStore = create<CartStore>()(
                             const productFinded = findProduct(
                                 state.products,
                                 product.id,
-                                product.variant
+                                product.variantId
                             );
                             if (productFinded) {
                                 productFinded.quantity += product.quantity;

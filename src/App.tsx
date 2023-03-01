@@ -24,6 +24,7 @@ const AdminBlogPage = lazy(() => import("./pages/Admin/subPages/Blog"));
 const CreateProductPage = lazy(
     () => import("./pages/Admin/subPages/Product/CreateProduct")
 );
+const CheckoutPage = lazy(() => import("./pages/Checkout"));
 
 function App() {
     return (
@@ -52,6 +53,14 @@ function App() {
                             element={
                                 <Suspense fallback={<ElasticLoading />}>
                                     <ShopPage />
+                                </Suspense>
+                            }
+                        ></Route>
+                        <Route
+                            path="checkout"
+                            element={
+                                <Suspense fallback={<ElasticLoading />}>
+                                    <CheckoutPage />
                                 </Suspense>
                             }
                         ></Route>

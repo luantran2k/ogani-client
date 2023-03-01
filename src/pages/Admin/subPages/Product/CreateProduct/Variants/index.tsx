@@ -10,8 +10,9 @@ import { v4 as uuidv4 } from "uuid";
 import { ZodError } from "zod";
 import { assginValueForPropertyOfObject } from "../../../../../../utils/utils";
 
-export type CreateProductVariant = ProductVariant & {
+export type CreateProductVariant = Omit<ProductVariant, "id" | "productId"> & {
     id: string;
+    productId: number;
     errors?: {
         [x: string]: string[] | undefined;
         [x: number]: string[] | undefined;
@@ -26,6 +27,7 @@ const getEmptyVariant = (): CreateProductVariant => {
         quantity: 0,
         variant: "",
         salePercent: 0,
+        productId: 0,
     };
 };
 

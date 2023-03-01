@@ -16,6 +16,8 @@ export const productSchema = z.object({
 });
 
 export const productVariantSchema = z.object({
+    id: z.number().or(z.string()),
+    productId: z.number(),
     variant: z.string(),
     price: z.number().min(0),
     salePercent: z
@@ -55,6 +57,7 @@ export type ProductCart = Pick<
     Product,
     "id" | "name" | "price" | "quantity" | "salePercent" | "variant"
 > & {
+    variantId: number;
     image: string;
     selected: boolean;
 };

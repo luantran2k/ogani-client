@@ -8,6 +8,7 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { getLastPrice, useCartStore } from "../../../stores/cartStore";
 import CardProductItem from "./CartProductItem";
 
@@ -18,6 +19,7 @@ export default function CartDetail(props: ICartDetailProps) {
         useCartStore();
     const theme = useTheme();
     const matchSm = useMediaQuery(theme.breakpoints.down("sm"));
+    const navigate = useNavigate();
 
     const isSelectedAll = products.every(
         (product) => product.selected === true
@@ -94,6 +96,7 @@ export default function CartDetail(props: ICartDetailProps) {
                         size="small"
                         variant="contained"
                         sx={{ marginLeft: ".4rem" }}
+                        onClick={() => navigate("/checkout")}
                     >
                         Checkout
                     </Button>

@@ -1,24 +1,14 @@
-import {
-    AppBar,
-    Button,
-    Container,
-    Grid,
-    Stack,
-    TextField,
-} from "@mui/material";
+import { Button, Container, Grid, Stack } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import BreadCrumb from "../../components/BreadCrumb";
-import { useProducts } from "../../hooks/products";
 import { useShopStore } from "../../stores/shopStore";
-import ColorPicker from "./ColorPicker";
 import Department from "./Department";
 import PriceSlideBar from "./PriceSlideBar";
 import ShopProductList from "./ProductList";
+import ProductSearch from "./ProductSearch";
 import SaleOffSlide from "./SaleOffSlide";
-import ProductSearch from "./SearchText";
-import ProductSize from "./Size";
 
 export interface IShopPageProps {}
 
@@ -36,7 +26,7 @@ export default function ShopPage(props: IShopPageProps) {
         if (categoryId) {
             updateFilter("categoryId", Number(categoryId));
         }
-    }, [search]);
+    }, [search, categoryId]);
     return (
         <>
             <BreadCrumb path={"Shop"} />

@@ -102,6 +102,7 @@ export default function ProductCard(props: IProductCardProps) {
                                 quantity: 1,
                                 variant: variants[0].variant,
                                 selected: false,
+                                variantId: variants[0].id as number,
                             })
                         }
                     />

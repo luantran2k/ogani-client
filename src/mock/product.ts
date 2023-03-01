@@ -3,7 +3,7 @@ import { Product } from "../schemas/product";
 
 const categories: number[] = [];
 
-export const products: Product[] = [
+export const products = [
     {
         id: 1,
         images: [

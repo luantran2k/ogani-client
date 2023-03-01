@@ -5,18 +5,6 @@ import { Product } from "../../../schemas/product";
 import LatestProductSlide from "./Slide";
 
 export interface ILatestProductProps {}
-const products: Product[] = new Array(10).fill(undefined).map((p, i) => {
-    const productNumber = Math.floor(Math.random() * 3 + 1);
-    return {
-        id: i,
-        categories: [],
-        images: [`/images/latest-product/lp-${productNumber}.jpg`],
-        quantity: 12,
-        name: `Product ${productNumber}`,
-        price: i * 100,
-        variant: "2",
-    };
-});
 export default function LatestProduct(props: ILatestProductProps) {
     const {
         getLastestProductQuery,

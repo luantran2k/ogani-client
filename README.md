@@ -1,1 +1,1 @@
-# ogani-client
+# Ogani - client
